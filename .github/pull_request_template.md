@@ -5,6 +5,6 @@ Brief summary of changes made in this pull request.
 
 ## Check list
 
-- [ ] Have you rebase the branch on top of the latest change in main
-- [ ] Is your code getting review?
-- [ ] Has you squash your code after getting approved?
+- [ ] Have you rebased the branch on top of the latest change in main?
+- [ ] Is your code getting reviewed?
+- [ ] Has you squashed your code after getting approved?
