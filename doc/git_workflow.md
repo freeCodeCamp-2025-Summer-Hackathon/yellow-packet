@@ -1,5 +1,5 @@
 ## Overview
-This document describes the git workflow that should be used when pushing code to PetMatch. This applies to any developer whether they works on their personal computer or Github Codespaces.
+This document describes the git workflow that should be used when pushing code to PetMatch. This applies to any developer whether they're working on their personal computer or Github Codespaces.
 
 - **Repository Hosting**: All code is stored on [GitHub](https://github.com/freeCodeCamp-2025-Summer-Hackathon/yellow-packet).
 
