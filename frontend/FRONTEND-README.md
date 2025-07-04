@@ -27,7 +27,7 @@ Each Component has a small description of what it is and what it is for, but if 
     BrowsePetsHeading
     PetCard
     PetFilter
-    PetCard + PetFilter -> PetCards
+    PetCard + PetFilter -> PetGrid
 
 ## Login Page
     LoginPage
