@@ -120,6 +120,13 @@ For MVP, we focus on manual local auth (email/password). Google login can be int
 
 ---
 
+## Visual Flow Diagram
+
+See [`doc/images/auth-flow.png`](../images/auth-flow.png) (or look below) for a high-level overview of the frontend–backend interaction during authentication.
+![Auth Flow Diagram](./images/auth-flow.png)
+
+---
+
 ## TL;DR Summary
 
 - Email/password login for both shelters and users
