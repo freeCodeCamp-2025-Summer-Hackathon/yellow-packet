@@ -1,0 +1,34 @@
+/* 
+ * Imported into Index.css 
+
+ * Separation of concerns is good, but try to keep these from getting too long or repetitive
+
+ * Feel free to change what you need to make it look good, I just thought I would add these styles to start us off
+*/
+
+.main-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    padding: 20px;
+    width: 100vw;
+    background-color: #52566B;
+}
+
+.main-navbar {
+    position: fixed;
+    top: 60px;
+    left: 0;
+    padding: 10px 20px;
+    width: 100vw;
+    background-color: #231A45;
+}
+
+.main-footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    padding: 20px;
+    width: 100vw;
+    background-color: #52566B;
+}
