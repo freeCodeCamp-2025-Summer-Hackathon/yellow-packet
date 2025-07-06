@@ -1,0 +1,26 @@
+.main-footer {
+    background-color: #4b4b6b;
+    color: white;
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.9rem;
+}
+
+.footer-left a {
+    margin-right: 15px;
+    color: white;
+    text-decoration: none;
+    width: auto;
+}
+
+.footer-left a:hover {
+    text-decoration: underline;
+}
+
+.footer-right {
+    position: fixed;
+    width: auto;
+    right: 10px;
+    color: white;
+}
