@@ -31,6 +31,7 @@
   cursor: pointer;
   background-color: white;  
   color: black; 
+<<<<<<< HEAD
 }
 
 .profile-img {
@@ -41,4 +42,6 @@
   border: 2px solid white;
   cursor: pointer;
   display: block;
+=======
+>>>>>>> 18a5aefa (Add Header and Footer components, Fix Navbar)
 }
