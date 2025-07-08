@@ -10,9 +10,17 @@
 
 .logo {
   font-size: 20px;
-  padding: 3px 12px;
+  padding: 3px 8px;
   color: white;
   text-decoration: none;
+}
+
+.auth-buttons {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding-right: 12px;
+  padding-bottom: 20px;
 }
 
 .auth-buttons button {
@@ -23,4 +31,14 @@
   cursor: pointer;
   background-color: white;  
   color: black; 
+}
+
+.profile-img {
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid white;
+  cursor: pointer;
+  display: block;
 }

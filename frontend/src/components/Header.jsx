@@ -1,6 +1,7 @@
 import React, {useState} from "react";
 import { Link } from "react-router-dom";
 import "../styles/Header.css";
+import profileImg from '../images/sample-profile.jpg';
  
 export default function Header(){
     const [isSignedIn, setIsSignedIn] = useState(false);
@@ -14,7 +15,7 @@ export default function Header(){
             <div className="auth-buttons">
                 {isSignedIn ? (
                     <>
-                        <span className="profile-icon">👤</span>
+                        <Link to="/account" className="profile-icon"><img src={profileImg} alt="Profile" className="profile-img"/></Link>
                         <button onClick={() => setIsSignedIn(false)}>Sign Out</button>
                     </>
                 ) : (

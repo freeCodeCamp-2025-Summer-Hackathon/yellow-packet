@@ -7,7 +7,6 @@ export default function Footer(){
     <>
         <div className = "main-footer">
             <div className="footer-left">
-                <Link to="/about">About</Link>
                 <Link to="/contact">Contact Us</Link>
             </div>
             <div className="footer-right">
