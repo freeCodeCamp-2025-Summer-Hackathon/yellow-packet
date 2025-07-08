@@ -11,10 +11,10 @@ function App() {
   return (
     <Router >
       <Routes>
-        <Route path="/" element={<LandingPage user={user}/>}/>
-        <Route path="/browse" element={<BrowsePets user={user}/>}/>
+        <Route path="/" element={<LandingPage  user={user} setUser={setUser} />}/>
+        <Route path="/browse" element={<BrowsePets  user={user} setUser={setUser} />}/>
         <Route path="/login" element={<LoginPage user={user} setUser={setUser}/>}/>
-        <Route path="/pet-profile/:petId" element={<PetProfile user={user}/>}/>
+        <Route path="/pet-profile/:petId" element={<PetProfile  user={user} setUser={setUser} />}/>
       </Routes>
     </Router>
   )

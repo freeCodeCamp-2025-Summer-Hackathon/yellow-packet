@@ -4,13 +4,13 @@ import Footer from '../components/Footer';
 import BrowsePetsPreview from '../components/BrowsePetsPreview';
 import LandingPageHero from '../components/LandingPageHero';
 
-function LandingPage(user) {
+function LandingPage({ user, setUser }) {
 
     console.log("Welcome ", user); // You can use whoever is logged in to manipulate the pages (if someone is logged in)
   return (
     <>
       <div>
-        <Header />
+        <Header user={user} setUser={setUser} />
         <Navbar />
         <LandingPageHero />
         <BrowsePetsPreview />
