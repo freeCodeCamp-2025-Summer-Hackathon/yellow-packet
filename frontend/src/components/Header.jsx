@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 import { Link } from "react-router-dom";
-import "../styles/header.css";
+import "../styles/Header.css";
  
 export default function Header(){
     const [isSignedIn, setIsSignedIn] = useState(false);
@@ -8,10 +8,6 @@ export default function Header(){
     return ( 
     <>
         <div className="main-header"> {/* Add Logo If Any */} 
-        {/*
-            This is going to be rendered on all pages, keep it simple, functional.
-            It should include a login button and out PetMatch logo that takes us back to our Landing Page.
-        */}
             <Link to="/" className="logo">Pet Match</Link>
 
             {/* Auth buttons */}
