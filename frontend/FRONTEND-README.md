@@ -14,6 +14,11 @@ The assets folder will hold any images or logos (or sounds?) used in our app.
 #### Styling
 As needed, you may add .css files in the frontend/src/styles folder, but try to keep .css files to one file per page at most, so that we do not crowd our frontend directory or add too much repetitive code.
 
+#### FIGMA
+Here is the link to our current Figma project:
+- [PetMatch Figma](https://www.figma.com/files/team/1498099156884966604/project/374818830/PetMatch?fuid=1486104229419102860)
+
+
 # Structure Overview
 
 ```
@@ -90,8 +95,8 @@ Click a component to read it's description.
 - App.jsx handles the routing logic, passing parameters from one page to another, ensuring the entire app is running cohesively (on the same page for lack of a better expression).
 
 ### BrowsePets.jsx
-- **Visitors and Shelters** can view and filter pets
-- **Users** can view, filter, and favorite pets
+- A page consisting of the PetGrid and PetFilter that allows you to scroll through and view pets with and without filters.
+- **Users** can view, filter, and favorite pets.
 
 ### PetCard.jsx
 - Represents a single clickable pet card containing the name, age, and a picture of a given pet. Clicking on the pet card should take you to that pet's [PetProfile](#petprofilejsx)
