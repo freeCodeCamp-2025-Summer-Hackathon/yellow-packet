@@ -1,36 +1,75 @@
 .main-header {
-  background-color: #4b4b6b;  
-  color: white;              
-  padding: 10px 10px;         
-  display: flex;              
+  background-color: #4b4b6b;
+  color: white;
+  display: flex;
   justify-content: space-between;
   box-sizing: border-box;
-  height: 9vh;
+  height: 10vh;
 }
 
 .logo {
-  font-size: 20px;
-  padding: 3px 8px;
+  font-size: clamp(20px, 4vw, 36px);
   color: white;
   text-decoration: none;
+}
+
+/* Media queries for logo responsive control */
+@media (max-width: 768px) {
+  .logo {
+    font-size: 24px;
+  }
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+  .logo {
+    font-size: 28px;
+  }
+}
+
+@media (min-width: 1025px) {
+  .logo {
+    font-size: 32px;
+  }
 }
 
 .auth-buttons {
   display: flex;
   align-items: center;
   gap: 10px;
-  padding-right: 12px;
-  padding-bottom: 20px;
 }
 
 .auth-buttons button {
-  padding: 6px 12px;
   font-weight: bold;
   border: none;
-  border-radius: 4px;
+  border-radius: 8px;
   cursor: pointer;
-  background-color: white;  
-  color: black; 
+  background-color: white;
+  color: black;
+  padding: 2vw 4vw;
+  font-size: clamp(14px, 2.5vw, 18px);
+  min-width: 80px;
+}
+
+/* Media queries for better responsive control */
+@media (max-width: 768px) {
+  .auth-buttons button {
+    padding: 10px 16px;
+    font-size: 14px;
+  }
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+  .auth-buttons button {
+    padding: 12px 20px;
+    font-size: 15px;
+  }
+}
+
+@media (min-width: 1025px) {
+  .auth-buttons button {
+    padding: 14px 28px;
+    font-size: 16px;
+  }
 }
 
 .profile-img {
