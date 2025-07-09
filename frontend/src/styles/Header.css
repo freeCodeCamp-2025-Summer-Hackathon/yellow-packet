@@ -1,0 +1,44 @@
+.main-header {
+  background-color: #4b4b6b;  
+  color: white;              
+  padding: 10px 10px;         
+  display: flex;              
+  justify-content: space-between;
+  box-sizing: border-box;
+  height: 9vh;
+}
+
+.logo {
+  font-size: 20px;
+  padding: 3px 8px;
+  color: white;
+  text-decoration: none;
+}
+
+.auth-buttons {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding-right: 12px;
+  padding-bottom: 20px;
+}
+
+.auth-buttons button {
+  padding: 6px 12px;
+  font-weight: bold;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  background-color: white;  
+  color: black; 
+}
+
+.profile-img {
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid white;
+  cursor: pointer;
+  display: block;
+}

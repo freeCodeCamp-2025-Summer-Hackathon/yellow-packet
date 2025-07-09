@@ -1,14 +1,19 @@
-import React from "react"
- 
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
+import "../styles/Navbar.css";
+
 export default function Navbar(){
+
     return ( 
-    <>
-        <div className = "main-navbar">Navbar goes here</div>
-        { /**
-         * You know what a navbar is.. have fun!
-         * As of rn: Browse and Home
-         * hopefully: About, MyProfile, Local Shelters
-         */}
-    </>
+        <div className = "main-navbar">
+                <nav>
+                    <ul className="nav-links">
+                        <li><Link to="/">Home</Link></li>
+                        <li><Link to="/browse">Browse Pets</Link></li>
+                        <li><Link to="/shelters">Shelters</Link></li>
+                        <li><Link to="/about">About</Link></li>
+                    </ul>
+                </nav>
+        </div>
     );
-};
+}
