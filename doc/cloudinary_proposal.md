@@ -2,9 +2,9 @@
 
 ## Overview
 
-PetMatch needs a reliable solution to store and deliver pet images for each shelter. Cloudinary provides hosted media storage, a global content delivery network, automatic optimizations, and on-the-fly transformations. This proposal outlines how to store images, how the backend will handle uploads and metadata, and how the frontend will retrieve and display images.
+PetMatch needs a reliable solution to store and deliver pet images for each shelter. Cloudinary provides hosted media storage, a global content delivery network, automatic optimizations, and on-the-fly transformations. This proposal outlines how to store images, how the backend will handle _metadata_, and how the frontend will _directly upload images to Cloudinary and then notify the backend_. It also covers how the frontend will retrieve and display images.
 
-    Before settling on Cloudinary, I explored the possibility of storing and serving pet images directly from our own server. While feasible for a basic MVP, it introduced several issues: handling file uploads, ensuring secure storage, serving assets with proper caching headers, scaling for global users, and guarding against DDoS/image spam. We'd also need to implement image transformations manually for responsive viewing. Cloudinary solves all of that out of the box, offloading media concerns entirely so we can focus on building PetMatch.
+Before settling on Cloudinary, I explored the possibility of storing and serving pet images directly from our own server. While feasible for a basic MVP, it introduced several issues: handling file uploads, ensuring secure storage, serving assets with proper caching headers, scaling for global users, and guarding against DDoS/image spam. We'd also need to implement image transformations manually for responsive viewing. Cloudinary solves all of that out of the box, offloading media concerns entirely so we can focus on building PetMatch.
 
 ---
 
@@ -12,224 +12,165 @@ PetMatch needs a reliable solution to store and deliver pet images for each shel
 
 - Create a Cloudinary account and configure a dedicated media folder structure
 
-  - We will use a structured `publicId` format like: `shelters/{shelterId}/pets/{petId}/headshot`
+  [x] Done, `Cloud name: dpenpix4z`
 
-- Leverage Cloudinary’s free tier (25 GB managed media, 25 GB transformations) during development
+- Leverage Cloudinary’s free tier (25 Credits a month for free, each credit is equal to 1000 transformations / 1GB of storage space / 1 GB of bandwidth) during development. This will be more than enough for our MVP.
 
 - Rely on Cloudinary’s CDN for global caching and low-latency delivery
 
 - Enable automatic format negotiation (WebP/AVIF) and quality optimizations without additional code
 
-- Cloudinary assigns a `publicId` to each uploaded image. It acts as both the asset’s unique name and its path within your account. This string includes folder structure and filename (without extension), letting us organize images logically by shelter and pet.
+  - Cloudinary's automatic format selection feature `f_auto` automatically delivers the most suitable image format (WebP, AVIF, or others) based on the user's browser.
+    To enable this, we simply add f_auto to your image delivery URLs. For example:
+    https://res.cloudinary.com/dpenpix4z/image/upload/w_400,f_auto/{public_id}.jpg
+    Al
 
-- Instead of letting Cloudinary auto-generate the `publicId`, we can define it manually when uploading an image for clarity and traceability. For example:
-  `publicId: "shelters/42/pets/456/headshot"`
+- Cloudinary automatically generates a unique `publicId` for each uploaded image. This `publicId` acts as both the asset’s unique name and its path within your account. When performing signed uploads initiated from the frontend via the Cloudinary upload widget, we will leverage Cloudinary's ability to auto-generate the `publicId` as part of the simplified and secure upload workflow.
 
 ---
 
 ## Backend Integration
 
-1. Install and configure the Cloudinary SDK in our Node.js backend
+1.  Install and configure the Cloudinary SDK in our Node.js backend.
 
-   - Use the `cloudinary` npm package
-   - Store `cloud_name`, `api_key`, and `api_secret` as environment variables to keep credentials secure
+    - Use the `cloudinary` npm package.
+    - Store `cloud_name`, `api_key`, and `api_secret` as environment variables to keep credentials secure. These credentials are essential for generating secure upload signatures and for any server-side management tasks (e.g., deleting images, fetching details).
 
-2. Implement an upload endpoint in Express
+2.  Implement an endpoint to provide a secure upload signature to the frontend.
 
-   - Accept a Base64 image string or multipart form data from the frontend
-   - Use the naming convention `shelters/{shelterId}/pets/{petId}/headshot` for `public_id` to keep the storage structure consistent
-   - Call `cloudinary.uploader.upload` with the image and custom `public_id`
-   - Receive `public_id` and `secure_url` from Cloudinary's response
+    - The frontend will request a signature from this endpoint before initiating a direct upload to Cloudinary.
+    - This signature ensures that the upload request is authorized by our application.
 
-3. Store image metadata in our MongoDB database alongside pet and shelter records
-   ```json
-   {
-     "shelterId": 42,
-     "petId": 456,
-     "publicId": "shelters/42/pets/456/headshot",
-     "imageUrl": "https://res.cloudinary.com/<cloud_name>/image/upload/shelters/42/pets/456/headshot.jpg",
-     "uploadedAt": "2025-07-08T19:00:00Z"
-   }
-   ```
-4. Example of upload endpoint:
-   `routes/imageUpload.js (Express Endpoint)`
+3.  Implement an endpoint to receive and store image metadata from the frontend.
 
-   ```jsx
-   import express from "express";
-   import { v2 as cloudinary } from "cloudinary";
-   import Pet from "../models/Pet.js"; // if this is our mongoose model
-   import dotenv from "dotenv";
+    - After a successful direct upload to Cloudinary, the frontend will receive the `publicId` and `secure_url` from Cloudinary.
+    - The frontend will then send this `publicId` and `secure_url` to our backend.
+    - Our backend will store this image metadata in our MongoDB database alongside the relevant pet and shelter records.
 
-   dotenv.config();
+4.  Example of signature generation endpoint:
+    `routes/cloudinarySignature.js (Express Endpoint)`
 
-   cloudinary.config({
-     cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
-     api_key: process.env.CLOUDINARY_API_KEY,
-     api_secret: process.env.CLOUDINARY_API_SECRET,
-   });
+    ```jsx
+    import express from "express";
+    import { v2 as cloudinary } from "cloudinary";
+    import dotenv from "dotenv";
 
-   const router = express.Router();
+    dotenv.config();
 
-   router.post("/api/images/upload", async (req, res) => {
-     try {
-       const { petId, shelterId, imageBase64 } = req.body;
+    cloudinary.config({
+      cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+      api_key: process.env.CLOUDINARY_API_KEY,
+      api_secret: process.env.CLOUDINARY_API_SECRET,
+    });
 
-       const publicId = `shelters/${shelterId}/pets/${petId}/headshot`;
+    const router = express.Router();
 
-       const result = await cloudinary.uploader.upload(imageBase64, {
-         public_id: publicId,
-         overwrite: true,
-       });
+    router.get("/api/cloudinary-signature", async (req, res) => {
+      try {
+        /* We can add conditions here based on user roles, etc.
+        For example, only authenticated shelter users can request a signature. */
+        const timestamp = Math.round(new Date().getTime() / 1000);
+        const params = {
+          timestamp: timestamp,
+          upload_preset: process.env.CLOUDINARY_UPLOAD_PRESET, // Use an upload preset for validation
+        };
 
-       const imageUrl = result.secure_url;
+        const signature = cloudinary.utils.api_sign_request(
+          params,
+          process.env.CLOUDINARY_API_SECRET
+        );
 
-       await Pet.findByIdAndUpdate(petId, {
-         publicId: publicId,
-         imageUrl: imageUrl,
-         uploadedAt: new Date(),
-       });
+        res.status(200).json({
+          signature: signature,
+          timestamp: timestamp,
+          cloudname: process.env.CLOUDINARY_CLOUD_NAME,
+          apiKey: process.env.CLOUDINARY_API_KEY,
+          uploadPreset: process.env.CLOUDINARY_UPLOAD_PRESET,
+        });
+      } catch (err) {
+        console.error("Cloudinary signature generation failed:", err);
+        res.status(500).json({ success: false, error: err.message });
+      }
+    });
 
-       res.status(200).json({ success: true, imageUrl, publicId });
-     } catch (err) {
-       console.error("Cloudinary upload failed:", err);
-       res.status(500).json({ success: false, error: err.message });
-     }
-   });
-
-   export default router;
-   ```
-
----
+    export default router;
+    ```
 
 ## Frontend Integration
 
-- On pet creation or editing of pet pages, we can use Cloudinary’s hosted upload widget or a custom file input to select images.
+- On pet creation or editing pages, we will use Cloudinary’s hosted upload widget for direct, signed uploads. This offloads the file handling and validation to Cloudinary and streamlines our frontend development.
 
-  - I recommend we opt for using Cloudinary's hosted upload widget, as it is incredibly quick and easy to include with a few lines of code, but if we want a custom react component that looks like it belongs on our site, we could maybe make that a sprint 4 feature (if time permits), totally up to the team.
+  - We will first make an API call to our backend (`/api/cloudinary-signature`) to obtain a secure upload signature, timestamp, cloud name, API key, and upload preset.
+  - This signature will be used with the Cloudinary upload widget to perform a secure, authenticated upload directly from the user's browser to Cloudinary.
+  - Cloudinary upload presets, configured in the Cloudinary dashboard, will enforce file type and size validation on their server, ensuring that only valid images are stored. This provides a robust security check even if client-side validation is bypassed.
 
-  - Example:
+  - Example using the Cloudinary Upload Widget with a signed request (conceptual):
 
     ```jsx
-       <button id="upload_widget" class="cloudinary-button">Upload files</button>
+       <button id="upload_widget" class="cloudinary-button">Upload Pet Photo</button>
        <script src="https://upload-widget.cloudinary.com/latest/global/all.js" type="text/javascript"></script>
        <script type="text/javascript">
-       var myWidget = cloudinary.createUploadWidget({
-       cloudName: 'my_cloud_name',
-       uploadPreset: 'my_preset'}, (error, result) => {
-          if (!error && result && result.event === "success") {
-             console.log('Done! Here is the image info: ', result.info);
-          }
+       // Function to get signature from the backend
+       async function getCloudinarySignature() {
+           const response = await fetch('/api/cloudinary-signature');
+           if (!response.ok) {
+               throw new Error('Failed to get Cloudinary signature');
+           }
+           return response.json();
        }
-       )
-       document.getElementById("upload_widget").addEventListener("click", function(){
-          myWidget.open();
+
+       document.getElementById("upload_widget").addEventListener("click", async function(){
+           try {
+               const { signature, timestamp, cloudname, apiKey, uploadPreset } = await getCloudinarySignature();
+
+               var myWidget = cloudinary.createUploadWidget({
+                   cloudName: cloudname,
+                   apiKey: apiKey,
+                   uploadPreset: uploadPreset, // Ensure this points to a signed preset
+                   signature: signature,
+                   timestamp: timestamp,
+                   // public_id is auto-generated by Cloudinary since we omit it
+               }, (error, result) => {
+                   if (!error && result && result.event === "success") {
+                       console.log('Done! Here is the image info: ', result.info);
+                   } else if (error) {
+                       console.error("Cloudinary upload widget error:", error);
+                   }
+               });
+
+               myWidget.open();
+           } catch (err) {
+               console.error("Error setting up Cloudinary widget:", err);
+               alert("Could not open upload widget. Please try again.");
+           }
        }, false);
        </script>
     ```
 
-- After upload, we receive the `secure_url` and `public_id` from the backend response. Store these in our application state and send to the pet-create API.
+- After a successful direct upload to Cloudinary, the frontend receives the `public_id` and `secure_url` directly from Cloudinary's upload widget response.
 
-  - Once we POST to our backend upload endpoint (/api/images/upload), it responds with:
-    - secure_url: the HTTPS CDN URL for the image
-    - public_id: the structured file ID stored in Cloudinary
-  - Our frontend should take this response and:
-    - Store the data in our form state (e.g. inside a React hook)
-    - Include these values in our pet-create API request so they’re linked to the pet record
-
-- When rendering pet cards or detail views, fetch pet data from the backend and bind the `imageUrl` to an `<img>` element. `loading="lazy"` allows us to defer loading until the image scrolls into view, using less bandwidth and making the page load faster.
-
-  Example:
-
-  ```jsx
-  <img
-    src={pet.imageUrl}
-    alt={`Photo of ${pet.name}`}
-    loading="lazy"
-    style={{ width: "100%", height: "auto" }}
-  />
-  ```
-
-- Use `srcset` and transformation parameters in the URL for responsive sizing if needed (this is one of the reasons we save both the public_url and the public_id, as our public_id is a reference to the image that allows us to perform transformations on it; resize, crop, etc.)
-
-  - Example:
-
-    ```jsx
-    <img
-      src={`https://res.cloudinary.com/<cloud_name>/image/upload/w_600/${pet.publicId}.jpg`}
-      srcSet={`
-       https://res.cloudinary.com/<cloud_name>/image/upload/w_300/${pet.publicId}.jpg 300w,
-       https://res.cloudinary.com/<cloud_name>/image/upload/w_600/${pet.publicId}.jpg 600w,
-       https://res.cloudinary.com/<cloud_name>/image/upload/w_900/${pet.publicId}.jpg 900w
-    `}
-      sizes="(max-width: 600px) 300px, (max-width: 900px) 600px, 900px"
-      alt={`Photo of ${pet.name}`}
-      loading="lazy"
-    />
-    ```
-
-  - This technique improves performance across devices without needing breakpoints in our CSS
-
----
+  - **For New Pet Creation:** These values should be temporarily stored in the frontend's form state. When the user submits the entire "Create Pet" form, the `public_id` and `secure_url` will be included in the POST request to the backend's new pet creation endpoint (e.g., `/api/pets`), where they will be saved as part of the new pet's record.
+  - **For Editing an Existing Pet:** The `public_id` and `secure_url` can be sent in a PUT request to the backend's image metadata update endpoint to modify the existing pet's image.
 
 ## Security and Access Control
 
-- Keep Cloudinary credentials secure in environment variables
+- Keep Cloudinary credentials secure in environment variables.
 
-- Validate file type and size on the backend before uploading. Cloudinary accepts most file types, and we don’t want random junk hitting our upload flow. We should:
+- **Leverage Cloudinary Upload Presets for File Validation:**
 
-  - Check that the file is an image (image/jpeg, image/png, etc.)
-  - Limit size to avoid huge uploads (e.g. max 2MB)
-  - This can be enforced before passing the image to Cloudinary.
+  - Instead of validating file type and size on our backend for direct uploads, we will configure **upload presets** in the Cloudinary dashboard.
+  - These presets allow us to define server-side rules for incoming uploads, such as:
+    - **Allowed file types:** (e.g., `jpg`, `png`, `webp`)
+    - **Maximum file size:** (e.g., `2MB`)
+    - **Image dimensions:** (e.g., minimum/maximum width/height)
+  - When the frontend uses the Cloudinary upload widget with a signed request that includes this preset, Cloudinary will validate the file against these rules _before_ storing it. If the file does not meet the criteria, Cloudinary wont' allow the file to upload and instead will return an error. This is a secure and efficient way to enforce constraints without burdening our own backend with file processing.
 
-    Example:
+- Enforce authorization checks for signature generation and metadata storage:
 
-    `middleware/validateImage.js`
+  - We will use middleware on our backend to ensure that only authenticated and authorized users (specifically, users with the "shelter" role) can:
 
-    ```jsx
-    export default function validateImage(req, res, next) {
-      const { imageBase64 } = req.body;
-
-      if (!imageBase64) {
-        return res.status(400).json({ error: "Missing image data." });
-      }
-
-      // Check MIME type using data URL prefix
-      const matches = imageBase64.match(/^data:(image\/\w+);base64,/);
-
-      if (!matches || !["image/jpeg", "image/png"].includes(matches[1])) {
-        return res
-          .status(400)
-          .json({ error: "Invalid image type. Only JPG and PNG allowed." });
-      }
-
-      // Estimate file size from Base64 length (not perfect, but works for limits)
-      const sizeInBytes =
-        (imageBase64.length * 3) / 4 -
-        (imageBase64.endsWith("==") ? 2 : imageBase64.endsWith("=") ? 1 : 0);
-      const maxSize = 2 * 1024 * 1024; // 2MB
-
-      if (sizeInBytes > maxSize) {
-        return res
-          .status(413)
-          .json({ error: "Image is too large. Max size is 2MB." });
-      }
-
-      next(); // Pass to Cloudinary upload route
-    }
-    ```
-
-    Usage in `routes/imageUpload.js`
-
-    ```jsx
-    import validateImage from "../middleware/validateImage.js";
-
-    router.post("/api/images/upload", validateImage, async (req, res) => {
-      // Safe to proceed — file type and size passed validation
-      // Cloudinary upload logic goes here (check above in Backend Integration for example)
-    });
-    ```
-
-- Enforce authorization checks to ensure no anonymous uploads
+    - Request a secure upload signature from `/api/cloudinary-signature`.
+    - Submit image metadata (public_id, secure_url) to our pet creation/update endpoints (e.g., `/api/pets` or `/api/pets/:petId`).
 
   - Example:
 
@@ -264,43 +205,48 @@ PetMatch needs a reliable solution to store and deliver pet images for each shel
     }
     ```
 
-    Used together in a route:
+    Used together in backend routes (e.g., for signature generation or pet creation):
 
     ```jsx
     import express from "express";
     import requireAuth from "../middleware/requireAuth.js";
     import requireShelter from "../middleware/requireShelter.js";
 
-    router.post(
-      "/api/images/upload",
+    // Example for signature generation endpoint
+    router.get(
+      "/api/cloudinary-signature",
       requireAuth,
       requireShelter,
       async (req, res) => {
-        // Image upload logic here (see above in "Backend Integration" for example)
+        // Cloudinary signature generation logic here
       }
     );
+
+    // Example for creating a new pet (where image metadata is also sent)
+    router.post("/api/pets", requireAuth, requireShelter, async (req, res) => {
+      // Logic to create pet record and save image metadata
+    });
     ```
 
-- Rely on Cloudinary’s HTTPS delivery and automatic DDoS protection
+- Rely on Cloudinary’s HTTPS delivery and automatic DDoS protection:
 
   - The image URLs we receive from Cloudinary use HTTPS by default:
-
-    - This keeps requests encrypted (important for privacy and security)
-    - Cloudinary’s edge network blocks suspicious traffic before it hits our origin
-    - We don’t need to configure TLS or caching headers manually — it’s all baked in
+    - This keeps requests encrypted (important for privacy and security).
+    - Cloudinary’s edge network blocks suspicious traffic before it hits our origin.
+    - We don’t need to configure TLS or caching headers manually — it’s all baked in.
 
 ---
 
 ## Next Steps:
 
-1. Provision a Cloudinary account and obtain credentials (free tier will more than suffice for MVP)
+1.  Provision a Cloudinary account, configure necessary **upload presets** for validation (file type, size), and obtain API credentials (free tier will more than suffice for MVP).
 
-2. Add Cloudinary SDK to the backend and implement the upload API
+2.  Add Cloudinary SDK to the backend and implement the **signature generation endpoint** (`/api/cloudinary-signature`) and the **metadata storage endpoint** (e.g., `/api/pets` for new pets, or a `PUT /api/pets/:petId` for updates).
 
-3. Create a simple React component for image uploads and previews
+3.  Create a simple React component that integrates the Cloudinary **upload widget** for image selection and direct uploads, handling the signature request and subsequent metadata submission.
 
-4. Update pet creation and detail views to include image display
+4.  Update pet creation and detail views to integrate the image upload component, display image previews, and handle the `publicId` and `secure_url` within the pet data.
 
-5. Test upload, storage, and delivery workflows under various network conditions
+5.  Test the complete workflow: signature generation, direct frontend upload to Cloudinary, backend metadata storage, and image retrieval/display under various network conditions.
 
-> Implementing Cloudinary will minimize infrastructure overhead, streamline development, and ensure pet images are delivered quickly and reliably to users around the world.
+**Implementing Cloudinary will minimize infrastructure overhead, streamline development, and ensure pet images are delivered quickly and reliably to users around the world.**
