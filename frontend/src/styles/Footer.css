@@ -1,17 +1,22 @@
+/* Footer.css */
 .main-footer {
     background-color: #4b4b6b;
     color: white;
-    padding: 10px 20px;
+    padding: 10px clamp(1rem, 3vw, 3rem);
     display: flex;
     justify-content: space-between;
+    align-items: center;
     font-size: 0.9rem;
+    width: 100vw;
+    box-sizing: border-box;
+    min-height: 60px;
 }
 
 .footer-left a {
     margin-right: 15px;
     color: white;
     text-decoration: none;
-    width: auto;
+    transition: text-decoration 0.2s ease;
 }
 
 .footer-left a:hover {
@@ -19,8 +24,29 @@
 }
 
 .footer-right {
-    position: fixed;
-    width: auto;
-    right: 10px;
     color: white;
+    font-size: 0.9rem;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .main-footer {
+        padding: 10px clamp(0.75rem, 2vw, 1.5rem);
+        font-size: 0.8rem;
+    }
+    .footer-right {
+        font-size: 0.8rem;
+    }
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+    .main-footer {
+        padding: 10px clamp(1.5rem, 2.5vw, 2.5rem);
+    }
+}
+
+@media (min-width: 1025px) {
+    .main-footer {
+        padding: 10px clamp(2rem, 4vw, 4rem);
+    }
 }
