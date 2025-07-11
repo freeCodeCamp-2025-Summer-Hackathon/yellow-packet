@@ -1,14 +1,35 @@
-import React from "react"
- 
-export default function LandingPageHero(){
-    return (
-    <>
-        <div>Here we will find the meat, the main image or invite to our web app. </div>
-        {/* 
-            The "Hero" of a web app usually refers to a large, prominent image or section at the top of a webpage, often used to immediately capture a visitor's attention and convey the website's core message or purpose. -> in the words of google's AI.
+import React from "react";
+import "../styles/LandingHero.css";
 
-            This will I image just be some cute family dog pics and an inspirational "adopt me quote", BUT it shouldn't be taken lightly since it is the first impression of our page.
-        */}
-    </>
-    );
+export default function LandingPageHero() {
+	return (
+		<section className="hero-section">
+			<div className="hero-content">
+				<div className="hero-text">
+					<h1 className="hero-title">
+						Take home a new furry friend
+						<span className="paw-prints">
+							<span className="paw-print">🐾</span>
+							<span className="paw-print">🐾</span>
+						</span>
+					</h1>
+					<p className="hero-subtitle">
+						Find your perfect companion from local shelters and give a loving pet a forever home.
+					</p>
+					<div className="hero-buttons">
+						<button className="btn-primary">Learn More</button>
+					</div>
+				</div>
+				<div className="hero-image">
+					<div className="pet-illustration">
+						<div className="pet-shape pet-head"></div>
+						<div className="pet-shape pet-ear-left"></div>
+						<div className="pet-shape pet-ear-right"></div>
+						<div className="pet-shape pet-body"></div>
+						<div className="pet-shape pet-paw"></div>
+					</div>
+				</div>
+			</div>
+		</section>
+	);
 };
