@@ -4,6 +4,8 @@
 
 - [Introduction](#introduction)
 - [Project Overview](#project-overview)
+- [Team Members](#team-members)
+- [Technical Documentation](#technical-documentation)
 - [Project Progress](#project-progress)
 
 ## Introduction
@@ -14,9 +16,29 @@ This is a project for the 2025 Summer Hackathon hosted by [freeCodeCamp](https:/
 
 This application helps users browse adoptable pets and shelters with a user-friendly interface. The project includes frontend and backend features such user authentication, browsing functionality, and database integration.
 
+## Team Members
+
+- [Dang Quang Vinh](https://github.com/qvd808)
+- [Giovanna Ehrig](https://github.com/uhohgio)
+- [Adam O'Camb](https://github.com/adamocamb)
+- [Jomar Rumbawa](https://github.com/jomarrumbawa)
+- [Jack Sawyer](https://github.com/JackSawyerWATX)
+- [Ricky](https://github.com/MinMyatMaung)
+- [Paul Barton](https://github.com/paul-b-dev232)
+- [BDubDesigns](https://github.com/BDubDesigns)
+- [Aaron Rodriguez](https://github.com/melkyy)
+- [Thomas Pan](https://github.com/thomas1424)
+- [thegreatdunzle](https://github.com/thegreatdunzle)
+- [Jake Johnson](https://github.com/JakeHaverOfCatz)
+- [Jackie](https://github.com/jacqrocha)
+- [kunyoungahhh](https://github.com/kunyoungahhh)
+
 ## Technical documentation
 
 - [Git workflow](doc/git_workflow.md)
+- [Frontend](./frontend/)
+- [Project Structure](doc/projectStructure.md)
+- [Authentication Proposal](doc/auth_proposal.md)
 
 ## Project Progress
 
