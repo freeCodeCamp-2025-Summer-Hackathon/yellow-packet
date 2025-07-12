@@ -80,30 +80,6 @@
     flex-wrap: wrap;
 }
 
-.btn-primary {
-    padding: clamp(0.8rem, 2.5vw, 1.2rem) clamp(1.8rem, 4vw, 2.5rem);
-    border: none;
-    border-radius: 50px;
-    font-size: clamp(0.9rem, 2.2vw, 1.1rem);
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    text-decoration: none;
-    display: inline-block;
-    text-align: center;
-    white-space: nowrap;
-}
-
-.btn-primary {
-    background: linear-gradient(135deg, #4a90e2 0%, #357abd 100%);
-    color: white;
-    box-shadow: 0 4px 15px rgba(74, 144, 226, 0.3);
-}
-
-.btn-primary:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(74, 144, 226, 0.4);
-}
 
 .hero-image {
     display: flex;
@@ -263,12 +239,6 @@
         gap: 1rem;
     }
 
-    .btn-primary {
-        width: 100%;
-        max-width: 250px;
-        padding: 1rem 2rem;
-        font-size: 1rem;
-    }
 
     .pet-illustration {
         width: clamp(150px, 50vw, 220px);

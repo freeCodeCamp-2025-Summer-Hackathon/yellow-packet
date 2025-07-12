@@ -16,9 +16,6 @@ export default function LandingPageHero() {
 					<p className="hero-subtitle">
 						Find your perfect companion from local shelters and give a loving pet a forever home.
 					</p>
-					<div className="hero-buttons">
-						<button className="btn-primary">Learn More</button>
-					</div>
 				</div>
 				<div className="hero-image">
 					<div className="pet-illustration">
