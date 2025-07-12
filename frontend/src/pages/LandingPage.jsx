@@ -16,7 +16,6 @@ function LandingPage({ user, setUser }) {
 				<LandingPageHero />
 				<BrowsePetsPreview />
 			</main>
-			<Footer />
 		</div>
 	)
 }
