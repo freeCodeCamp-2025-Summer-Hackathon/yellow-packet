@@ -1,0 +1,88 @@
+
+.pet-filter-heading {
+    margin: 0;
+    font-weight: normal;
+    display: flex;
+    justify-content: center;
+    align-self: center;
+}
+
+.pet-filter-container {
+    gap: 5px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 20px;
+    background-color: #a2a9b1;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    width: 200px;
+    color: black;
+}
+
+.filter-label {
+    margin-top: 10px;
+    margin-bottom: 0;
+    display: block;
+    display: flex;
+    justify-content: flex-start;
+}
+
+.filter-select {
+    width: 100%;
+    padding: 5px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    background-color: #fff;
+    font-size: 14px;
+    color: #52566B;
+}
+
+
+/* Checkbox Styling */
+.favorites-checkbox {
+  display: inline-block;
+  margin: 10px 0;
+}
+
+.filter-checkbox {
+  display: none;
+}
+
+.filter-checkbox-label {
+  display: inline-flex;
+  align-items: center;
+  cursor: pointer;
+  gap: 5px; /* space between text and checkbox */
+  position: relative;
+  font-size: 14px;
+}
+
+.custom-checkbox {
+  width: 1rem;
+  height: 1rem;
+  background-color: #f8f9fa;
+  border: 2px solid #213547;
+  border-radius: 4px;
+  transition: background-color 0.3s, border-color 0.3s;
+  position: relative;
+}
+
+.filter-checkbox-label:hover .custom-checkbox {
+  background-color: #f0f0f0;
+}
+
+.filter-checkbox:checked + .custom-checkbox {
+  background-color: #757B90;
+  border-color: #213547;
+}
+
+.filter-checkbox:checked + .custom-checkbox::after {
+  content: "✓";
+  color: #ffffff;
+  position: absolute;
+  top: -2px;
+  left: 3px;
+  font-size: 0.8rem;
+}
+
