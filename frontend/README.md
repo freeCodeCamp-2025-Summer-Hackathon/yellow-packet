@@ -53,7 +53,6 @@ frontend
 │   ├── styles
 │   │   ├── *.css
 │   │   └── LandingPage.css 
-│   ├── App.css
 │   ├── App.jsx
 │   ├── index.css
 │   └── main.jsx
