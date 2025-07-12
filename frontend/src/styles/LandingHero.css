@@ -2,8 +2,8 @@
 
 .hero-section {
     background: linear-gradient(135deg, #e8e4f3 0%, #d4c9e8 100%);
-    padding: clamp(3rem, 8vw, 6rem) 0;
-    min-height: 70vh;
+	padding: clamp(1rem, 3vh, 3rem) 0;
+    min-height: 50vh;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -213,7 +213,7 @@
 @media (max-width: 768px) {
     .hero-section {
         padding: clamp(2rem, 6vw, 4rem) 0;
-        min-height: 60vh;
+        /* min-height: 70vh; */
     }
 
     .hero-content {
