@@ -1,6 +1,5 @@
 import Header from '../components/Header';
 import Navbar from '../components/Navbar';
-import Footer from '../components/Footer';
 import BrowsePetsPreview from '../components/BrowsePetsPreview';
 import LandingPageHero from '../components/LandingPageHero';
 import "../styles/LandingPage.css";

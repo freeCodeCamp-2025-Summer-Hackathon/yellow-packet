@@ -34,7 +34,6 @@ frontend
 │   ├── components
 │   │   ├── BrowsePetsHeading.jsx
 │   │   ├── BrowsePetsPreview.jsx
-│   │   ├── Footer.jsx
 │   │   ├── Header.jsx
 │   │   ├── LandingPageHero.jsx
 │   │   ├── Navbar.jsx
