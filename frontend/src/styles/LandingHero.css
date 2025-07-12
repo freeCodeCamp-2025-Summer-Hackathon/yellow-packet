@@ -1,7 +1,8 @@
 /* LandingHero.css */
 
 .hero-section {
-    background: linear-gradient(90deg, #e8e4f3 0%, #d4c9e8 100%);
+    background: linear-gradient(135deg, #e8e4f3 0%, #d4c9e8 100%);
+    padding: clamp(3rem, 8vw, 6rem) 0;
     min-height: 70vh;
     display: flex;
     align-items: center;
@@ -10,7 +11,6 @@
     overflow: hidden;
     width: 100%;
     margin: 0;
-    margin-top: 0;
 }
 
 .hero-content {
@@ -34,7 +34,6 @@
     line-height: 1.1;
     margin-bottom: clamp(1rem, 3vw, 2rem);
     position: relative;
-    margin-top: 0;
 }
 
 .paw-prints {
@@ -213,7 +212,7 @@
 /* Responsive Design */
 @media (max-width: 768px) {
     .hero-section {
-        padding: clamp(2rem, 6vw, 4rem) 0 clamp(6rem, 10vw, 8rem);
+        padding: clamp(2rem, 6vw, 4rem) 0;
         min-height: 60vh;
     }
 
