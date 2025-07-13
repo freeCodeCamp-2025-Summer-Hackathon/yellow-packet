@@ -1,0 +1,73 @@
+/* PetCard.css */
+
+.card {
+    width: 20rem;
+    height: 25rem;
+    border-radius: 1rem;
+    border-style: solid;
+    border-color: #BFB2D4;
+    background-color: #E8E6F0;
+    color: #6b5b95;
+}
+
+.image {
+    background-color: #5AD8CC;
+    width: 90%;
+    margin: 1rem auto 2rem auto;
+    border-radius: .5rem;
+}
+
+.petImg {
+    display: block;
+    margin: auto;
+    width: 75%;
+    border-style: solid;
+    border-radius: .5rem;
+    border-color: white;
+    border-width: 2px;
+}
+
+.petName {
+    display: flex;
+    width: 75%;
+    height: 2.5rem;
+    margin: auto;
+    background-color: #FFE0C2;
+    border-style: solid;
+    border-width: 2px;
+    border-color: #6b5b95;
+    border-radius: 1rem;
+    align-items: center;
+}
+
+.name {
+    margin: auto;
+    justify-self: center;
+}
+
+.fav {
+    display: flex;
+    height: 1rem;
+    width: 1rem;
+    align-items: center;
+    justify-content: center;
+    margin-right: .5rem;
+}
+
+.petInfo {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    align-items: center;
+}
+
+.petAge {
+    margin-top: .5rem;
+    margin-bottom: 0px;
+}
+
+.petDesc {
+    font-size: .75rem;
+    margin-top: 0px;
+    margin-bottom: 2rem;
+}
