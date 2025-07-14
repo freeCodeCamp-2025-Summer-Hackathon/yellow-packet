@@ -51,10 +51,11 @@ frontend
 │   │   ├── PetFilter.jsx
 │   │   └── PetGrid.jsx
 │   ├── pages
+│   │   ├── AboutPage.jsx
 │   │   ├── BrowsePets.jsx
 │   │   ├── LandingPage.jsx
-│   │   ├── LoginPage.jsx
-│   │   ├── RegisterPage.jsx
+│   │   ├── SignInPage.jsx
+│   │   ├── SignUpPage.jsx
 │   │   ├── ShelterProfile.jsx
 │   │   ├── UserProfile.jsx
 │   │   └── PetProfile.jsx 
@@ -79,6 +80,7 @@ frontend
 Click a component to read it's description.
 
 [App.jsx](#appjsx)  
+├── [AboutPage.jsx](#aboutpagejsx)  
 ├── [BrowsePets.jsx](#browsepetsjsx)  
 │   └── [PetGrid.jsx](#petgridjsx)  
 │       ├── [PetCard.jsx](#petcardjsx)  
@@ -87,9 +89,8 @@ Click a component to read it's description.
 │   ├── [BrowsePetsPreview.jsx](#browsepetspreviewjsx)  
 │   │   └── [PetCard.jsx](#petcardjsx)  
 │   └── [LandingPageHero.jsx](#landingpageherojsx)  
-├── [LoginPage.jsx](#loginpagejsx)  
-├── [RegisterPage.jsx](#registerpagejsx)  
-├── [ManagePetsPage.jsx](#managepetspagejsx)  
+├── [SignInPage.jsx](#signinpagejsx)  
+├── [SignUpPage.jsx](#signuppagejsx)  
 ├── [ShelterProfile.jsx](#shelterprofilejsx)
 │   ├── [ShelterAboutMe.jsx](#shelteraboutmejsx)
 │   ├── [AddPets.jsx](#addpetsjsx)  
@@ -107,6 +108,9 @@ Click a component to read it's description.
 
 ### App.jsx
 - App.jsx handles the routing logic, passing parameters from one page to another, ensuring the entire app is running cohesively (on the same page for lack of a better expression).
+
+### AboutPage.jsx
+- This page contains information about the PetMatch company! A little bit about what the app does, why we made the app, and how to contact us.
 
 ### AddPets.jsx
 - This component is a modal, accessible on the shelter profile that allows shelters to upload pets to the database. 
@@ -157,11 +161,11 @@ Click a component to read it's description.
 - The "Hero" of a web app usually refers to a large, prominent image or section at the top of a webpage, often used to immediately capture a visitor's attention and convey the website's core message or purpose. -> in the words of Google's AI.
 - This will consist of a small image or two, where the images consist of some cute family and pet pics and an inspirational "Take home a furry new friend" quote, BUT it shouldn't be taken lightly since it is the first impression of our page.
 
-### LoginPage.jsx
+### SignInPage.jsx
 - This will assume the user/shelter has an account with a username and password and can log in.
 - Allows the user to enter a username and password to log in to PetMatch with previously stored info.
 
-### RegisterPage.jsx
+### SignUpPage.jsx
 - Allows the user to create an account with PetMatch if they do not yet have one.
 - Shelters can not make accounts without contacting us.
 - If not registered with Google Authentication API or other external API, registration will ask for a username, password, and confirm password at the bare minimum.
