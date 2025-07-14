@@ -1,6 +1,5 @@
 import Header from "../components/Header";
 import Navbar from "../components/Navbar";
-import Footer from "../components/Footer";
 import BrowsePetsHeading from "../components/BrowsePetsHeading";
 import PetGrid from "../components/PetGrid";
 import PetFilter from "../components/PetFilter";
