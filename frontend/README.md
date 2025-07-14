@@ -18,6 +18,11 @@ As needed, you may add .css files in the frontend/src/styles folder, but try to 
 Here is the link to our current Figma project:
 - [PetMatch Figma](https://www.figma.com/files/team/1498099156884966604/project/374818830/PetMatch?fuid=1486104229419102860)
 
+#### Definitions:
+- User: Someone who can log in to PetMatch (adopters and shelters, maybe admin)
+- Adopter: Someone with an interest in adopting a pet.
+- Shelter: Someone, or a group of people, who adds pet to the database with an interest in being contacted regarding pet adoption. 
+
 
 # Structure Overview
 
@@ -32,6 +37,11 @@ frontend
 │   │   ├── *.svg
 │   │   └── pet-match.svg 
 │   ├── components
+│   │   ├── AddPets.jsx
+│   │   ├── AdopterAboutMe.jsx
+│   │   ├── ShelterAboutMe.jsx
+│   │   ├── PetAboutMe.jsx
+│   │   ├── PetMainInfo.jsx
 │   │   ├── BrowsePetsHeading.jsx
 │   │   ├── BrowsePetsPreview.jsx
 │   │   ├── Header.jsx
@@ -45,7 +55,6 @@ frontend
 │   │   ├── LandingPage.jsx
 │   │   ├── LoginPage.jsx
 │   │   ├── RegisterPage.jsx
-│   │   ├── ManagePetsPage.jsx
 │   │   ├── ShelterProfile.jsx
 │   │   ├── UserProfile.jsx
 │   │   └── PetProfile.jsx 
@@ -71,9 +80,9 @@ Click a component to read it's description.
 
 [App.jsx](#appjsx)  
 ├── [BrowsePets.jsx](#browsepetsjsx)  
-│   ├── [PetGrid.jsx](#petgridjsx)  
-│   │   └── [PetCard.jsx](#petcardjsx)  
-│   └── [PetFilter.jsx](#petfilterjsx)  
+│   └── [PetGrid.jsx](#petgridjsx)  
+│       ├── [PetCard.jsx](#petcardjsx)  
+│       └── [PetFilter.jsx](#petfilterjsx)  
 ├── [LandingPage.jsx](#landingpagejsx)  
 │   ├── [BrowsePetsPreview.jsx](#browsepetspreviewjsx)  
 │   │   └── [PetCard.jsx](#petcardjsx)  
@@ -81,21 +90,44 @@ Click a component to read it's description.
 ├── [LoginPage.jsx](#loginpagejsx)  
 ├── [RegisterPage.jsx](#registerpagejsx)  
 ├── [ManagePetsPage.jsx](#managepetspagejsx)  
-├── [ShelterProfile.jsx](#shelterprofilejsx)  
-├── [UserProfile.jsx](#userprofilejsx)  
+├── [ShelterProfile.jsx](#shelterprofilejsx)
+│   ├── [ShelterAboutMe.jsx](#shelteraboutmejsx)
+│   ├── [AddPets.jsx](#addpetsjsx)  
+│   └── [PetGrid.jsx](#petgridjsx)
+├── [AdopterProfile.jsx](#adopterprofilejsx)
+│   ├── [AdopterAboutMe.jsx](#adopteraboutmejsx)
+│   └── [PetGrid.jsx](#petgridjsx) 
 ├── [PetProfile.jsx](#petprofilejsx)  
+│   ├── [PetAboutMe.jsx](#petaboutmejsx)
+│   └── [PetMainInfo.jsx](#petmaininfojsx)
 ├── [Header.jsx](#headerjsx)  
 └── [Navbar.jsx](#navbarjsx)  
-
 
 # Component Descriptions
 
 ### App.jsx
 - App.jsx handles the routing logic, passing parameters from one page to another, ensuring the entire app is running cohesively (on the same page for lack of a better expression).
 
+### AddPets.jsx
+- This component is a modal, accessible on the shelter profile that allows shelters to upload pets to the database. 
+- Upon addition of a new pet, they should fill out the information that would be on a [PetProfile](#petprofilejsx). It is important that these input fields are specific and compatible with the rest of the app. Refer to database to see which values need to be asked for, which values should be automatic, and what the type of each value is (numeric, text, date, etc).
+
+### AdopterProfile.jsx
+- This page will be rendered when a user is viewing an adopter's profile. This will contain information regarding the adopter, including but not limited to: Name, contact information, and a biography.
+- A user should be able to edit and delete their profile and information for security and privacy reasons.
+
+### AdopterAboutMe.jsx
+- ALL ABOUT ME SECTIONS CAN AND SHOULD SHARE STYLES (for consistency)
+- This is the beige box in the FIGMA containing information about the adopter, including but not limited to: Name, contact info, general location, and a bio
+
 ### BrowsePets.jsx
 - A page consisting of the PetGrid and PetFilter that allows you to scroll through and view pets with and without filters.
 - **Users** can view, filter, and favorite pets.
+
+### PetAboutMe.jsx
+- ALL ABOUT ME SECTIONS CAN AND SHOULD SHARE STYLES (for consistency)
+- This is the beige box in the FIGMA containing the pet's bio
+- The rest of the information should be found in the [PetMainInfo](#petmaininfojsx)
 
 ### PetCard.jsx
 - Represents a single clickable pet card containing the name, age, and a picture of a given pet. Clicking on the pet card should take you to that pet's [PetProfile](#petprofilejsx)
@@ -105,11 +137,16 @@ Click a component to read it's description.
 - You should USE the <PetCard /> component to build a resizable grid of pet cards.
 - You should use the PetFilter function to determine which pets to show in the grid.
 
+### PetMainInfo.jsx
+- This is a very direct standard, organized text section containing all major and minor information about the pet. Anything that can be shared publicly about this pet will be found here. 
+- In Figma, this is the section below the profile picture.
+
 ### PetFilter.jsx
-- This component filters the pet cards that are being shown, but also has filters of its own to change which filters are being shown. For example: don't show the breeds filter unless type == 'dog'.
+- This component filters the pet cards that are being shown. The pet filter currently consists of: Type, Shelter, Age, Size, Sex, and Favorites options. 
 
 ### LandingPage.jsx
 - The first impression of our app. It should be the easiest to navigate and simple but inviting.
+- Consists of a LandingPageHero and a BrowsePetsPreview so that you can easily navigate to viewing pets.
 
 ### BrowsePetsPreview.jsx
 - A part of the Landing Page that will allow us to move to the [BrowsePets](#browsepetsjsx) page!
@@ -119,7 +156,6 @@ Click a component to read it's description.
 ### LandingPageHero.jsx
 - The "Hero" of a web app usually refers to a large, prominent image or section at the top of a webpage, often used to immediately capture a visitor's attention and convey the website's core message or purpose. -> in the words of Google's AI.
 - This will consist of a small image or two, where the images consist of some cute family and pet pics and an inspirational "Take home a furry new friend" quote, BUT it shouldn't be taken lightly since it is the first impression of our page.
-- There is already a design for this on FIGMA!
 
 ### LoginPage.jsx
 - This will assume the user/shelter has an account with a username and password and can log in.
@@ -130,20 +166,19 @@ Click a component to read it's description.
 - Shelters can not make accounts without contacting us.
 - If not registered with Google Authentication API or other external API, registration will ask for a username, password, and confirm password at the bare minimum.
 
-### ManagePetsPage.jsx
-- This is a page viewable by shelter profiles that allows shelters to add and delete pets.
-- Shelters may only delete pets that they themselves have added.
-- Upon addition of a new pet, they should fill out the information that would be on a [PetProfile](#petprofilejsx).
+### ShelterAboutMe.jsx
+- ALL ABOUT ME SECTIONS CAN AND SHOULD SHARE STYLES (for consistency)
+- This is the beige box in the FIGMA containing information about the shelter, including but not limited to: Name, contact info, exact location, and a bio
 
 ### ShelterProfile.jsx
-- This page will be rendered when a viewer, user, or shelter is viewing a shelter's profile. This will contain information regarding the shelter, including but not limited to: Name, time on that app, contact information, and a biography.
-- We may also consider adding pets here, but that may be beyond the scope of our hackathon.
-
-### UserProfile.jsx
-- This page will be rendered when a user or shelter is viewing a user's profile. This will contain information regarding the user, including but not limited to: Name, age, gender, contact information, and a biography.
+- This page will be rendered when a user is viewing a shelter's profile. This will contain information regarding the shelter, including but not limited to: Name, time on that app, contact information, and a biography.
+- The shelter profile will have a pets grid here with the filter of {Shelter: this.shelter} associated with it. 
+- The shelter should be able to edit its own profile.
+- The shelter should be able to delete it's account and by proxy also delete all associated pets so they can remove themselves from the app.
 
 ### PetProfile.jsx
-- This page will be rendered when a user, visitor, or shelter is viewing a pet. This will contain information regarding the pet, including but not limited to: Name, age, sex, type, breed/species (if applicable), related shelter, and a biography.
+- This page will be rendered when a user is viewing a pet. This will contain information regarding the pet, including but not limited to: Name, age, sex, type, breed/species (if applicable), related shelter, and a biography.
+- If a user is logged in as the shelter associated with the pet, they should also be able to edit and delete pets. 
 
 ### Header.jsx
 - This is going to be rendered on all pages, keep it simple, functional.
@@ -153,3 +188,4 @@ Click a component to read it's description.
 ### Navbar.jsx
 - The navigation bar gives a clear, consistent way for users to navigate between pages.
 - Currently it should consist of: "Home", "About", "Browse Pets", "Shelters". If logged in, it should include "My Profile" and a "Manage Pets" if you are a shelter.
+
