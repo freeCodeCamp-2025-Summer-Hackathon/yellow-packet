@@ -8,7 +8,6 @@ import { useState } from "react";
 function BrowsePets({ user, setUser }) {
 	const [filters, setfilters] = useState({ type: '', shelter: '', age_stage: '', size: '', sex: '', favorites: false }); // holds the value of each applied filter, for use with PetGrid.
 
-
 	const [filtersVisible, setFiltersVisible] = useState(false);
 
 	const toggleFilter = () => {
@@ -38,15 +37,6 @@ function BrowsePets({ user, setUser }) {
 						<PetFilter filters={filters} setfilters={setfilters} types={types} shelters={shelters} age_stages={age_stages} sizes={sizes} sexes={sexes} />
 
 					</div>
-					{/* <div className="flex wrap" style={{
-						display: 'flex',
-						width: 'clamp(50px, 80%, 100%)',
-						flexWrap: 'wrap',
-						whiteSpace: 'normal',
-						wordBreak: 'break-word',
-						overflowWrap: 'break-word'
-					}}>Testing: {JSON.stringify(filters, null, 2)}</div>  */}
-					{/* remove for production */}
 					<PetGrid filters={filters}/>
 
 				</section>

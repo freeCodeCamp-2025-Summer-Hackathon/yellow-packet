@@ -5,7 +5,7 @@
     width: 90%;
     margin: 5%;
     gap: clamp(1rem, 4vw, 2rem);
-    
+    margin-top: 0;
 }
 
 .pet-filter-heading {
@@ -135,7 +135,6 @@
   }
 }
 
-/* Desktop styles (default) */
 .filter-toggle {
   display: none; /* Hide toggle button on desktop */
   margin-bottom: 1rem;
@@ -148,6 +147,7 @@
   overflow-y: hidden;
 }
 .pet-grid {
+  /* Controls how the cards lay */
   display: flex;
   flex-wrap: wrap;
   gap: 1%;
