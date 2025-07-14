@@ -19,13 +19,13 @@
 .pet-filter-container {
     display: flex;
     flex-direction: column;
-    width: clamp(75px, 15%, 200px);
+    width: clamp(20vw, 15%, 400px);
     transition: all 0.3s ease-in-out;
     padding: 20px;
     background-color: #a2a9b1;
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    width: clamp(75px, 15%, 200px);
+    height: fit-content;
     color: black;
 }
 
