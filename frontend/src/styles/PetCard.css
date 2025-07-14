@@ -52,6 +52,8 @@
     align-items: center;
     justify-content: center;
     margin-right: .5rem;
+    background: transparent;
+    border: none;
 }
 
 .petInfo {
