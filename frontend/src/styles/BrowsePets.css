@@ -157,17 +157,7 @@
   box-sizing: border-box;
   scrollbar-color: #fff transparent;
   padding-top: 0;
-}
-
-.temp-card {
-  width: clamp(10vw, 30%, 50vw);
-  height: clamp(15vh, 40%, 65vh);
-  background-color:#213547;
-  color: white;
-  gap: 5px;
-  padding:10px;
-  border-radius: 10px;
-
+  justify-content: center;
 }
 
 .browse-pets-heading {

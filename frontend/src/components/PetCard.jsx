@@ -1,16 +1,14 @@
-import React from "react";
+import React, {useState} from "react";
 import "../styles/PetCard.css";
 
-let isFav = false;
 
-function btnFunction () {
-    isFav = !isFav;
-    console.log(isFav);
+export default function PetCard({ name, age, gender, location, type, pic }) {
+    const [isFav, setIsFav] = useState(false);
+    function btnFunction () {
+        setIsFav(!isFav);
+    }
 
-    return isFav;
-}
 
-export default function PetCard({name, age, gender, location, type, pic}) {
     return ( 
     <>
         <div className="card">
@@ -20,7 +18,7 @@ export default function PetCard({name, age, gender, location, type, pic}) {
             <div className="petName">
                 <span className="fav"></span>
                 <h2 className="name">{name}</h2>
-                <button onClick={btnFunction} type="button" className="fav">♥️🩶</button>
+                <button onClick={btnFunction} type="button" className="fav" style={{fontSize: '1.5rem', alignContent: "flex-start", marginTop: '-5px', marginRight: '15px'}}>{isFav ? '♥️' : '🩶' }</button>
             </div>
             <div className="petInfo">
                 <h3 className="petAge">{age}-year-old {type}</h3>

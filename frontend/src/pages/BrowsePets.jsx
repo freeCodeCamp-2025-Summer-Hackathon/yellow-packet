@@ -22,6 +22,8 @@ function BrowsePets({ user, setUser }) {
 	const sizes = ["Small", "Medium", "Large"];
 	const sexes = ["Male", "Female"];
 
+	
+
 	return (
 		<>
 			<div>
