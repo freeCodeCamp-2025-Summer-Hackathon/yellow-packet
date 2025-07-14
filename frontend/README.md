@@ -21,7 +21,7 @@ Here is the link to our current Figma project:
 #### Definitions:
 - User: Someone who can log in to PetMatch (adopters and shelters, maybe admin)
 - Adopter: Someone with an interest in adopting a pet.
-- Shelter: Someone, or a group of people, who adds pet to the database with an interest in being contacted regarding pet adoption. 
+- Shelter: Someone, or a group of people, who adds a pet to the database with an interest in being contacted regarding pet adoption. 
 
 
 # Structure Overview
@@ -77,7 +77,7 @@ frontend
 
 **Note:** The root of each tree and its subtree can not be complete until all its children are complete. (Pet Card Implementation can not be done until Pet Card Design is done, Pet Browsing Page can not be completed until Pet Filter Implementation and Pet Grid Implementation are both done, etc.)
 
-Click a component to read it's description.
+Click a component to read its description.
 
 [App.jsx](#appjsx)  
 ├── [AboutPage.jsx](#aboutpagejsx)  
@@ -91,16 +91,16 @@ Click a component to read it's description.
 │   └── [LandingPageHero.jsx](#landingpageherojsx)  
 ├── [SignInPage.jsx](#signinpagejsx)  
 ├── [SignUpPage.jsx](#signuppagejsx)  
-├── [ShelterProfile.jsx](#shelterprofilejsx)
-│   ├── [ShelterAboutMe.jsx](#shelteraboutmejsx)
-│   ├── [AddPets.jsx](#addpetsjsx)  
-│   └── [PetGrid.jsx](#petgridjsx)
-├── [AdopterProfile.jsx](#adopterprofilejsx)
-│   ├── [AdopterAboutMe.jsx](#adopteraboutmejsx)
-│   └── [PetGrid.jsx](#petgridjsx) 
-├── [PetProfile.jsx](#petprofilejsx)  
-│   ├── [PetAboutMe.jsx](#petaboutmejsx)
-│   └── [PetMainInfo.jsx](#petmaininfojsx)
+├── [ShelterProfile.jsx](#shelterprofilejsx)  
+│   ├── [ShelterAboutMe.jsx](#shelteraboutmejsx)  
+│   ├── [AddPets.jsx](#addpetsjsx)    
+│   └── [PetGrid.jsx](#petgridjsx)  
+├── [AdopterProfile.jsx](#adopterprofilejsx)  
+│   ├── [AdopterAboutMe.jsx](#adopteraboutmejsx)  
+│   └── [PetGrid.jsx](#petgridjsx)   
+├── [PetProfile.jsx](#petprofilejsx)    
+│   ├── [PetAboutMe.jsx](#petaboutmejsx)  
+│   └── [PetMainInfo.jsx](#petmaininfojsx)  
 ├── [Header.jsx](#headerjsx)  
 └── [Navbar.jsx](#navbarjsx)  
 
@@ -113,8 +113,8 @@ Click a component to read it's description.
 - This page contains information about the PetMatch company! A little bit about what the app does, why we made the app, and how to contact us.
 
 ### AddPets.jsx
-- This component is a modal, accessible on the shelter profile that allows shelters to upload pets to the database. 
-- Upon addition of a new pet, they should fill out the information that would be on a [PetProfile](#petprofilejsx). It is important that these input fields are specific and compatible with the rest of the app. Refer to database to see which values need to be asked for, which values should be automatic, and what the type of each value is (numeric, text, date, etc).
+- This component is a modal, accessible on the shelter profile, that allows shelters to upload pets to the database. 
+- Upon addition of a new pet, they should fill out the information that would be on a [PetProfile](#petprofilejsx). It is important that these input fields are specific and compatible with the rest of the app. Refer to the database to see which values need to be asked for, which values should be automatic, and what the type of each value is (numeric, text, date, etc).
 
 ### AdopterProfile.jsx
 - This page will be rendered when a user is viewing an adopter's profile. This will contain information regarding the adopter, including but not limited to: Name, contact information, and a biography.
@@ -142,14 +142,14 @@ Click a component to read it's description.
 - You should use the PetFilter function to determine which pets to show in the grid.
 
 ### PetMainInfo.jsx
-- This is a very direct standard, organized text section containing all major and minor information about the pet. Anything that can be shared publicly about this pet will be found here. 
+- This is a very direct, standard, and organized text section containing all major and minor information about the pet. Anything that can be shared publicly about this pet will be found here. 
 - In Figma, this is the section below the profile picture.
 
 ### PetFilter.jsx
 - This component filters the pet cards that are being shown. The pet filter currently consists of: Type, Shelter, Age, Size, Sex, and Favorites options. 
 
 ### LandingPage.jsx
-- The first impression of our app. It should be the easiest to navigate and simple but inviting.
+- The first impression of our app. It should be the easiest to navigate and simple, but inviting.
 - Consists of a LandingPageHero and a BrowsePetsPreview so that you can easily navigate to viewing pets.
 
 ### BrowsePetsPreview.jsx
@@ -163,7 +163,7 @@ Click a component to read it's description.
 
 ### SignInPage.jsx
 - This will assume the user/shelter has an account with a username and password and can log in.
-- Allows the user to enter a username and password to log in to PetMatch with previously stored info.
+- Allows the user to enter a username and password to log in to PetMatch with previously stored information.
 
 ### SignUpPage.jsx
 - Allows the user to create an account with PetMatch if they do not yet have one.
@@ -177,15 +177,15 @@ Click a component to read it's description.
 ### ShelterProfile.jsx
 - This page will be rendered when a user is viewing a shelter's profile. This will contain information regarding the shelter, including but not limited to: Name, time on that app, contact information, and a biography.
 - The shelter profile will have a pets grid here with the filter of {Shelter: this.shelter} associated with it. 
-- The shelter should be able to edit its own profile.
-- The shelter should be able to delete it's account and by proxy also delete all associated pets so they can remove themselves from the app.
+- The shelter should be able to edit its profile.
+- The shelter should be able to delete its account and, by proxy, also delete all associated pets so they can remove themselves from the app.
 
 ### PetProfile.jsx
 - This page will be rendered when a user is viewing a pet. This will contain information regarding the pet, including but not limited to: Name, age, sex, type, breed/species (if applicable), related shelter, and a biography.
 - If a user is logged in as the shelter associated with the pet, they should also be able to edit and delete pets. 
 
 ### Header.jsx
-- This is going to be rendered on all pages, keep it simple, functional.
+- This is going to be rendered on all pages, keep it simple and functional.
 - It should include a login/sign-out button and our PetMatch logo that takes us back to our Landing Page.
 - When a user is logged in, their profile picture will show up next to the sign-out button. Otherwise, this button will be for logging in.
 
