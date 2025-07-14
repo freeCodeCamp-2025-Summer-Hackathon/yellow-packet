@@ -1,6 +1,3 @@
-*{
-  overflow-x: hidden;
-}
 #pet-gallery {
     box-sizing: border-box;
     display: flex;

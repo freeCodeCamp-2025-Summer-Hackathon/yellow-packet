@@ -1,0 +1,55 @@
+/* BrowsePetsPreview.css */
+
+.browse-preview {
+    padding-top: 0;
+    padding-left: clamp(1rem, 5vw, 10rem);
+    padding-right: clamp(1rem, 5vw, 10rem);
+    padding-bottom: 4rem;
+    background: linear-gradient(90deg, #e8e4f3 0%, #d4c9e8 100%);
+    align-items: center;
+}
+
+.preview-header {
+  margin-bottom: 1rem;
+  margin-top: 2rem;
+  display: flex;
+  align-items: center;        
+  justify-content: left;  
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+
+.browse-link {
+  display: inline-block;
+  margin-top: 0.5rem;
+  color: #432d92;
+  text-decoration: none;
+  font-weight: bold;
+  font-size: clamp(1.25rem, 2vw, 1.75rem);
+}
+
+.browse-link:hover {
+  text-decoration: underline;
+}
+
+.pet-cards {
+  display: flex;
+  gap: clamp(0.5rem, 10vw, 6rem);
+  margin-top: 2rem;
+  flex-wrap: wrap;
+}
+
+.pet-img {
+  width: clamp(150px, 35vw, 375px);         
+  height: clamp(150px, 35vw, 375px);       
+  object-fit: cover;                        
+  border-radius: 20px;                     
+  border: 3px solid #2d1b4e;                
+  background: rgba(255, 255, 255, 0.1);     
+  backdrop-filter: blur(10px);             
+  box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.1); 
+  display: flex;                         
+  align-items: center;                     
+  justify-content: center;                 
+  overflow: hidden;   
+}
