@@ -1,10 +1,30 @@
 import express from "express";
 import dotenv from "dotenv";
 import { specs, swaggerUi } from './swagger.js';
-
+import mongoose from "mongoose";
 import authRoutes from "./routes/auth.route.js";
 
 dotenv.config();
+
+const dbConfig = {
+	username: process.env.USER_MONGOOSE,
+	password: process.env.USER_MONGOOSE_PASSWORD,
+	address: process.env.MONGOOSE_ADDRESS,
+	cluster: process.env.MONGOOSE_CLUSTER,
+
+	// Build the connection string
+	getConnectionString() {
+		return `mongodb+srv://${this.username}:${this.password}@${this.address}/?retryWrites=true&w=majority&appName=${this.cluster}`;
+	}
+};
+
+mongoose.connect(dbConfig.getConnectionString())
+	.then(() => {
+		console.log(':white_check_mark: MongoDB connected!');
+	})
+	.catch((error) => {
+		console.log(':x: Connection failed:', error);
+	});
 
 const app = express();
 const PORT = process.env.PORT || 5000;
