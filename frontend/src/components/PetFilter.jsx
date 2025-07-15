@@ -102,7 +102,9 @@ export default function PetFilter({ filters, setfilters, types, shelters, age_st
                         <option value="">All</option> {/* show an all option that allows users to clear this filter */}
                         {
                             // show all age stages available
-                            age_stages.map((age) => (
+                            age_stages.map((age) =>
+                                (
+                                
                                 <option value={age}>{age}</option>
                             ))
                         }

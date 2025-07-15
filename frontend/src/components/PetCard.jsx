@@ -1,16 +1,7 @@
-import React from "react";
 import "../styles/PetCard.css";
 
-let isFav = false;
+export default function PetCard({ name, age, gender, location, type, pic, isFav, onToggleFav }) {
 
-function btnFunction () {
-    isFav = !isFav;
-    console.log(isFav);
-
-    return isFav;
-}
-
-export default function PetCard({name, age, gender, location, type, pic}) {
     return ( 
     <>
         <div className="card">
@@ -20,7 +11,9 @@ export default function PetCard({name, age, gender, location, type, pic}) {
             <div className="petName">
                 <span className="fav"></span>
                 <h2 className="name">{name}</h2>
-                <button onClick={btnFunction} type="button" className="fav">♥️🩶</button>
+                <button onClick={onToggleFav} type="button" className="fav" style={{fontSize: '1.5rem', alignContent: "flex-start", marginTop: '-5px', marginRight: '15px'}}
+                aria-label={isFav ? "Remove from favorites" : "Add to favorites"}
+                >{isFav ? '♥️' : '🩶' }</button>
             </div>
             <div className="petInfo">
                 <h3 className="petAge">{age}-year-old {type}</h3>

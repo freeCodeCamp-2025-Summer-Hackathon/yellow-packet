@@ -5,7 +5,7 @@
     width: 90%;
     margin: 5%;
     gap: clamp(1rem, 4vw, 2rem);
-    
+    margin-top: 0;
 }
 
 .pet-filter-heading {
@@ -19,13 +19,13 @@
 .pet-filter-container {
     display: flex;
     flex-direction: column;
-    width: clamp(75px, 15%, 200px);
+    width: clamp(20vw, 15%, 400px);
     transition: all 0.3s ease-in-out;
     padding: 20px;
     background-color: #a2a9b1;
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    width: clamp(75px, 15%, 200px);
+    height: fit-content;
     color: black;
 }
 
@@ -135,8 +135,36 @@
   }
 }
 
-/* Desktop styles (default) */
 .filter-toggle {
   display: none; /* Hide toggle button on desktop */
-  /* margin-bottom: 1rem; */
+  margin-bottom: 1rem;
 } 
+
+.pet-grid-section {
+  /* wraps the pet-grid */
+  width: 100%;
+  height: calc(100vh - 250px);
+  overflow-y: hidden;
+}
+.pet-grid {
+  /* Controls how the cards lay */
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1%;
+  height: 100%;
+  overflow-y: auto;
+  padding: 1rem;
+  box-sizing: border-box;
+  scrollbar-color: #fff transparent;
+  padding-top: 0;
+  justify-content: center;
+}
+
+.browse-pets-heading {
+  color: white;
+  font-size: 3rem;
+  margin-left: 5%;
+  margin-top: 5%;
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
