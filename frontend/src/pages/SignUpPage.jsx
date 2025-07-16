@@ -3,6 +3,7 @@
  * Also: Does not automatically log users in
 */
 import "../styles/LoginPage.css"
+import SignUpHelpModal from "../components/SignUpHelpModal"
 
 import luckyBunny from "../images/Bunny.png"
 import luckyCat from "../images/Cat.png"
@@ -24,6 +25,7 @@ function SignUpPage() {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [luckyAnimal, setLuckyAnimal] = useState(null);
+  const [showModal, setShowModal] = useState(false);
 
   useEffect(() => {
     const luckyAnimals = [luckyBunny, luckyCat, luckyDog, luckyParrot, luckySquirrel];
@@ -39,6 +41,8 @@ function SignUpPage() {
   };
 
       return (
+        <>
+        <Link to="/" className="back-to-home"> &larr; Back to Home </Link>
         <div className="login-container">
           <div className="login-card">
             <h1 className="login-logo">PetMatch</h1>
@@ -55,7 +59,8 @@ function SignUpPage() {
                 <h2>Create your account</h2>
                 <p>Use your email to get started with PetMatch.</p>
                 {/* The question button is not connected to anything yet on either page */}
-                <img className ="question-mark-circle" src={Question} alt="question" />
+                <img className ="question-mark-circle" src={Question} alt="question" onClick={() =>{setShowModal(!showModal)}}/>
+                {showModal && <SignUpHelpModal />}
               </div>
 
               {/* The form that accepts user info so we can make a new account. */}
@@ -113,6 +118,7 @@ function SignUpPage() {
             </div>
           </div>
         </div>
+        </>
       );
 }
 

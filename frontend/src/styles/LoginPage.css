@@ -1,8 +1,6 @@
-/* LoginCard.module.css */
+/* LoginCard.css */
 body{
   background-color:#4D3D68;
-  /* background-color: #fff;; */
-  /* background-color:#2d1a40; */
 }
 .login-container {
   display: flex;
@@ -11,8 +9,6 @@ body{
   background: url('/path-to-your-background.png') no-repeat center/cover;
   height: 100vh;
   width: 100vw;
-  font-family: 'Segoe UI', sans-serif;
-  
 }
 
 .login-logo {
@@ -73,9 +69,9 @@ body{
 
 .lucky-animal {
   position: absolute;
-  top: -32px;
+  top: -27px;
   right: 65px;
-  transform: scale(1.5);
+  transform: scale(1.25);
 }
 
 .login-btn {
@@ -176,4 +172,11 @@ body{
   right: 10px;
   transform: translateY(-50%);
   cursor: pointer;
+}
+
+.back-to-home {
+  position: fixed;
+  top: 30px;
+  left: 30px;
+  color: white;
 }

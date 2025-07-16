@@ -1,5 +1,6 @@
 /** Allows users to user their credentials to log in to PetMatch */
 import "../styles/LoginPage.css"
+import LoginHelpModal from "../components/loginHelpModal"
 
 import luckyBunny from "../images/Bunny.png"
 import luckyCat from "../images/Cat.png"
@@ -23,12 +24,14 @@ function LoginPage({ user, setUser }) {
   const [showPassword, setShowPassword] = useState(false);
   const [luckyAnimal, setLuckyAnimal] = useState(null);
   const navigate = useNavigate();
+  const [showModal, setShowModal] = useState(false);
 
   // This just updates the lucky animal, but we can add more as needed
   useEffect(() => {
     const luckyAnimals = [luckyBunny, luckyCat, luckyDog, luckyParrot, luckySquirrel];
     const luckyNum = Math.floor(Math.random() * luckyAnimals.length);
     setLuckyAnimal(luckyAnimals[luckyNum]);
+
   });
 
   // When a user presses the log in button
@@ -41,7 +44,11 @@ function LoginPage({ user, setUser }) {
     navigate("/");
   };
 
+  
+
       return (
+      <>
+        <Link to="/" className="back-to-home"> &larr; Back to Home </Link>
         <div className="login-container">
           <div className="login-card">
             <h1 className="login-logo">PetMatch</h1>
@@ -58,7 +65,8 @@ function LoginPage({ user, setUser }) {
                 <h2>Welcome back!</h2>
                 <p>We’ll send you a magic link to sign in.</p>
                 {/* The question button is not connected to anything yet on either page */}
-                <img className ="question-mark-circle" src={Question} alt="question" />
+                <img className ="question-mark-circle" src={Question} alt="question" onClick={() =>{setShowModal(!showModal)}}/>
+                {showModal && <LoginHelpModal />}
               </div>
 
               {/* If we decide on external authorization... github doesnt really make sense though, maybe we can swap to facebook or smth */}
@@ -91,6 +99,7 @@ function LoginPage({ user, setUser }) {
             </div>
           </div>
         </div>
+      </>
       );
 }
 
