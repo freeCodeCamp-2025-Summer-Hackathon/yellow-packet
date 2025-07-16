@@ -15,7 +15,7 @@ function App() {
 				<Route path="/browse" element={<BrowsePets user={user} setUser={setUser} />} />
 				<Route path="/login" element={<LoginPage user={user} setUser={setUser} />} />
 				<Route path="/pet-profile/:petId" element={<PetProfile user={user} setUser={setUser} />} />
-				<Route path="/signup" element={<SignUpPage user={user} setUser={setUser} />} />
+				<Route path="/signup" element={<SignUpPage />} />
 			</Routes>
 		</Router>
 	)
