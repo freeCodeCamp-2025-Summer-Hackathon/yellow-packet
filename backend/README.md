@@ -113,6 +113,7 @@ request: Users can submit a request to adopt the desired pet.
 
 # Structure Overview
 
+```
 backend/
 ├── controllers/
 │   └── auth.controller.js
@@ -122,13 +123,14 @@ backend/
 ├── swagger.js
 ├── package.json         
 └── README.md      
-
+```
 
 # Workflow Hierarchy
 
 
 Click a file to read its description.
 
+```
 [backend]
 ├── [package.json](#packagejson)  
 ├── [package-lock.json]
@@ -139,8 +141,7 @@ Click a file to read its description.
 ├── [README.md] 
 ├── [server.js](#serverjs)  
 ├── [swagger.js](#swaggerjs)
-
-
+```
 # File Description
 
 ### package.json
