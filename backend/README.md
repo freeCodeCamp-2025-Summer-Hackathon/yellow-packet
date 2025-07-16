@@ -6,19 +6,19 @@ For each controller or route ensure that it is tested locally, free of syntax er
 
 "Routes are the names of the endpoints that will be used to comunicate with the frontend. For example, in 'https://localhost:3000/pets', '/pets' is the route name. The route files will be organized in the 'routes' folder."
 
-when creating a route file, use the name of the controlled followed with "route.js" example auth.route.js
+When creating a route file, use the name of the controlled followed with "route.js" example auth.route.js
 
 #### Controllers
 
 Controllers are responsible for handling requests, such as validating whether a username is already in use or checking if a pet species exists. They also verify if the data is being correctly stored in the database. All controller files are organized in the 'controllers' folder.
 
-when creating a controller file, use the name of the controlled followed with "controller.js" example auth.controller.js
+When creating a controller file, use the name of the controlled followed with "controller.js" example auth.controller.js
 
 #### Models
 
 Models handle the connection to database for CREATE, READ, UPDATE, DELETE data. All model files are organized in the 'model' folder.
 
-when creating a model file, use the name of the entity followed with "model.js" example auth.model.js
+When creating a model file, use the name of the entity followed with "model.js" example auth.model.js
 
 
 #### Database Schema
@@ -86,16 +86,14 @@ pet_profile: Shelter owner add the pets they want to put up for adoption.
     "shelter_id": "int",
     "species": "string",
     "sex": "string",
-    "age_stage": "string",
-    "size": "string",
+    "years": "int",
     "weight": "float",
     "date_birth": "date",
     "illness_disabilities": "string",
     "personality": "string",
     "photo_link": "string",
     "bio": "string",
-    "neutered": "boolean",
-    "spayed": "boolean"
+    "spayed/neutered": "boolean",
   },
 ```
 
@@ -153,13 +151,13 @@ Handles libraries and project-related scripts or commands.
 Handles Sign Up and Sign In validations and waits for the databases interactions from the models.
 
 ### auth.route.js
-The name of the endpoints that frontend will comunicate there are three routes.
+The name of the endpoints that the frontend will communicate with. There are three routes.
     - /login
     - /signup
     - /logout
 
 ### server.js
-Where Node.js loads all files and server configuration, such as hostname, port, eviroment variables and more.
+Where node.js loads all files and server configurations such as hostname, port, environment variables, and more.
 
 ### swagger.js
 Automatically generates API documentation from your code.
