@@ -1,10 +1,10 @@
 {
   "name": "yellow-packet-2",
   "version": "1.0.0",
-  "main": "backend/server.js",
+  "main": "backend/index.js",
   "scripts": {
-    "dev": "nodemon server.js",
-    "start": "node server.js",
+    "dev": "nodemon index.js",
+    "start": "node index.js",
     "generate-markdown": "widdershins http://localhost:5000/api-docs/swagger.json -o ../doc/API_DOCS.md --omitBody --omitHeader --code=false --language_tabs=none --summary",
     "test": "node --experimental-vm-modules node_modules/.bin/jest",
     "test:watch": "node --experimental-vm-modules node_modules/.bin/jest --watch"
