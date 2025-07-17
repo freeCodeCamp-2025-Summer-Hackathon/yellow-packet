@@ -11,7 +11,7 @@ export default function BrowsePetsPreview(){
     return (
        <section className="browse-preview">    
                 <div className="preview-header">
-                    <Link to="/browsepets" className="browse-link">Browse Pets →</Link>
+                    <Link to="/browse" className="browse-link">Browse Pets →</Link>
                 </div>
                 <div className="pet-cards">
                     <Link to="/pet_1">
