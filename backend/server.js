@@ -9,15 +9,15 @@ import petRoutes from "./routes/pets.routes.js";
 dotenv.config();
 
 const dbConfig = {
-  username: process.env.USER_MONGOOSE || "usr",
-  password: process.env.USER_MONGOOSE_PASSWORD || "pass",
-  address: process.env.MONGOOSE_ADDRESS || "localhost",
-  cluster: process.env.MONGOOSE_CLUSTER || "cluster0",
-  database: process.env.DATABASE_NAME || "yellow-packet",
+  username: process.env.USER_MONGOOSE,
+  password: process.env.USER_MONGOOSE_PASSWORD,
+  address: process.env.MONGOOSE_ADDRESS,
+  cluster: process.env.MONGOOSE_CLUSTER,
+  database: process.env.DATABASE_NAME,
 
   // Build the connection string
   getConnectionString() {
-    return `mongodb+srv://melkyup:MvqDUVlxIlINjx29@cluster0.6a1ghq7.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0`;
+    return `mongodb+srv://${this.username}:${this.password}@${this.address}/${this.database}?retryWrites=true&w=majority&appName=${this.cluster}`;
   },
 };
 
