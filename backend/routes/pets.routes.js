@@ -1,11 +1,11 @@
 import express from "express";
 
 import {
-  listPets,
-  getPet,
-  editPet,
-  addPet,
-  deletePet,
+	listPets,
+	getPet,
+	editPet,
+	addPet,
+	deletePet,
 } from "../controllers/pets.controllers.js";
 
 const router = express.Router();
