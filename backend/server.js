@@ -26,17 +26,18 @@ const dbConfig = {
 	},
 };
 
-mongoose
-	.connect(dbConfig.getConnectionString())
-	.then(() => {
-		console.log(":white_check_mark: MongoDB connected!");
-	})
-	.catch((error) => {
-		console.log(":x: Connection failed:", error);
-	});
+// Only connect to MongoDB if not in test environment
+if (process.env.NODE_ENV !== 'test') {
+	mongoose.connect(dbConfig.getConnectionString())
+		.then(() => {
+			console.log(':white_check_mark: MongoDB connected!');
+		})
+		.catch((error) => {
+			console.log(':x: Connection failed:', error);
+		});
+}
 
 const app = express();
-const PORT = process.env.PORT || 5000;
 
 // Middleware
 app.use(cors());
@@ -101,7 +102,4 @@ if (process.env.DEVELOPMENT === "test") {
 	console.log("🧪 Test routes enabled");
 }
 
-app.listen(PORT, () => {
-	console.log("Server is running on http://localhost:" + PORT);
-	console.log(`Swagger docs available at http://localhost:${PORT}/api-docs`);
-});
+export default app;
