@@ -1,0 +1,14 @@
+.help-modal-container {
+    position: absolute; 
+    z-index: 4;
+    top: 50%;
+    width: 100%;
+    height: fit-content; 
+    border-radius: 15px;
+    padding: 20px;
+    box-sizing: border-box;
+    background-color: white; /* fallback color */
+    background-color: rgba(255,255,255,0.9);
+    border: 5px solid rgb(107, 91, 149);
+    border: 5px solid rgba(107, 91, 149, 0.9);
+}
