@@ -1,51 +1,86 @@
-import { getItem, listItems, editItem, addItem, deleteItem } from '../models/pets.models.js'
+import { addPetProfile, getAllPets, updatePetProfile, deletePetProfile, getPet } from "../models/pet.model.js";
 
-export const getPet = (req, res) => {
-    try {
-        const resp = getItem(parseInt(req.params.id))
-        res.status(200).json(resp)
+export const addPet = async (req, res) => {
+	console.log("Adding new pet with data:", req.body);
+	const result = await addPetProfile(req.body);
+	if (result.error) {
+		return res.status(400).json({
+			success: false,
+			message: result.message,
+		});
+	} else {
+		return res.status(201).json({
+			success: true,
+			message: "Pet added successfully",
+			data: result,
+		});
+	}
+};
 
-    } catch (err) {
-        res.status(500).send(err)
-    }
-}
+export const listPets = async (req, res) => {
+	const result = await getAllPets({});
+	if (result.error) {
+		return res.status(400).json({
+			success: false,
+			message: result.message,
+		});
+	} else {
+		return res.status(200).json({
+			success: true,
+			data: result.data,
+		});
+	}
+};
 
-export const listPets = (req, res) => {
-    try {
-        const resp = listItems()
-        res.status(200).json(resp)
 
-    } catch (err) {
-        res.status(500).send(err)
-    }
-}
+export const readPet = async (req, res) => {
+	console.log("Fetching ONE pet with query:", req);
+	const result = await getPet(req.params.id);
+	if (result.error) {
+		return res.status(400).json({
+			success: false,
+			message: result.message,
+		});
+	} else {
+		return res.status(200).json({
+			success: true,
+			data: result.data,
+		});
+	}
+};
 
-export const editPet = (req, res) => {
-    try {
-        const resp = editItem(parseInt(req.params.id), req.body)
-        res.status(200).json(resp)
 
-    } catch (err) {
-        res.status(500).send(err)
-    }
-}
+export const editPet = async (req, res) => {
+	console.log("Updating pet with data:", req.body);
+	const { id, ...values } = req.body;
+	const result = await updatePetProfile(id, values);
+	if (result.error) {
+		return res.status(400).json({
+			success: false,
+			message: result.message,
+		});
+	} else {
+		return res.status(200).json({
+			success: true,
+			data: result.data,
+		});
+	}
+};
 
-export const addPet = (req, res) => {
-    try {
-        const resp = addItem(req.body)
-        res.status(200).json(resp)
-
-    } catch (err) {
-        res.status(500).send(err)
-    }
-}
-
-export const deletePet = (req, res) => {
-    try {
-        const resp = deleteItem(parseInt(req.params.id))
-        res.status(200).json(resp)
-
-    } catch (err) {
-        res.status(500).send(err)
-    }
-}
+export const deletePet = async (req, res) => {
+	console.log("Deleting pet with ID:", req.body.id);
+	const { id } = req.body;
+	const result = await deletePetProfile(id);
+	if (result.error) {
+		return res.status(400).json({
+			success: false,
+			message: result.message,
+		});
+	} else {
+		return res.status(200).json({
+			success: true,
+			message: "Pet deleted successfully",
+			data: result.data,
+		});
+	}
+};

@@ -2,7 +2,11 @@ import express from "express";
 
 import {
   listPets,
+<<<<<<< HEAD
   getPet,
+=======
+  readPet,
+>>>>>>> abeba5e1 (adding pet model and update pet controller)
   editPet,
   addPet,
   deletePet,
@@ -73,7 +77,11 @@ router.get("/", listPets);
  *      500:
  *         description: Internal Server Error
  */
+<<<<<<< HEAD
 router.get("/:id", getPet);
+=======
+router.get("/:id", readPet);
+>>>>>>> abeba5e1 (adding pet model and update pet controller)
 
 /**
  * @swagger
