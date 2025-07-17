@@ -5,7 +5,9 @@
   "scripts": {
     "dev": "nodemon server.js",
     "start": "node server.js",
-    "generate-markdown": "widdershins http://localhost:5000/api-docs/swagger.json -o ../doc/API_DOCS.md --omitBody --omitHeader --code=false --language_tabs=none --summary"
+    "generate-markdown": "widdershins http://localhost:5000/api-docs/swagger.json -o ../doc/API_DOCS.md --omitBody --omitHeader --code=false --language_tabs=none --summary",
+    "test": "node --experimental-vm-modules node_modules/.bin/jest",
+    "test:watch": "node --experimental-vm-modules node_modules/.bin/jest --watch"
   },
   "keywords": [],
   "author": "",
@@ -26,6 +28,8 @@
     "swagger-ui-express": "^5.0.1"
   },
   "devDependencies": {
-    "nodemon": "^3.1.10"
+    "jest": "^30.0.4",
+    "nodemon": "^3.1.10",
+    "supertest": "^7.1.3"
   }
 }
