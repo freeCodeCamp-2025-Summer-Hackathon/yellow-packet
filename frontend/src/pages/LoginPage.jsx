@@ -1,6 +1,6 @@
-/** Allows users to user their credentials to log in to PetMatch */
+/** Allows users to use their credentials to log in to PetMatch */
 import "../styles/LoginPage.css"
-import LoginHelpModal from "../components/loginHelpModal"
+import LoginHelpModal from "../components/LoginHelpModal"
 
 import luckyBunny from "../images/Bunny.png"
 import luckyCat from "../images/Cat.png"
@@ -70,11 +70,11 @@ function LoginPage({ user, setUser }) {
               </div>
 
               {/* If we decide on external authorization... github doesnt really make sense though, maybe we can swap to facebook or smth */}
-              <button className="login-btn github"><img src={Github} alt="Apple Logo" style={{height: '1rem', paddingRight: '1rem'}}/>Continue with GitHub</button>
+              {/* <button className="login-btn github"><img src={Github} alt="Apple Logo" style={{height: '1rem', paddingRight: '1rem'}}/>Continue with GitHub</button>
               <button className="login-btn google"><img src={Google} alt="Apple Logo" style={{height: '1rem', paddingRight: '1rem'}}/>Continue with Google</button>
-              <button className="login-btn apple"><img src={Apple} alt="Apple Logo" style={{height: '1rem', paddingRight: '1rem'}}/>  Continue with Apple </button>
+              <button className="login-btn apple"><img src={Apple} alt="Apple Logo" style={{height: '1rem', paddingRight: '1rem'}}/>  Continue with Apple </button> */}
 
-              <div className="divider">or</div>
+              {/* <div className="divider">or</div> */}
 
               {/* The easy way to log in */}
               <form onSubmit={handleSubmit}>

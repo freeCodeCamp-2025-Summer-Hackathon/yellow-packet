@@ -12,3 +12,9 @@
     border: 5px solid rgb(107, 91, 149);
     border: 5px solid rgba(107, 91, 149, 0.9);
 }
+
+@media screen and (max-width: 600px) {
+    .help-modal-container{
+        width: 100%;
+    }
+}
