@@ -10,6 +10,14 @@ body{
   width: 100vw;
 }
 
+.login-card {
+  width: clamp(70vw, 20%, 70vw);
+  margin: 0 auto;
+  padding: 2rem;
+  box-sizing: border-box;
+}
+
+
 .login-logo {
   font-size: 2rem;
   font-weight: bold;
@@ -160,14 +168,13 @@ body{
 }
 
 .password-container .input {
-  width: 84%;
-  padding-right: 40px; /* Leave room for the icon */
+  width: 90%;
 }
 
 .toggle-icon {
   position: absolute;
   top: 50%;
-  right: 20px;
+  right: 7%;
   transform: translateY(-50%);
   cursor: pointer;
 }
@@ -181,7 +188,7 @@ body{
 
 
 /* Responsive tweaks for small screens */
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 650px) {
   .login-container {
     display: flex;
     overflow-x: hidden;
@@ -219,7 +226,7 @@ body{
     max-width: none;
     max-height:  none;
     width: 100%;
-    height: 100%;
+    height: fit-content;
     border-radius: 0;
     padding: 2rem 1rem;
     box-sizing: border-box;

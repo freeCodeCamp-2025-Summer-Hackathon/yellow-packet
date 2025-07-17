@@ -79,11 +79,27 @@ function LoginPage({ user, setUser }) {
               {/* The easy way to log in */}
               <form onSubmit={handleSubmit}>
                 {/* Email */}
-                <input type="email" placeholder="Email address*" className="input" value={email} style={{paddingRight: '10px'}} onChange={(e) => setEmail(e.target.value)} required/>
+                <input 
+                type="email" 
+                placeholder="Email address*" 
+                className="input" 
+                name="email"
+                value={email} 
+                onChange={(e) => setEmail(e.target.value)} 
+                required
+                />
 
                 {/* Password */}
                 <div className="password-container" >
-                  <input type={showPassword ? 'text' : 'password'} placeholder="Password*" className="input" value={password} style={{paddingRight: '25px'}} onChange={(e) => setPassword(e.target.value)} required/><span className="toggle-icon" onClick={() => setShowPassword(!showPassword)} >
+                  <input 
+                  type={showPassword ? 'text' : 'password'} 
+                  placeholder="Password*" 
+                  className="input" 
+                  name="password"
+                  value={password} 
+                  onChange={(e) => setPassword(e.target.value)} 
+                  required
+                  /><span className="toggle-icon" onClick={() => setShowPassword(!showPassword)} >
                         {showPassword ? <FaEyeSlash size={20} /> : <FaEye size={20} />}
                     </span>
                 </div>
