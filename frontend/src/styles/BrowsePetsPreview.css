@@ -1,22 +1,45 @@
 /* BrowsePetsPreview.css */
 
 .browse-preview {
-    padding-top: 0;
-    padding-left: clamp(1rem, 5vw, 10rem);
-    padding-right: clamp(1rem, 5vw, 10rem);
-    padding-bottom: 4rem;
-    background: linear-gradient(90deg, #e8e4f3 0%, #d4c9e8 100%);
+  width: 100vw;
+  box-sizing: border-box; 
+  padding: 2rem clamp(1rem, 5vw, 10rem) 4rem;
+  background: linear-gradient(90deg, #e8e4f3 0%, #d4c9e8 100%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.browse-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 0 clamp(1rem, 5vw, 10rem);
+}
+
+@media (max-width: 768px) {
+  .browse-inner {
     align-items: center;
+  }
+
+  .preview-header {
+    justify-content: center;
+    text-align: left;
+  }
+
+  .pet-cards {
+    justify-content: center;
+  }
 }
 
 .preview-header {
   margin-bottom: 1rem;
   margin-top: 2rem;
   display: flex;
-  align-items: center;        
-  justify-content: left;  
+  align-items: center;  
   gap: 2rem;
   flex-wrap: wrap;
+  
 }
 
 .browse-link {
@@ -40,15 +63,14 @@
 }
 
 .pet-img {
-  width: clamp(150px, 35vw, 375px);         
-  height: clamp(150px, 35vw, 375px);       
+  width: clamp(250px, 35vw, 400px);         
+  height: clamp(250px, 35vw, 400px);       
   object-fit: cover;                        
   border-radius: 20px;                     
   border: 3px solid #2d1b4e;                
   background: rgba(255, 255, 255, 0.1);     
   backdrop-filter: blur(10px);             
-  box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.1); 
-  display: flex;                         
+  box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.1);                       
   align-items: center;                     
   justify-content: center;                 
   overflow: hidden;   

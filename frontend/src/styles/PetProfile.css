@@ -1,0 +1,231 @@
+/* PetProfile.css */
+
+.pet-profile-container {
+  padding: 1rem;
+  background: linear-gradient(90deg, #e8e4f3 0%, #d4c9e8 100%);
+  margin: 0 auto;
+}
+
+.back-link {
+  color: #333;
+  text-decoration: none;
+  font-size: 1.5rem;
+  padding-left: 4rem;
+}
+
+.pet-profile-grid {
+  display: flex;
+  justify-content: center;
+  padding: 2rem;
+  gap: 2rem;
+  flex-wrap: wrap;
+  margin: 0 auto;
+}
+
+/* LEFT SIDE */
+.pet-profile-left {
+  max-width: 400px;
+  padding-right: 3rem;
+}
+
+.image-carousel {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center; 
+  width: clamp(180px, 35vw, 400px);
+  margin: 0 auto;
+}
+
+.carousel-wrapper {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.left-arrow,
+.right-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: clamp(2rem, 10vw,8rem);           
+  color: #333;
+  background: transparent;   
+  border: none;               
+  cursor: pointer;
+  z-index: 2;
+  padding: 0.5rem;         
+}
+
+.left-arrow {
+  left: -3rem; 
+}
+
+.right-arrow {
+  right: -3rem;
+}
+
+.left-arrow:hover,
+.right-arrow:hover {
+  color: #555; 
+   transform: translateY(-50%) scale(1.3); /* Makes the arrow bigger when hovered */
+}
+
+
+.pet-photo {
+  width: clamp(275px, 35vw, 375px);         
+  height: clamp(275px, 35vw, 375px);       
+  object-fit: cover;                        
+  border-radius: 20px;                     
+  border: 3px solid #2d1b4e;                
+  background: rgba(255, 255, 255, 0.1);     
+  backdrop-filter: blur(10px);             
+  box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.1); 
+  display: flex;                         
+  align-items: center;                     
+  justify-content: center;                 
+  overflow: hidden;  
+}
+
+.carousel-controls {
+  margin-top: 0.5rem;
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  font-size: 1.2rem;
+  color: #555;
+}
+
+.pet-info {
+  list-style: none;
+  margin-top: 1rem;
+  padding-left: 0;
+  font-size: 1.75rem;
+  color: #444;
+}
+
+.pet-info li {
+  margin-bottom: 0.3rem;
+}
+
+/* RIGHT SIDE */
+.pet-profile-right {
+  position: relative;
+  min-width: 300px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  text-align: center;
+}
+
+.pet-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.pet-name {
+  font-size: 3rem;
+  font-weight: 700;
+  background-color: #ffe2bb;
+  padding: 0.5rem 1rem;
+  border-radius: 1rem;
+  border: 3px solid #444;
+  color: #444;
+}
+
+.favorite-button {
+  background: none;
+  border: none;
+  font-size: 3rem;
+  cursor: pointer;
+  margin-left: 1rem;
+}
+
+.pet-subtitle {
+  font-size: 2.5rem;
+  color: #444;
+  margin-top: 0.5rem;
+}
+
+.shelter-name {
+  font-size: 2rem;
+  color: #666;
+  margin-bottom: 1rem;
+  text-decoration: underline;
+}
+
+/* ABOUT BOX */
+.about-box {
+  background-color: #ffe2bb;
+  border: 3px solid #f3a45d;
+  border-radius: 10px;
+  padding: 1rem;
+  margin-top: 1rem;
+  max-width: 50rem;
+}
+
+.about-box h3 {
+  margin-top: 0;
+  font-size: 2rem;
+  color: #444;
+}
+
+.about-box p {
+  margin: 0.5rem 0 0;
+  font-size: 1.75rem;
+  color: #333;
+}
+
+/* CONTACT BUTTON */
+.contact-shelter-button {
+  margin-top: 2rem;
+  font-size: 2rem;
+  padding: 0.8rem 1.2rem;
+  background: none;
+  border: none;
+  color: #444;
+  font-weight: bold;
+  text-decoration: underline;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.contact-shelter-button:hover {
+  color: #f0892c;
+}
+
+.icon-buttons {
+  position: absolute;
+  top: -1rem;
+  right: -1rem;
+  display: flex;
+  gap: 1rem;
+}
+
+.icon-button {
+  background: none;
+  border: none;
+  font-size: 1.8rem;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.icon-button:hover {
+  transform: scale(1.2);
+}
+
+.dots,
+.pet-info, 
+.pet-info li,
+.pet-name,
+.shelter-name,
+.pet-subtitle,
+.about-box,
+.about-box h3,
+.about-box p {
+  cursor: default;
+}
