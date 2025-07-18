@@ -1,9 +1,12 @@
 import express from "express";
 import dotenv from "dotenv";
-import { specs, swaggerUi } from './swagger.js';
+import { specs, swaggerUi } from "./swagger.js";
 import mongoose from "mongoose";
+
 import authRoutes from "./routes/auth.route.js";
 import userRoutes from "./routes/user.route.js";
+import petRoutes from "./routes/pets.routes.js";
+import shelterRoutes from "./routes/shelter.route.js";
 
 dotenv.config();
 
@@ -17,15 +20,16 @@ const dbConfig = {
 	// Build the connection string
 	getConnectionString() {
 		return `mongodb+srv://${this.username}:${this.password}@${this.address}/${this.database}?retryWrites=true&w=majority&appName=${this.cluster}`;
-	}
+	},
 };
 
-mongoose.connect(dbConfig.getConnectionString())
+mongoose
+	.connect(dbConfig.getConnectionString())
 	.then(() => {
-		console.log(':white_check_mark: MongoDB connected!');
+		console.log(":white_check_mark: MongoDB connected!");
 	})
 	.catch((error) => {
-		console.log(':x: Connection failed:', error);
+		console.log(":x: Connection failed:", error);
 	});
 
 const app = express();
@@ -59,25 +63,31 @@ app.use(express.json());
  *                   type: string
  *                   example: "API is running"
  */
-app.get('/', (_req, res) => {
-	res.json({ message: 'API is running' });
+app.get("/", (_req, res) => {
+	res.json({ message: "API is running" });
 });
 
 // IMPORTANT: Add this BEFORE the swagger-ui middleware for it to generate markdown documentation
-app.get('/api-docs/swagger.json', (_req, res) => {
+app.get("/api-docs/swagger.json", (_req, res) => {
 	res.json(specs);
 });
 
 // Swagger Documentation
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(specs, {
-	explorer: true,
-	customCss: '.swagger-ui .topbar { display: none }',
-	customSiteTitle: "My API Documentation"
-}));
+app.use(
+	"/api-docs",
+	swaggerUi.serve,
+	swaggerUi.setup(specs, {
+		explorer: true,
+		customCss: ".swagger-ui .topbar { display: none }",
+		customSiteTitle: "My API Documentation",
+	})
+);
 
 // Routes
 app.use("/api/auth", authRoutes);
 app.use("/api/users", userRoutes);
+app.use("/api/pets", petRoutes);
+app.use("/api/shelters", shelterRoutes);
 
 if (process.env.DEVELOPMENT === "test") {
 	const { default: testRoutes } = await import("./routes/test.route.js");
@@ -89,4 +99,3 @@ app.listen(PORT, () => {
 	console.log("Server is running on http://localhost:" + PORT);
 	console.log(`Swagger docs available at http://localhost:${PORT}/api-docs`);
 });
-

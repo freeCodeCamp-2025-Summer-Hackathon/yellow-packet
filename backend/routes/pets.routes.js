@@ -1,11 +1,11 @@
 import express from "express";
 
 import {
-  listPets,
-  getPet,
-  editPet,
-  addPet,
-  deletePet,
+	listPets,
+	readPet,
+	addPet,
+	deletePet,
+	editPet
 } from "../controllers/pets.controllers.js";
 
 const router = express.Router();
@@ -73,7 +73,7 @@ router.get("/", listPets);
  *      500:
  *         description: Internal Server Error
  */
-router.get("/:id", getPet);
+router.get("/:id", readPet);
 
 /**
  * @swagger
