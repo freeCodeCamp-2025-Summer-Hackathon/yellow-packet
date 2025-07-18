@@ -19,11 +19,11 @@ export default function PetGrid({ filters }) {
 	const staticPets = Array.from({ length: 22 }, (_, i) => ({
 		// Calculated Data, so that we would have a little bit of everything :)
 		_id: i,
-		type: i % 2 === 0 ? 'Dog' : 'Cat',
+		species: i % 2 === 0 ? 'dog' : 'cat',
 		shelter_name: i % 3 === 0 ? 'Colorado Shelter' : 'Cali Shelter',
 		age: (i % 10) + 1,
-		size: ['Small', 'Medium', 'Large'][i % 3],
-		sex: i % 2 === 0 ? 'Male' : 'Female',
+		size: ['small', 'medium', 'large'][i % 3],
+		sex: i % 2 === 0 ? 'male' : 'female',
 
 		favorites: i % 5 === 0, // Will need to solve this problem later?
 

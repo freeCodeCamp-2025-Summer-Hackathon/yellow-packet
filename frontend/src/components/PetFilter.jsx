@@ -11,7 +11,7 @@ export default function PetFilter({ filters, setfilters, types, shelters, age_st
 	const handleTypeChange = (e) => {
 		const newFilters = {
 			...filters,
-			type: e.target.value
+			species: e.target.value
 		}
 		setfilters(newFilters);
 	}
