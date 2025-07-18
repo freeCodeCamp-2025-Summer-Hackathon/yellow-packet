@@ -51,8 +51,20 @@ const petProfileSchema = new mongoose.Schema({
 			values: ["dog", "cat", "bird", "rabbit"]
 		}
 	},
-	sex: { type: String },
-	years: { type: Number },
+	size: {
+		type: String, enum: {
+			values: ["small", "medium", "large"]
+		}
+	},
+	sex: {
+		type: String, enum: {
+			values: ["male", "female"]
+		}
+	},
+	shelter_name: {
+		type: String
+	},
+	age: { type: Number },
 	weight: { type: Number },
 	date_birth: { type: Date },
 	illness_disabilities: { type: String },
