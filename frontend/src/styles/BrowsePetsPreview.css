@@ -57,14 +57,14 @@
 
 .pet-cards {
   display: flex;
-  gap: clamp(0.5rem, 10vw, 6rem);
+  gap: clamp(1rem, 2vw, 4rem);
   margin-top: 2rem;
   flex-wrap: wrap;
 }
 
 .pet-img {
-  width: clamp(250px, 35vw, 400px);         
-  height: clamp(250px, 35vw, 400px);       
+  width: clamp(150px, 35vw, 375px);         
+  height: clamp(150px, 35vw, 375px);       
   object-fit: cover;                        
   border-radius: 20px;                     
   border: 3px solid #2d1b4e;                
