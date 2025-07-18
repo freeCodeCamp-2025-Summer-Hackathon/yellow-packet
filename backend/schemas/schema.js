@@ -1,11 +1,33 @@
 import mongoose from "mongoose";
 
+// Helper function to add virtual ID and JSON transform
+const addVirtualId = (schema, virtualName) => {
+	// Remove the physical field from schema if it exists
+	schema.remove(virtualName);
+
+	// Add virtual field that maps to _id
+	schema.virtual(virtualName).get(function() {
+		return this._id.toString();
+	});
+
+	// Configure JSON serialization to include virtuals
+	schema.set('toJSON', {
+		virtuals: true,
+		transform: function(doc, ret) {
+			delete ret.__v;
+			return ret;
+		}
+	});
+
+	schema.set('toObject', { virtuals: true });
+};
+
 const adopterProfileSchema = new mongoose.Schema({
 	user_id: { type: String, required: true },
 	first_name: { type: String },
 	last_name: { type: String },
 	phone_number: { type: String },
-	email: { type: String },
+	email: { type: String, required: true, unique: true },
 	bio: { type: String },
 	city: { type: String },
 	state: { type: String },
@@ -18,11 +40,13 @@ const adopterProfileSchema = new mongoose.Schema({
 	favourite_pets: [{ type: String }]
 });
 
+// Pet Profile Schema
 const petProfileSchema = new mongoose.Schema({
-	pet_uid: { type: String, required: true },
 	shelter_id: { type: String, required: true },
 	species: {
-		type: String, required: true, enum: {
+		type: String,
+		required: true,
+		enum: {
 			values: ["dog", "cat", "bird", "rabbit"]
 		}
 	},
@@ -38,6 +62,7 @@ const petProfileSchema = new mongoose.Schema({
 	favourite: { type: String }
 });
 
+// Request Schema
 const requestSchema = new mongoose.Schema({
 	user_id: { type: String, required: true },
 	first_name: { type: String },
@@ -48,11 +73,12 @@ const requestSchema = new mongoose.Schema({
 	bio: { type: String }
 });
 
+// Shelter Schema
 const shelterSchema = new mongoose.Schema({
 	user_id: { type: String, required: true },
 	shelter_name: { type: String },
 	phone_number: { type: String },
-	email: { type: String, required: true },
+	email: { type: String, required: true, unique: true },
 	zip_code: { type: String },
 	bio: { type: String },
 	city: { type: String },
@@ -63,20 +89,29 @@ const shelterSchema = new mongoose.Schema({
 	pets: [{ type: String }]
 });
 
+// User Schema
 const userSchema = new mongoose.Schema({
-	username: { type: String, required: true },
+	username: { type: String, required: true, unique: true },
 	password: { type: String, required: true },
 	role: {
-		type: String, required: true, enum: {
+		type: String,
+		required: true,
+		enum: {
 			values: ["shelter", "adopter"]
 		}
 	}
 });
 
+// Add virtual IDs to each schema
+addVirtualId(adopterProfileSchema, 'adopter_id');
+addVirtualId(petProfileSchema, 'pet_uid');
+addVirtualId(shelterSchema, 'shelter_id');
+
+// Create models
 const User = mongoose.model("user", userSchema);
 const Shelter = mongoose.model("shelter_profile", shelterSchema);
 const Request = mongoose.model("request", requestSchema);
 const PetProfile = mongoose.model("pet_profile", petProfileSchema);
 const AdopterProfile = mongoose.model("adopter_profile", adopterProfileSchema);
 
-export { User, Shelter, Request, PetProfile, AdopterProfile }
+export { User, Shelter, Request, PetProfile, AdopterProfile };

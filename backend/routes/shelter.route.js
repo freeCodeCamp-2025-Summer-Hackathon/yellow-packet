@@ -3,7 +3,7 @@ import { Shelter, User } from "../schemas/schema.js";
 
 const router = express.Router();
 
-const validateShelterData = (req, res, next) => {
+const validateShelterData = async (req, res, next) => {
 	const errors = [];
 	const { body } = req;
 
@@ -15,6 +15,27 @@ const validateShelterData = (req, res, next) => {
 	// Email format validation
 	if (body.email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(body.email)) {
 		errors.push("Invalid email format");
+	}
+
+	// Might cause caching issue in production, the cost of calling an shelter just to verified it is too much
+	// After MVP, email should be moved back to user layer so we can check it in creation of user account
+	// Or a better way to create a Shelter
+	// The cost of moving email to user layer is that we exposed shelter at user level, if database got leaked,
+	// shelter can easily be identified
+	// Another method is caching
+	if (body.email) {
+		try {
+			const existingShelter = await Shelter.findOne({ email: body.email }).lean();
+			if (existingShelter) {
+				errors.push("Email already exists");
+			}
+		} catch (error) {
+			// Handle database error
+			return res.status(500).json({
+				error: true,
+				message: "Database error during validation"
+			});
+		}
 	}
 
 	// If validation fails, return error response
@@ -89,7 +110,7 @@ router.put("/:id", async (req, res) => {
 			{ new: true, runValidators: true }
 		).lean();
 		if (!result) {
-			return res.status(404).json({ error: "User not found" });
+			return res.status(404).json({ error: "Shelter not found" });
 		}
 		return res.json(result);
 	} catch (error) {
