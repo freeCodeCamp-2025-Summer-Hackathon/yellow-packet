@@ -21,7 +21,11 @@ const adopterProfileSchema = new mongoose.Schema({
 const petProfileSchema = new mongoose.Schema({
 	pet_uid: { type: String, required: true },
 	shelter_id: { type: String, required: true },
-	species: { type: String },
+	species: {
+		type: String, required: true, enum: {
+			values: ["dog", "cat", "bird", "rabbit"]
+		}
+	},
 	sex: { type: String },
 	years: { type: Number },
 	weight: { type: Number },
@@ -48,7 +52,7 @@ const shelterSchema = new mongoose.Schema({
 	user_id: { type: String, required: true },
 	shelter_name: { type: String },
 	phone_number: { type: String },
-	email: { type: String },
+	email: { type: String, required: true },
 	zip_code: { type: String },
 	bio: { type: String },
 	city: { type: String },
@@ -62,7 +66,11 @@ const shelterSchema = new mongoose.Schema({
 const userSchema = new mongoose.Schema({
 	username: { type: String, required: true },
 	password: { type: String, required: true },
-	role: { type: String, required: true }
+	role: {
+		type: String, required: true, enum: {
+			values: ["shelter", "adopter"]
+		}
+	}
 });
 
 const User = mongoose.model("user", userSchema);
