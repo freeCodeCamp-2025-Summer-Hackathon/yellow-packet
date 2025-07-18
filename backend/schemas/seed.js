@@ -89,6 +89,7 @@ const seed = async () => {
 			for (let i = 0; i < 3; i++) { // create 3 pets per shelter
 				const pet = await PetProfile.create({
 					shelter_id: shelter._id.toString(),
+					name: faker.person.firstName(),
 					species: faker.helpers.arrayElement(["dog", "cat", "bird", "rabbit"]),
 					sex: faker.helpers.arrayElement(["male", "female"]),
 					years: faker.number.int({ min: 0, max: 15 }),

@@ -43,6 +43,7 @@ const adopterProfileSchema = new mongoose.Schema({
 // Pet Profile Schema
 const petProfileSchema = new mongoose.Schema({
 	shelter_id: { type: String, required: true },
+	name: { type: String },
 	species: {
 		type: String,
 		required: true,
