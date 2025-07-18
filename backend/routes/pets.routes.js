@@ -1,15 +1,11 @@
 import express from "express";
 
 import {
-  listPets,
-<<<<<<< HEAD
-  getPet,
-=======
-  readPet,
->>>>>>> abeba5e1 (adding pet model and update pet controller)
-  editPet,
-  addPet,
-  deletePet,
+	listPets,
+	getPet,
+	// readPet,
+	addPet,
+	deletePet,
 } from "../controllers/pets.controllers.js";
 
 const router = express.Router();
@@ -77,11 +73,7 @@ router.get("/", listPets);
  *      500:
  *         description: Internal Server Error
  */
-<<<<<<< HEAD
 router.get("/:id", getPet);
-=======
-router.get("/:id", readPet);
->>>>>>> abeba5e1 (adding pet model and update pet controller)
 
 /**
  * @swagger
