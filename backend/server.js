@@ -7,7 +7,7 @@ import authRoutes from "./routes/auth.route.js";
 import userRoutes from "./routes/user.route.js";
 import petRoutes from "./routes/pets.routes.js";
 import shelterRoutes from "./routes/shelter.route.js";
-
+import requestRoutes from "./routes/request.route.js";
 dotenv.config();
 
 const dbConfig = {
@@ -88,7 +88,7 @@ app.use("/api/auth", authRoutes);
 app.use("/api/users", userRoutes);
 app.use("/api/pets", petRoutes);
 app.use("/api/shelters", shelterRoutes);
-
+app.use("/api/request", requestRoutes);
 if (process.env.DEVELOPMENT === "test") {
 	const { default: testRoutes } = await import("./routes/test.route.js");
 	app.use("/api/test", testRoutes);
