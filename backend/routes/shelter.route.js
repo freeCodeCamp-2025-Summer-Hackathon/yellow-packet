@@ -1,6 +1,5 @@
 import express from "express";
 import { Shelter, User } from "../schemas/schema.js";
-
 const router = express.Router();
 
 const validateShelterData = async (req, res, next) => {
