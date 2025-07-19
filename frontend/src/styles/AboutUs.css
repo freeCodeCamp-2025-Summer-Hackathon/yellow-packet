@@ -1,0 +1,46 @@
+/* AboutUs.css */
+.about-container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+/* Header takes its natural height */
+.main-header {
+  flex-shrink: 0;
+}
+
+/* Navbar takes its natural height */
+.main-navbar {
+  flex-shrink: 0;
+}
+
+/* Main content area fills remaining space */
+.main-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  padding: 0 16px;
+  box-sizing: border-box;
+  background: linear-gradient(90deg, #e8e4f3 0%, #d4c9e8 100%);
+  color: #2d1b4e;
+}
+
+a {
+  color: #2d1b4e;
+}
+
+ul {
+  list-style-type: none;
+  padding-left: 16px;
+}
+
+.head {
+  margin-bottom: 0px;
+}
+
+.dog {
+  width: 500px;
+}
