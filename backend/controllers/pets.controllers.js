@@ -16,8 +16,9 @@ export const addPet = async (req, res) => {
 		const pet = await PetProfile.create({
 			shelter_id: req.body.shelter_id,
 			species: req.body.species.toLowerCase(),
+			shelter_name: shelter.shelter_name,
 			sex: req.body.sex || "",
-			years: req.body.years || 0,
+			age: req.body.years || 0,
 			weight: req.body.weight || 0,
 			date_birth: req.body.date_birth || null,
 			illness_disabilities: req.body.illness_disabilities || "",
@@ -25,7 +26,7 @@ export const addPet = async (req, res) => {
 			photo_link: req.body.photo_link || "",
 			bio: req.body.bio || "",
 			spayed_neutered: req.body.spayed_neutered || false,
-			favourite: req.body.favourite || ""
+			favourite: req.body.favourite || "" // Will need to change the schema to fix the many-to-many 
 		});
 
 		await Shelter.findByIdAndUpdate(
