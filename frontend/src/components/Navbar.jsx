@@ -11,6 +11,7 @@ export default function Navbar() {
 					<li><Link to="/">Home</Link></li>
 					<li><Link to="/browse">Browse Pets</Link></li>
 					<li><Link to="/shelters">Shelters</Link></li>
+					<li><Link to="/createpet">Create New Pet</Link></li>
 					<li><Link to="/about">About</Link></li>
 				</ul>
 			</nav>
