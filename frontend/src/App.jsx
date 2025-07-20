@@ -5,6 +5,7 @@ import BrowsePets from './pages/BrowsePets';
 import LoginPage from './pages/LoginPage';
 import PetProfile from './pages/PetProfile';
 import SignUpPage from './pages/SignUpPage';
+import CreatePet from './pages/CreatePet';
 
 function App() {
 	const [user, setUser] = useState(null);
@@ -16,6 +17,7 @@ function App() {
 				<Route path="/login" element={<LoginPage user={user} setUser={setUser} />} />
 				<Route path="/pet-profile/:petId" element={<PetProfile user={user} setUser={setUser} />} />
 				<Route path="/signup" element={<SignUpPage />} />
+				<Route path="/createpet" element={<CreatePet />} />
 			</Routes>
 		</Router>
 	)
