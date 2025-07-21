@@ -152,3 +152,30 @@ h2 {
   width: 100%;
   text-align: center;
 }
+
+.back-link {
+  color: #333;
+  text-decoration: none;
+  font-size: 1.5rem;
+  align-self: flex-start;
+  padding-left: 0;
+}
+
+.icon-button {
+  background: none;
+  border: none;
+  font-size: 2rem;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.icon-button:hover {
+  transform: scale(1.2);
+}
+.top-bar {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem 0 2rem;
+}
