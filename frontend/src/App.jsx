@@ -7,6 +7,8 @@ import PetProfile from './pages/PetProfile';
 import SignUpPage from './pages/SignUpPage';
 import AboutUs from './pages/AboutUs';
 import CreatePet from './pages/CreatePet';
+import UserProfile from './pages/UserProfile';
+
 
 function App() {
 	const [user, setUser] = useState(null);
@@ -20,6 +22,7 @@ function App() {
 				<Route path="/signup" element={<SignUpPage />} />
 				<Route path="/about" element={<AboutUs user={user} setUser={setUser} />} />
 				<Route path="/createpet" element={<CreatePet />} />
+				<Route path="/user-profile/:userId" element={<UserProfile user={user} setUser={setUser} />} />
 			</Routes>
 		</Router>
 	)
