@@ -1,0 +1,182 @@
+/* ShelterProfile.css */
+
+.shelter-profile-page {
+    padding: 2rem 5rem;
+    background: linear-gradient(90deg, #e8e4f3 0%, #d4c9e8 100%);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.shelter-information {
+    display: flex;
+    align-items: flex-start;
+    gap: 2rem;
+    margin-bottom: 2rem;
+    align-self: flex-start;
+}
+
+.shelter-name {
+    font-size: 3rem;
+    font-weight: bold;
+    color: #444;
+    background-color: #ffe2bb;
+    border: 3px solid #444;
+    padding: 0.5rem 1rem;
+    border-radius: 1rem;
+    display: inline-block;
+    margin-bottom: 1rem;
+    text-decoration: none;
+}
+
+.shelter-card {
+	background-color: #ffe2bb;
+	border: 3px solid #f3a45d;
+	border-radius: 1rem;
+	padding: 1.5rem;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+    align-self: flex-start;
+    max-width: 900px;
+}
+
+.shelter-card .shelter-details strong {
+    font-size: 2rem;
+}
+
+.shelter-image {
+    background-color: #4ad1cc;
+    padding:4rem 0.4rem; /* top/bottom, left/right */
+    border-radius: 1rem;
+    max-width: 300px;
+    min-width: 250px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.shelter-image img {
+    width: 100%;
+    height: auto;
+    border: 6px solid white;
+    border-radius: 1rem;
+    object-fit: cover;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.shelter-details {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+    width: fit-content;
+    max-width: 100%;
+    align-items: flex-start;
+}
+
+.leftside-profile, .rightside-profile {
+    flex: none;
+    min-width: 200px;
+}
+
+.shelter-heading {
+    font-weight: bold;
+    font-size: 1.5rem;
+    color: #2d1b4e;
+    margin-bottom: 0.5rem;
+}
+
+.shelter-details p {
+    font-size: 1.5rem;
+    margin: 0.3rem 0;
+    color: #444;
+}
+
+h2 {
+    font-size: 2rem;
+    margin: 2rem 0 1rem;
+    color: #432d92;
+}
+
+.delete-profile-button {
+    margin-top: 2rem;
+    font-size: 1rem;
+    padding: 0.6rem 1rem;
+    background-color: #ff4d4d;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    text-align: center;
+    transition: background 0.2s ease;
+}
+
+.delete-profile-button:hover {
+    background-color: #d93636;
+}
+
+.indent-text {
+    padding-left: 1rem;
+    display: inline-block;
+}
+
+.bio-box {
+    background-color: #f0f0f0;
+    padding: 1rem;
+    border-radius: 1rem;
+    border: 3px solid #0d138bf9;
+    margin-top: 0.5rem;
+    font-size: 1.25rem;
+    color: #333;
+    line-height: 1.6;
+}
+
+@media (max-width: 768px) {
+  .shelter-information {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .shelter-image,
+  .shelter-card {
+    align-self: center;
+    width: 100%;
+  }
+
+  .shelter-card {
+    max-width: 90vw;
+  }
+}
+
+.delete-button-wrapper {
+    width: 100%;
+    text-align: center;
+}
+
+.back-link {
+    color: #333;
+    text-decoration: none;
+    font-size: 1.5rem;
+    align-self: flex-start;
+    padding-left: 0;
+}
+
+.icon-button {
+    background: none;
+    border: none;
+    font-size: 2rem;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+}
+
+.icon-button:hover {
+    transform: scale(1.2);
+}
+.top-bar {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem 0 2rem;
+}
