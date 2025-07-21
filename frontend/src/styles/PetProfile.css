@@ -218,14 +218,6 @@
   transform: scale(1.2);
 }
 
-.dots,
-.pet-info, 
-.pet-info li,
-.pet-name,
-.shelter-name,
-.pet-subtitle,
-.about-box,
-.about-box h3,
-.about-box p {
+.dots {
   cursor: default;
 }
