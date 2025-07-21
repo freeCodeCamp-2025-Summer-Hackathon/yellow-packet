@@ -8,6 +8,7 @@ import SignUpPage from './pages/SignUpPage';
 import ShelterProfile from './pages/ShelterProfile';
 import AboutUs from './pages/AboutUs';
 import CreatePet from './pages/CreatePet';
+import ShelterProfile from './pages/ShelterProfile';
 
 function App() {
 	const [user, setUser] = useState(null);
@@ -22,6 +23,7 @@ function App() {
 				<Route path="/shelter-profile/:shelterId" element={<ShelterProfile />} />
 				<Route path="/about" element={<AboutUs user={user} setUser={setUser} />} />
 				<Route path="/createpet" element={<CreatePet />} />
+				<Route path="/shelter-profile/:shelterId" element={<ShelterProfile />} />
 			</Routes>
 		</Router>
 	)
