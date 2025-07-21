@@ -1,6 +1,6 @@
 /* UserProfile.jsx */
 
-import React, { useState, useEffect } from "react";
+import React from "react";
 import Header from '../components/Header';
 import Navbar from '../components/Navbar';
 import PetGrid from "../components/PetGrid.jsx";
@@ -40,7 +40,7 @@ export default function UserProfile(user) {
 
                 <div className="top-bar">
                     <Link to="/browse" className="back-link">← Back to Browse</Link>
-                    <button className="icon-button" aria-label="Edit" onClick={handleEdit}>✏️</button>
+                    <button title="Edit User Profile" className="icon-button" aria-label="Edit" onClick={handleEdit}>✏️</button>
                 </div>
                 <div className="profile-container">
                         <h1 className="user-name">{mockUser.firstName}</h1>
