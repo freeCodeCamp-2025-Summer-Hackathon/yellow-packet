@@ -7,6 +7,7 @@ import PetGrid from "../components/PetGrid.jsx";
 import "../styles/UserProfile.css";
 import SpongeBob from "../images/spongebob.jpg"
 import { useNavigate } from 'react-router-dom';
+import { Link } from "react-router-dom";
 
 export default function UserProfile(user) {
 
@@ -27,11 +28,20 @@ export default function UserProfile(user) {
 		navigate(`/delete/${mockUser.id}`);
 	};
 
+    const handleEdit = () => {
+		navigate(`/edit/${mockUser.id}`);
+	};
+
     return (
         <>
             <Header />
             <Navbar />
             <div className="user-profile-page">
+
+                <div className="top-bar">
+                    <Link to="/browse" className="back-link">← Back to Browse</Link>
+                    <button className="icon-button" aria-label="Edit" onClick={handleEdit}>✏️</button>
+                </div>
                 <div className="profile-container">
                         <h1 className="user-name">{mockUser.firstName}</h1>
         
