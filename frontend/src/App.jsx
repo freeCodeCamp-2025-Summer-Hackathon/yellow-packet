@@ -6,7 +6,7 @@ import LoginPage from './pages/LoginPage';
 import PetProfile from './pages/PetProfile';
 import SignUpPage from './pages/SignUpPage';
 import UserProfile from './pages/UserProfile';
-
+import AboutUs from './pages/AboutUs';
 
 function App() {
 	const [user, setUser] = useState(null);
@@ -19,6 +19,7 @@ function App() {
 				<Route path="/pet-profile/:petId" element={<PetProfile user={user} setUser={setUser} />} />
 				<Route path="/signup" element={<SignUpPage />} />
 				<Route path="/user-profile/:userId" element={<UserProfile user={user} setUser={setUser} />} />
+				<Route path="/about" element={<AboutUs user={user} setUser={setUser}/>} />
 			</Routes>
 		</Router>
 	)
