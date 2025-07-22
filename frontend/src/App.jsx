@@ -17,7 +17,7 @@ function App() {
 				<Route path="/login" element={<LoginPage user={user} setUser={setUser} />} />
 				<Route path="/pet-profile/:petId" element={<PetProfile user={user} setUser={setUser} />} />
 				<Route path="/signup" element={<SignUpPage />} />
-				<Route path="/about" element={<AboutUs/>} />
+				<Route path="/about" element={<AboutUs user={user} setUser={setUser}/>} />
 			</Routes>
 		</Router>
 	)
