@@ -7,6 +7,7 @@ import "../styles/ShelterProfile.css";
 import ShelterImg from "../images/pet-shelter.jpg"
 import { useNavigate } from 'react-router-dom';
 import { Link } from "react-router-dom";
+import PetGrid from "../components/PetGrid";
 
 export default function ShelterProfile() {
 
@@ -14,7 +15,7 @@ export default function ShelterProfile() {
 
     const mockShelter = {
         id: 5720,
-        shelterName: "Super Cool Shelter",
+        shelterName: "Cali Shelter",
         foundDate: "6/20/1997",
         phone: "(555) 555-5555",
         email: "coolshelter@example.com",
@@ -69,6 +70,7 @@ export default function ShelterProfile() {
                         </div>
                     </div>
                     <h2>Pets From This Shelter</h2>
+                    <PetGrid filters={{ shelter_name: mockShelter.shelterName }} />
 
                     <div className="delete-button-wrapper">
                         <button className="delete-profile-button" onClick={handleDelete}>Delete My Profile</button>
