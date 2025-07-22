@@ -7,47 +7,62 @@ import { Link } from "react-router-dom";
 import cat_1 from "../images/cat_1.jpg"
 import cat_2 from "../images/cat_2.jpg"
 import cat_3 from "../images/cat_3.jpg"
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { useLocation } from 'react-router-dom';
 
 
-function PetProfile(user) {
+function PetProfile({ user, setUser }) {
 
-	console.log("Welcome this pet to your home, ", user); // if you need to know who the user is?
-	
-	// sample data for testing
-	const pet = {
-		name: "Leo",
-		id: 2048,
-		species: "Cat",
-		sex: "Male",
-		birthday: "3/15/2022",
-		age: 3,
-		shelter: "Shelter Name Here",
-		disabilities: "None",
-		personality: "Social Butterfly",
-		about1: "I’m just a silly cat who is very smart, and friendly!",
-		about2: "I am nice and I love to play with kids!",
-		images: [cat_1, cat_2, cat_3],
+	const defaultPet = {
+	name: "Leo",
+	id: 2048,
+	species: "Cat",
+	sex: "Male",
+	birthday: "3/15/2022",
+	age: 3,
+	shelter: "Shelter Name Here",
+	disabilities: "None",
+	personality: "Social Butterfly",
+	about1: "I’m just a silly cat who is very smart, and friendly!",
+	about2: "I am nice and I love to play with kids!",
+	pics: [cat_1, cat_2, cat_3],
+};
+
+const location = useLocation();
+const givenPet = location.state?.pet;
+
+const [pet, setPet] = useState(null);
+
+useEffect(() => {
+	// If we received a pet, merge with defaults
+	if (givenPet) {
+		setPet({ ...defaultPet, ...givenPet });
+	} else {
+		setPet(defaultPet);
 	}
+}, [givenPet]);
 
-	const [isFavorite, setIsFavorite] = useState(true);
+
+	const [isFavorite, setIsFavorite] = useState(false);
 
 	const [currentIndex, setCurrentIndex] = useState(0);
 
 	const handlePrev = () => {
 		setCurrentIndex((prevIndex) =>
-			prevIndex === 0 ? pet.images.length - 1 : prevIndex - 1
+			prevIndex === 0 ? pet.pics.length - 1 : prevIndex - 1
 		);
 	};
 
 	const handleNext = () => {
 		setCurrentIndex((prevIndex) =>
-			prevIndex === pet.images.length - 1 ? 0 : prevIndex + 1
+			prevIndex === pet.pics.length - 1 ? 0 : prevIndex + 1
 		);
 	};
 
 	const toggleFavorite = () => {
+		// TODO: Implement favorite logic
+		if (!user) return alert("Login to favorite pets!"); // If no user, just return (can't favorite without being logged in)
 		setIsFavorite((prev) => !prev);
 	};
 
@@ -60,11 +75,13 @@ function PetProfile(user) {
 	const handleDelete = () => {
 		navigate(`/delete/${pet.id}`);
 	};
+	if (!pet) return <div>Loading...</div>;
+
 
 	return (
 		<>
 			<div>
-				<Header />
+				<Header user={user} setUser={setUser} />
 				<Navbar />
 				<div className="pet-profile-container">
 					<Link to="/browse" className="back-link">← Back to Browse</Link>
@@ -72,23 +89,30 @@ function PetProfile(user) {
 					<div className="pet-profile-grid">
 						{/* Left Side */}
 						<div className="pet-profile-left">
+							{ pet.pics && (
 							<div className="image-carousel">
 								<div className="carousel-wrapper">
 									<button className="left-arrow" onClick={handlePrev} aria-label="Previous Image">‹</button>
-									<img src={pet.images[currentIndex]} alt={pet.name} className="pet-photo" />
+									<img src={pet.pics[currentIndex]} alt={pet.name} className="pet-photo" />
 									<button className="right-arrow" onClick={handleNext} aria-label="Next Image">›</button>
 									</div>
 									<div className="carousel-controls">
 										<div className="dots">
-											{pet.images.map((_, index) => (
+											{pet.pics.map((_, index) => (
 												<span key={index} style={{ fontSize: "1.5rem", color: index === currentIndex ? "#000" : "#aaa" }}>
 												●
 												</span>
 											))}				
 									</div>
 								</div>
-							</div>
-						
+							</div>)}
+							{ !pet.pics && (
+								<div className="image-carousel">
+									<div className="carousel-wrapper">
+										<div className='pet-photo' style={{ color: "#111" }}>No images available</div>
+									</div>
+								</div>
+							)}
 
 							<ul className="pet-info">
 								<li><strong>Pet ID:</strong> #{pet.id}</li>

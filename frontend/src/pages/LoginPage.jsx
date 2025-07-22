@@ -38,7 +38,7 @@ function LoginPage({ user, setUser }) {
   const handleSubmit = (e) => {
     e.preventDefault();
     // if user(where user.name == name).password == password, then setUser(password)
-    setUser({email: email, password: password});
+    setUser({email: email, password: password, id: 1, favorites: []}); // This is just a placeholder, replace with actual login logic
       // handle login logic here (call API)
     console.log("Signing in as: ", { user });
     navigate("/");

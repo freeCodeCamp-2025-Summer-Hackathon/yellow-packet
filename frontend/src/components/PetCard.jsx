@@ -1,12 +1,14 @@
 import "../styles/PetCard.css";
 
-export default function PetCard({ name, age, gender, location, type, pic, isFav, onToggleFav }) {
+export default function PetCard({ id, name, age, gender, location, type, pics, isFav, onToggleFav, handleClick}) {
+
+    
 
     return ( 
     <>
-        <div className="card">
+        <div className="card" onClick={() => handleClick({ id, name })}>
             <div className="image">
-                <img src={pic} alt="Image of pet" className="petImg"/>
+                <img src={pics[0]} alt="Image of pet" className="petImg"/>
             </div>
             <div className="petName">
                 <span className="fav"></span>
