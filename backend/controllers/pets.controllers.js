@@ -2,8 +2,6 @@ import { getAllPets, getPet } from "../models/pet.model.js";
 import { Shelter, PetProfile } from "../schemas/schema.js";
 
 export const addPet = async (req, res) => {
-	console.log("addPet called");
-
 	try {
 		// Check if shelter exists
 		const shelter = await Shelter.findById(req.body.shelter_id);
@@ -14,44 +12,47 @@ export const addPet = async (req, res) => {
 			});
 		}
 
-		// Directly create the pet profile using request body
+		// Optional: Calculate age from birthday if provided
+		let birthday = req.body.birthday ? new Date(req.body.birthday) : null;
+		let age = req.body.age;
+
+		if (!age && birthday) {
+			const ageDifMs = Date.now() - birthday.getTime();
+			const ageDate = new Date(ageDifMs);
+			age = Math.abs(ageDate.getUTCFullYear() - 1970);
+		}
+
+		// Create the pet profile
 		const pet = await PetProfile.create({
 			shelter_id: req.body.shelter_id,
-			name: req.body.name,
-			species: req.body.species,
-			sex: req.body.sex,
-			birthday: req.body.birthday,
-			age: req.body.age,
+			name: req.body.name || "",
+			species: req.body.species?.toLowerCase(),
+			sex: req.body.sex || "",
+			birthday,
+			age: age || 0,
 			shelter: shelter.shelter_name,
-			size: req.body.size,
-			weight: req.body.weight,
-			disabilities: req.body.disabilities,
-			personality: req.body.personality,
-			about1: req.body.about1,
-			about2: req.body.about2,
-			favorites: req.body.favorites,
-			pics: req.body.pics,
-			bio: req.body.bio,
-			spayed_neutered: req.body.spayed_neutered
+			size: req.body.size?.toLowerCase() || "",
+			weight: req.body.weight || 0,
+			disabilities: req.body.disabilities || "",
+			personality: req.body.personality || "",
+			about1: req.body.about1 || "",
+			about2: req.body.about2 || "",
+			favorites: Array.isArray(req.body.favorites) ? req.body.favorites : [],
+			pics: Array.isArray(req.body.pics) ? req.body.pics : [],
+			bio: req.body.bio || "",
+			spayed_neutered: req.body.spayed_neutered || false
 		});
-
-		// Link the new pet to the shelter
-		await Shelter.findByIdAndUpdate(
-			req.body.shelter_id,
-			{ $push: { pets: pet.pet_uid } },
-			{ runValidators: true }
-		);
 
 		return res.status(201).json({
 			error: false,
-			message: "Pet created successfully",
-			data: pet
+			message: "Pet profile created successfully",
+			pet
 		});
-
-	} catch (error) {
+	} catch (err) {
+		console.error("Error creating pet profile:", err);
 		return res.status(500).json({
 			error: true,
-			message: error.message
+			message: "Failed to create pet profile"
 		});
 	}
 };
