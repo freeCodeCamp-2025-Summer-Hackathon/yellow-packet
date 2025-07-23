@@ -26,6 +26,8 @@ function App() {
 				<Route path="/createpet" element={<CreatePet />} />
 				<Route path="/shelter-profile/:shelterId" element={<ShelterProfile />} />
 				<Route path="/edit/shelter-profile/:shelterId" element={<EditShelterProfile />} />
+				<Route path="/about" element={<AboutUs user={user} setUser={setUser} />} />
+				<Route path="/createpet" element={<CreatePet />} />
 			</Routes>
 		</Router>
 	)
