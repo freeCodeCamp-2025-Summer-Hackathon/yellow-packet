@@ -5,7 +5,7 @@ import "../styles/BrowsePets.css";
 
 
 
-export default function PetFilter({ filters, setfilters, types, shelters, age_stages, sizes, sexes }) {
+export default function PetFilter({ filters, setfilters, types, shelters, age_stages, sizes, sexes, user }) {
 
 	/** The following handle functions update the filters state */
 	const handleTypeChange = (e) => {
@@ -49,6 +49,9 @@ export default function PetFilter({ filters, setfilters, types, shelters, age_st
 	}
 
 	const handleFavoritesChange = (e) => {
+		if (!user){
+			return console.log("User not logged in");
+		}
 		const newFilters = {
 			...filters,
 			favorites: e.target.checked
@@ -67,11 +70,11 @@ export default function PetFilter({ filters, setfilters, types, shelters, age_st
 					<>
 						<label htmlFor="pet-type" className="filter-label ">Type:</label>
 						<select id="pet-type" name="pet-type" onChange={handleTypeChange} className="filter-select">
-							<option value="">All</option> {/* show an all option that allows users to clear this filter */}
+							<option value="" key={"all-types"}>All</option> {/* show an all option that allows users to clear this filter */}
 							{
 								// show all types available
 								types.map((type) => (
-									<option value={type}>{type}</option>
+									<option value={type} key={type}>{type}</option>
 								))
 							}
 						</select>
@@ -83,11 +86,11 @@ export default function PetFilter({ filters, setfilters, types, shelters, age_st
 					<>
 						<label htmlFor="pet-shelter" className="filter-label ">Shelter</label>
 						<select id="pet-shelter" name="pet-shelter" onChange={handleShelterChange} className="filter-select">
-							<option value="">All</option> {/* show an all option that allows users to clear this filter */}
+							<option value="" key={"all-shelters"}>All</option> {/* show an all option that allows users to clear this filter */}
 							{
 								// show all shelters available
 								shelters.map((shelter) => (
-									<option value={shelter}>{shelter}</option>
+									<option value={shelter} key={shelter}>{shelter}</option>
 								))
 							}
 						</select>
@@ -99,13 +102,13 @@ export default function PetFilter({ filters, setfilters, types, shelters, age_st
 					<>
 						<label htmlFor="pet-age" className="filter-label ">Age:</label>
 						<select id="pet-age" name="pet-age" onChange={handleAgeStageChange} className="filter-select">
-							<option value="">All</option> {/* show an all option that allows users to clear this filter */}
+							<option value="" key={"all-ages"}>All</option> {/* show an all option that allows users to clear this filter */}
 							{
 								// show all age stages available
 								age_stages.map((age) =>
 								(
 
-									<option value={age}>{age}</option>
+									<option value={age} key={age}>{age}</option>
 								))
 							}
 						</select>
@@ -117,11 +120,11 @@ export default function PetFilter({ filters, setfilters, types, shelters, age_st
 					<>
 						<label htmlFor="pet-size" className="filter-label ">Size:</label>
 						<select id="pet-size" name="pet-size" onChange={handleSizeChange} className="filter-select">
-							<option value="">All</option> {/* show an all option that allows users to clear this filter */}
+							<option value="" key={"all-sizes"}>All</option> {/* show an all option that allows users to clear this filter */}
 							{
 								// show all sizes available
 								sizes.map((size) => (
-									<option value={size}>{size}</option>
+									<option value={size} key={size}>{size}</option>
 								))
 							}
 						</select>
@@ -133,31 +136,36 @@ export default function PetFilter({ filters, setfilters, types, shelters, age_st
 					<>
 						<label htmlFor="pet-sex" className="filter-label ">Sex:</label>
 						<select id="pet-sex" name="pet-sex" onChange={handleSexChange} className="filter-select">
-							<option value="">All</option> {/* show an all option that allows users to clear this filter */}
+							<option value="" key={"all-sexes"}>All</option> {/* show an all option that allows users to clear this filter */}
 							{
 								// show all sexes available
 								sexes.map((sex) => (
-									<option value={sex}>{sex}</option>
+									<option value={sex} key={sex}>{sex}</option>
 								))
 							}
 						</select>
 					</>}
 
 				{/* Checkbox for favorites*/}
-				<div className="favorites-checkbox">
-					<label className="filter-checkbox-label" htmlFor="favorites">
-						Favorites:
-						<input
-							type="checkbox"
-							id="favorites"
-							name="favorites"
-							checked={filters.favorites}
-							onChange={handleFavoritesChange}
-							className="filter-checkbox"
-						/>
-						<span className="custom-checkbox" />
-					</label>
-				</div>
+				{ user && (
+					<div className="favorites-checkbox">
+						<label className="filter-checkbox-label" htmlFor="favorites">
+							Favorites:
+							<input
+								type="checkbox"
+								id="favorites"
+								name="favorites"
+								checked={filters.favorites}
+								onChange={handleFavoritesChange}
+								className="filter-checkbox"
+							aria-label="Show only favorite pets"
+
+							/>
+							<span className="custom-checkbox" />
+						</label>
+					</div>)
+				}
+				
 
 
 			</main>
