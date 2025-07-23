@@ -27,6 +27,7 @@ const adopterProfileSchema = new mongoose.Schema({
 	first_name: { type: String },
 	last_name: { type: String },
 	phone_number: { type: String },
+	username: { type: String, required: true, unique: true },
 	email: { type: String, required: true, unique: true },
 	bio: { type: String },
 	city: { type: String },
@@ -37,42 +38,28 @@ const adopterProfileSchema = new mongoose.Schema({
 	gender: { type: String },
 	pronouns: { type: String },
 	birthday: { type: Date },
-	favourite_pets: [{ type: String }]
+	favorites: [{ type: String }], // Array of pet IDs that the user has favorited
 });
 
 // Pet Profile Schema
 const petProfileSchema = new mongoose.Schema({
-	shelter_id: { type: String, required: true },
-	name: { type: String },
-	species: {
-		type: String,
-		required: true,
-		enum: {
-			values: ["dog", "cat", "bird", "rabbit"]
-		}
-	},
-	size: {
-		type: String, enum: {
-			values: ["small", "medium", "large"]
-		}
-	},
-	sex: {
-		type: String, enum: {
-			values: ["male", "female"]
-		}
-	},
-	shelter_name: {
-		type: String
-	},
-	age: { type: Number },
-	weight: { type: Number },
-	date_birth: { type: Date },
-	illness_disabilities: { type: String },
-	personality: { type: String },
-	photo_link: { type: String },
-	bio: { type: String },
-	spayed_neutered: { type: Boolean },
-	favourite: { type: String }
+	shelter_id: { type: String, required: true }, // Reference to the shelter that owns this pet
+	name: String,
+	species: { type: String, enum: ['dog', 'cat', 'bird', 'rabbit'] }, // the species we allow as of now
+	sex: { type: String, enum: ['male', 'female'] }, // the pet's sex
+	birthday: Date, // pet's date of birth
+	age: Number, // age in years (calculated from birthday)
+	shelter: String, // shelter name
+	size: { type: String, enum: ['small', 'medium', 'large'] },
+	weight: Number,
+	disabilities: String, // anything a new owner should know about the pet
+	personality: String, // generic quirks in personality shared by many pets (descriptive terms)
+	about1: String, // for the about page
+	about2: String,
+	favorites: [String], // user _ids
+	pics: [String], // image URLs
+	bio: String, // additional information about the pet 
+	spayed_neutered: Boolean, // true if the pet is spayed/neutered
 });
 
 // Request Schema

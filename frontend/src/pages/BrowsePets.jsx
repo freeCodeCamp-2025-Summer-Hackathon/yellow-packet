@@ -21,7 +21,7 @@ function BrowsePets({ user, setUser }) {
 	const sizes = ["small", "medium", "large"];
 	const sexes = ["male", "female"];
 
-
+	
 
 	return (
 		<>
@@ -34,10 +34,10 @@ function BrowsePets({ user, setUser }) {
 						{filtersVisible ? "Hide Filters" : "Show Filters"}
 					</button>
 					<div className={`pet-filter-container ${filtersVisible ? "open" : "collapsed"}`}>
-						<PetFilter filters={filters} setfilters={setfilters} types={types} shelters={shelters} age_stages={age_stages} sizes={sizes} sexes={sexes} />
+						<PetFilter filters={filters} setfilters={setfilters} types={types} shelters={shelters} age_stages={age_stages} sizes={sizes} sexes={sexes} user={user}/>
 
 					</div>
-					<PetGrid filters={filters} />
+					<PetGrid filters={filters} user={user} setUser={setUser} />
 
 				</section>
 			</div>

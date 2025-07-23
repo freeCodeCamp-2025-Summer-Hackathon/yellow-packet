@@ -31,7 +31,7 @@ function SignUpPage() {
     const luckyAnimals = [luckyBunny, luckyCat, luckyDog, luckyParrot, luckySquirrel];
     const luckyNum = Math.floor(Math.random() * luckyAnimals.length);
     setLuckyAnimal(luckyAnimals[luckyNum]);
-  });
+  }, []);
 
   const handleSubmit = (e) => {
     e.preventDefault();
