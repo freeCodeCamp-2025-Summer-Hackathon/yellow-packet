@@ -19,7 +19,7 @@ export default function PetFilter({ filters, setfilters, types, shelters, age_st
 	const handleShelterChange = (e) => {
 		const newFilters = {
 			...filters,
-			shelter_name: e.target.value
+			shelter: e.target.value
 		}
 		setfilters(newFilters);
 	}
@@ -49,7 +49,7 @@ export default function PetFilter({ filters, setfilters, types, shelters, age_st
 	}
 
 	const handleFavoritesChange = (e) => {
-		if (!user){
+		if (!user) {
 			return console.log("User not logged in");
 		}
 		const newFilters = {
@@ -147,7 +147,7 @@ export default function PetFilter({ filters, setfilters, types, shelters, age_st
 					</>}
 
 				{/* Checkbox for favorites*/}
-				{ user && (
+				{user && (
 					<div className="favorites-checkbox">
 						<label className="filter-checkbox-label" htmlFor="favorites">
 							Favorites:
@@ -158,14 +158,14 @@ export default function PetFilter({ filters, setfilters, types, shelters, age_st
 								checked={filters.favorites}
 								onChange={handleFavoritesChange}
 								className="filter-checkbox"
-							aria-label="Show only favorite pets"
+								aria-label="Show only favorite pets"
 
 							/>
 							<span className="custom-checkbox" />
 						</label>
 					</div>)
 				}
-				
+
 
 
 			</main>
