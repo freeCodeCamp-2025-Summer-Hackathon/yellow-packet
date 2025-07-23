@@ -29,7 +29,7 @@ export default function UserProfile(user) {
 	};
 
     const handleEdit = () => {
-		navigate(`/edit/${mockUser.id}`);
+		navigate(`/edit/user-profile/${mockUser.id}`);
 	};
 
     return (

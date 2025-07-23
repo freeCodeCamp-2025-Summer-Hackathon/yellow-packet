@@ -8,6 +8,7 @@ import SignUpPage from './pages/SignUpPage';
 import AboutUs from './pages/AboutUs';
 import CreatePet from './pages/CreatePet';
 import UserProfile from './pages/UserProfile';
+import EditUserProfile from './pages/EditUserProfile';
 
 
 function App() {
@@ -23,6 +24,7 @@ function App() {
 				<Route path="/about" element={<AboutUs user={user} setUser={setUser} />} />
 				<Route path="/createpet" element={<CreatePet />} />
 				<Route path="/user-profile/:userId" element={<UserProfile user={user} setUser={setUser} />} />
+				<Route path="/edit/user-profile/:userId" element={<EditUserProfile />} />
 			</Routes>
 		</Router>
 	)
