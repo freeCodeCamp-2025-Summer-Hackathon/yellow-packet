@@ -41,7 +41,7 @@ router.post('/', async (req, res) => {
   try {
     const newPet = await pet.save();
     res.status(201).json(newPet);
-  } catch (error)_ {
+  } catch (error) {
     res.status(400).json({ message: error.message });
   }
 });

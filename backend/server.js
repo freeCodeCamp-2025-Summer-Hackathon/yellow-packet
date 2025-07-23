@@ -3,15 +3,17 @@ import express from 'express';
 import cors from 'cors';
 import mongoose from 'mongoose';
 import petRoutes from './routes/pets.js';
-import swaggerUi from 'swagger-ui-express';
+// import swaggerUi from 'swagger-ui-express'; // Temporarily disabled
 
-import path from 'path';
-import { fileURLToPath } from 'url';
+// --- Temporarily disable Swagger JSON loading ---
+// import fs from 'fs';
+// import path from 'path';
+// import { fileURLToPath } from 'url';
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-const swaggerDocument = JSON.parse(fs.readFileSync(path.join(__dirname, 'swagger.json'), 'utf8'));
-// ------------------------------------------
+// const __filename = fileURLToPath(import.meta.url);
+// const __dirname = path.dirname(__filename);
+// const swaggerDocument = JSON.parse(fs.readFileSync(path.join(__dirname, 'swagger.json'), 'utf8'));
+// ---
 
 const app = express();
 const port = process.env.PORT || 5000;
@@ -32,9 +34,9 @@ mongoose.connect(process.env.MONGODB_URI, {
 });
 
 app.use('/api/pets', petRoutes);
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+// app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument)); // Temporarily disabled
 
 app.listen(port, () => {
   console.log(`Server is running on http://localhost:${port}`);
-  console.log(`Swagger docs available at http://localhost:${port}/api-docs`);
+  // console.log(`Swagger docs available at http://localhost:${port}/api-docs`); // Temporarily disabled
 });
