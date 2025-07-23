@@ -2,6 +2,8 @@ import { getAllPets, getPet } from "../models/pet.model.js";
 import { Shelter, PetProfile } from "../schemas/schema.js";
 
 export const addPet = async (req, res) => {
+	console.log("addPet called");
+
 	try {
 		// Check if shelter exists
 		const shelter = await Shelter.findById(req.body.shelter_id);
@@ -12,23 +14,28 @@ export const addPet = async (req, res) => {
 			});
 		}
 
-		// Create the pet
+		// Directly create the pet profile using request body
 		const pet = await PetProfile.create({
 			shelter_id: req.body.shelter_id,
-			species: req.body.species.toLowerCase(),
-			shelter_name: shelter.shelter_name,
-			sex: req.body.sex || "",
-			age: req.body.years || 0,
-			weight: req.body.weight || 0,
-			date_birth: req.body.date_birth || null,
-			illness_disabilities: req.body.illness_disabilities || "",
-			personality: req.body.personality || "",
-			photo_link: req.body.photo_link || "",
-			bio: req.body.bio || "",
-			spayed_neutered: req.body.spayed_neutered || false,
-			favourite: req.body.favourite || "" // Will need to change the schema to fix the many-to-many 
+			name: req.body.name,
+			species: req.body.species,
+			sex: req.body.sex,
+			birthday: req.body.birthday,
+			age: req.body.age,
+			shelter: shelter.shelter_name,
+			size: req.body.size,
+			weight: req.body.weight,
+			disabilities: req.body.disabilities,
+			personality: req.body.personality,
+			about1: req.body.about1,
+			about2: req.body.about2,
+			favorites: req.body.favorites,
+			pics: req.body.pics,
+			bio: req.body.bio,
+			spayed_neutered: req.body.spayed_neutered
 		});
 
+		// Link the new pet to the shelter
 		await Shelter.findByIdAndUpdate(
 			req.body.shelter_id,
 			{ $push: { pets: pet.pet_uid } },
