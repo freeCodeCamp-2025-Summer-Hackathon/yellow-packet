@@ -6,7 +6,7 @@ import Navbar from '../components/Navbar';
 import { useNavigate, useParams } from 'react-router-dom';
 import "../styles/EditUserProfile.css";
 
-export default function EditUserProfile() {
+export default function EditUserProfile({ user, setUser }) {
 	const navigate = useNavigate();
 	const { userId } = useParams();
 
@@ -49,7 +49,7 @@ export default function EditUserProfile() {
 
 	return (
 		<>
-			<Header />
+			<Header user={user} setUser={setUser} />
 			<Navbar />
 			<div className="edit-user-page">
 				<h1 className="title">Edit User Profile</h1>

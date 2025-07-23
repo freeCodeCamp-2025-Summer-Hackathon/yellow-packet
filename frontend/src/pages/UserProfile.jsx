@@ -8,8 +8,9 @@ import "../styles/UserProfile.css";
 import SpongeBob from "../images/spongebob.jpg"
 import { useNavigate } from 'react-router-dom';
 import { Link } from "react-router-dom";
+import { FaVestPatches } from "react-icons/fa";
 
-export default function UserProfile(user) {
+export default function UserProfile({ user, setUser }) {
 
     const navigate = useNavigate();
 
@@ -22,6 +23,7 @@ export default function UserProfile(user) {
         location: "Bikini Bottom, Ocean",
         bio: "A pet owner of 3 months! I have a pet snail and I would love to add to my family",
         avatar: SpongeBob,
+        favorites: [],
     };
 
     const handleDelete = () => {
@@ -32,9 +34,11 @@ export default function UserProfile(user) {
 		navigate(`/edit/user-profile/${mockUser.id}`);
 	};
 
+    const filters = { type: '', shelter: '', age_stage: '', size: '', sex: '', favorites: true };
+
     return (
         <>
-            <Header />
+            <Header user={user} setUser={setUser} />
             <Navbar />
             <div className="user-profile-page">
 
@@ -68,9 +72,13 @@ export default function UserProfile(user) {
                             </div>
                         </div>
                     </div>
-                    <h2>Favorite Pets</h2>
-                    <PetGrid filters={{ favoritesOnly: true }} />
-                    
+                    {mockUser.favorites.length > 0 && (
+                        <>
+                            <h2>Favorite Pets</h2>
+                            <PetGrid filters={filters} />
+                        </>
+                    )}
+
                     <div className="delete-button-wrapper">
                         <button className="delete-profile-button" onClick={handleDelete}>Delete My Profile</button>
                     </div> 
