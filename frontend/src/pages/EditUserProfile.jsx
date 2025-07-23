@@ -11,10 +11,11 @@ export default function EditUserProfile({ user, setUser }) {
 	const { userId } = useParams();
 
 	const [formData, setFormData] = useState({
-		firstName: "SpongeBob",
-		lastName: "SquarePants",
-		location: "Bikini Bottom, Ocean",
-		phone: "(555) 123-4567",
+		first_name: "SpongeBob",
+		last_name: "SquarePants",
+		city: "Bikini Bottom",
+		state: "Ocean",
+		phone_number: "(555) 123-4567",
 		email: "sponge@squarepants.com",
 		bio: "A pet owner of 3 months! I have a pet snail and I would love to add to my family",
 		avatar: null,
@@ -63,16 +64,19 @@ export default function EditUserProfile({ user, setUser }) {
 						</div>
 					)}
 					<label>First Name:
-						<input type="text" name="firstName" value={formData.firstName} onChange={handleChange} required />
+						<input type="text" name="first_name" value={formData.first_name} onChange={handleChange} required />
 					</label>
 					<label>Last Name:
-						<input type="text" name="lastName" value={formData.lastName} onChange={handleChange} required />
+						<input type="text" name="last_name" value={formData.last_name} onChange={handleChange} required />
 					</label>
-					<label>Location:
-						<input type="text" name="location" value={formData.location} onChange={handleChange} required />
+					<label>City:
+						<input type="text" name="city" value={formData.city} onChange={handleChange} required />
+					</label>
+					<label>State:
+						<input type="text" name="state" value={formData.state} onChange={handleChange} required />
 					</label>
 					<label>Phone:
-						<input type="text" name="phone" value={formData.phone} onChange={handleChange} required />
+						<input type="text" name="phone_number" value={formData.phone_number} onChange={handleChange} required />
 					</label>
 					<label>Email:
 						<input type="email" name="email" value={formData.email} onChange={handleChange} required />
