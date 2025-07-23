@@ -5,7 +5,7 @@ import "../styles/BrowsePets.css";
 
 
 
-export default function PetFilter({ filters, setfilters, types, shelters, age_stages, sizes, sexes }) {
+export default function PetFilter({ filters, setfilters, types, shelters, age_stages, sizes, sexes, user }) {
 
 	/** The following handle functions update the filters state */
 	const handleTypeChange = (e) => {
@@ -49,6 +49,9 @@ export default function PetFilter({ filters, setfilters, types, shelters, age_st
 	}
 
 	const handleFavoritesChange = (e) => {
+		if (!user){
+			return console.log("User not logged in");
+		}
 		const newFilters = {
 			...filters,
 			favorites: e.target.checked
@@ -144,22 +147,25 @@ export default function PetFilter({ filters, setfilters, types, shelters, age_st
 					</>}
 
 				{/* Checkbox for favorites*/}
-				<div className="favorites-checkbox">
-					<label className="filter-checkbox-label" htmlFor="favorites">
-						Favorites:
-						<input
-							type="checkbox"
-							id="favorites"
-							name="favorites"
-							checked={filters.favorites}
-							onChange={handleFavoritesChange}
-							className="filter-checkbox"
-						aria-label="Show only favorite pets"
+				{ user && (
+					<div className="favorites-checkbox">
+						<label className="filter-checkbox-label" htmlFor="favorites">
+							Favorites:
+							<input
+								type="checkbox"
+								id="favorites"
+								name="favorites"
+								checked={filters.favorites}
+								onChange={handleFavoritesChange}
+								className="filter-checkbox"
+							aria-label="Show only favorite pets"
 
-						/>
-						<span className="custom-checkbox" />
-					</label>
-				</div>
+							/>
+							<span className="custom-checkbox" />
+						</label>
+					</div>)
+				}
+				
 
 
 			</main>
