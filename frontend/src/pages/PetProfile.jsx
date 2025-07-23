@@ -118,7 +118,7 @@ useEffect(() => {
 								<li><strong>Pet ID:</strong> #{pet.id}</li>
 								<li><strong>Species:</strong> {pet.species}</li>
 								<li><strong>Sex:</strong> {pet.sex}</li>
-								<li><strong>Birthday:</strong> {pet.birthday}</li>
+								<li><strong>Birthday:</strong> {new Date(pet.birthday).toLocaleDateString()}</li>
 								<li><strong>Disabilities:</strong> {pet.disabilities}</li>
 								<li><strong>Personality:</strong> {pet.personality}</li>
 							</ul>

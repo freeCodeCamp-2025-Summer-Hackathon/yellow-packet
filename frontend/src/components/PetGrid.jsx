@@ -39,9 +39,8 @@ export default function PetGrid({ filters, user, setUser }) {
 	const fetchPets = async () => {
 		try {
 			const res = await axios.get(`${import.meta.env.VITE_SERVER_URI}/api/pets`);
-			console.log("Backend data:", res.data.data);
 			// Only update if we got valid data
-			if (res.data.data && res.data.data.length > 0) {
+			if (res.data?.data?.length > 0) {
 				setPetList(res.data.data);
 			}
 			// If no data or empty array, keep using static data
