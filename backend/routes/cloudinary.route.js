@@ -12,7 +12,8 @@ cloudinary.config({
 
 const router = express.Router();
 
-router.get("/api/cloudinary-signature", async (req, res) => {
+router.get("/signature", async (req, res) => {
+	console.log("Cloudinary called")
 	try {
 		const timestamp = Math.round(new Date().getTime() / 1000);
 		const params = {
