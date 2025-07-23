@@ -120,6 +120,62 @@ body {
   padding: 0.5rem 1rem;
 }
 
+/* Weight section */
+.weight-section {
+  margin-bottom: 0.5rem;
+}
+
+.weight-label {
+  display: block;
+  margin-bottom: 0.3rem;
+  font-size: clamp(0.8rem, 2vw, 0.9rem);
+  font-weight: 500;
+  color: #333;
+}
+
+.weight-text::after {
+  content: ":";
+}
+
+.weight-input-group {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.weight-input {
+  flex: 1;
+  margin-bottom: 0 !important;
+}
+
+.weight-unit-select {
+  width: 80px;
+  margin-bottom: 0 !important;
+  background: #f9f9f9;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%23444' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e");
+  background-position: right 8px center;
+  background-repeat: no-repeat;
+  background-size: 12px;
+  padding-right: 30px;
+  text-align: center;
+}
+
+/* Neutered section */
+.neutered-section {
+  margin-bottom: 0.5rem;
+}
+
+.neutered-label {
+  display: block;
+  margin-bottom: 0.3rem;
+  font-size: clamp(0.8rem, 2vw, 0.9rem);
+  font-weight: 500;
+  color: #333;
+}
+
+.neutered-text::after {
+  content: ":";
+}
 /* Birthday section */
 .birthday-section {
   margin-bottom: 0.5rem;
@@ -322,6 +378,23 @@ body {
   }
 
   .pictures-label {
+    font-size: 0.85rem;
+  }
+
+  .weight-input-group {
+    flex-direction: column;
+    gap: 0.3rem;
+  }
+  
+  .weight-unit-select {
+    width: 100%;
+  }
+
+  .neutered-label {
+    font-size: 0.85rem;
+  }
+
+  .weight-label {
     font-size: 0.85rem;
   }
 

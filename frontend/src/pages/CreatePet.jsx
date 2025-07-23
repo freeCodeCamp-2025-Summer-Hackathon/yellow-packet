@@ -17,6 +17,10 @@ const initialState = {
 	description: "",
 	pictures: [""],
 	disabilities: "",
+	size: "",
+	weight: "",
+	weightUnit: "lb",
+	neutered: "",
 };
 
 const petTypes = [
@@ -24,11 +28,13 @@ const petTypes = [
 	"Cat",
 	"Rabbit",
 	"Bird",
-	"Guinea Pig",
-	"Hamster",
-	"Fish",
-	"Reptile",
 	"Other"
+];
+
+const petSizes = [
+	"small",
+	"medium",
+	"large"
 ];
 
 export default function CreatePet() {
@@ -148,6 +154,68 @@ export default function CreatePet() {
 									placeholder="Breed*"
 									required
 								/>
+
+								<select
+									name="size"
+									className="input select-input"
+									value={pet.size}
+									onChange={handleChange}
+									required
+								>
+									<option value="">Select pet size*</option>
+									{petSizes.map(size => (
+										<option key={size} value={size}>
+											{size.charAt(0).toUpperCase() + size.slice(1)}
+										</option>
+									))}
+								</select>
+
+								<div className="weight-section">
+									<label htmlFor="weight" className="weight-label">
+										<span className="weight-text">Pet's Weight*</span>
+									</label>
+									<div className="weight-input-group">
+										<input
+											type="number"
+											name="weight"
+											id="weight"
+											className="input weight-input"
+											value={pet.weight}
+											onChange={handleChange}
+											placeholder="Weight"
+											min="0"
+											step="0.1"
+											required
+										/>
+										<select
+											name="weightUnit"
+											className="input weight-unit-select"
+											value={pet.weightUnit}
+											onChange={handleChange}
+										>
+											<option value="kg">kg</option>
+											<option value="lb">lb</option>
+										</select>
+									</div>
+								</div>
+
+								<div className="neutered-section">
+									<label className="neutered-label">
+										<span className="neutered-text">Is the pet neutered/spayed?*</span>
+									</label>
+									<select
+										name="neutered"
+										className="input select-input"
+										value={pet.neutered}
+										onChange={handleChange}
+										required
+									>
+										<option value="">Please select*</option>
+										<option value="yes">Yes</option>
+										<option value="no">No</option>
+										<option value="unknown">Unknown</option>
+									</select>
+								</div>
 
 								<div className="birthday-section">
 									<label htmlFor="birthday" className="birthday-label">
