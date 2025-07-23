@@ -3,27 +3,17 @@ import Navbar from "../components/Navbar";
 import BrowsePetsHeading from "../components/BrowsePetsHeading";
 import PetGrid from "../components/PetGrid";
 import PetFilter from "../components/PetFilter";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import axios from "axios";
+import { useQuery } from '@tanstack/react-query';
 
 function BrowsePets({ user, setUser }) {
-	const [filters, setfilters] = useState({
-		type: '',
-		shelter: '',
-		age_stage: '',
-		size: '',
-		sex: '',
-		favorites: false
-	});
-	const [filtersVisible, setFiltersVisible] = useState(false);
-	const [shelters, setShelters] = useState([]);
-	const [loading, setLoading] = useState(true);
-
-	const toggleFilter = () => {
-		setFiltersVisible(prev => !prev);
-	};
-
 	const getShelters = async () => {
+		console.log('🔥 SHELTERS API CALLED:', {
+			time: new Date().toLocaleTimeString(),
+			mode: import.meta.env.MODE, // Shows 'development' or 'production'
+			reason: 'Query function executed'
+		});
 		try {
 			const response = await axios.get(`${import.meta.env.VITE_SERVER_URI}/api/shelters`);
 			return response.data;
@@ -33,22 +23,25 @@ function BrowsePets({ user, setUser }) {
 		}
 	};
 
-	// Fetch shelters on component mount
-	useEffect(() => {
-		const fetchShelters = async () => {
-			try {
-				const shelterData = await getShelters();
-				setShelters(shelterData.map(e => e.shelter_name));
-				setLoading(false);
-			} catch (error) {
-				console.error("Error fetching shelters:", error);
-				setShelters([]); // Fallback to empty array
-				setLoading(false);
-			}
-		};
+	const { data: shelters = ["Colorado Shelter", "Cali Shelter"], isLoading } = useQuery({
+		queryKey: ['shelters'],
+		queryFn: getShelters,
+		select: (data) => data.map(e => e.shelter_name),
+	});
 
-		fetchShelters();
-	}, []);
+	const [filters, setfilters] = useState({
+		type: '',
+		shelter: '',
+		age_stage: '',
+		size: '',
+		sex: '',
+		favorites: false
+	});
+	const [filtersVisible, setFiltersVisible] = useState(false);
+
+	const toggleFilter = () => {
+		setFiltersVisible(prev => !prev);
+	};
 
 	// Static filter options
 	const types = ['dog', 'cat', 'bird', 'rabbit'];
@@ -56,7 +49,7 @@ function BrowsePets({ user, setUser }) {
 	const sizes = ["small", "medium", "large"];
 	const sexes = ["male", "female"];
 
-	if (loading) {
+	if (isLoading) {
 		return (
 			<div>
 				<Header user={user} setUser={setUser} />

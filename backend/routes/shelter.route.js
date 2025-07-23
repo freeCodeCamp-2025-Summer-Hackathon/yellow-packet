@@ -85,6 +85,7 @@ router.post("/", validateShelterData, async (req, res) => {
 router.get("/", async (req, res) => {
 	try {
 		// Todo: Implement page, offset?
+		console.log("Route shelter called")
 		const result = await Shelter.find({}).lean();
 		return res.status(200).json(result);
 	} catch (error) {
