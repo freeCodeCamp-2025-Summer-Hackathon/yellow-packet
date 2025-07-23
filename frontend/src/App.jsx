@@ -5,6 +5,7 @@ import BrowsePets from './pages/BrowsePets';
 import LoginPage from './pages/LoginPage';
 import PetProfile from './pages/PetProfile';
 import SignUpPage from './pages/SignUpPage';
+import UserProfile from './pages/UserProfile';
 import AboutUs from './pages/AboutUs';
 import CreatePet from './pages/CreatePet';
 import UserProfile from './pages/UserProfile';
