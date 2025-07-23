@@ -9,6 +9,7 @@ import ShelterProfile from './pages/ShelterProfile';
 import AboutUs from './pages/AboutUs';
 import CreatePet from './pages/CreatePet';
 import ShelterProfile from './pages/ShelterProfile';
+import EditShelterProfile from './pages/EditShelterProfile';
 
 function App() {
 	const [user, setUser] = useState(null);
@@ -24,6 +25,7 @@ function App() {
 				<Route path="/about" element={<AboutUs user={user} setUser={setUser} />} />
 				<Route path="/createpet" element={<CreatePet />} />
 				<Route path="/shelter-profile/:shelterId" element={<ShelterProfile />} />
+				<Route path="/edit/shelter-profile/:shelterId" element={<EditShelterProfile />} />
 			</Routes>
 		</Router>
 	)
