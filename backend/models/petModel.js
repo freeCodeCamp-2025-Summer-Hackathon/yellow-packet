@@ -1,4 +1,19 @@
-import { PetProfile, AdopterProfile } from "../schemas/schema.js";
+import mongoose from 'mongoose';
+
+const petSchema = new mongoose.Schema({
+  name: { type: String, required: true },
+  type: { type: String, required: true },
+  breed: { type: String, required: true },
+  age: { type: Number, required: true },
+  disposition: { type: String, required: true },
+  picture: { type: String, required: true },
+  availability: { type: String, required: true, enum: ['Available', 'Pending', 'Adopted'] },
+  dateAdded: { type: Date, default: Date.now }
+});
+
+const Pet = mongoose.model('Pet', petSchema);
+
+export default Pet; 
 
 export const addPetProfile = async (values) => {
 	try {

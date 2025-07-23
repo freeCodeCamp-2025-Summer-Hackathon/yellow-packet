@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "mongoose": "^8.16.4",
     "react-router-dom": "^7.6.3"
   }
 }

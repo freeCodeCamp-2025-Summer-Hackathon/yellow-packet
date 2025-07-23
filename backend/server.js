@@ -1,101 +1,40 @@
-import express from "express";
-import dotenv from "dotenv";
-import { specs, swaggerUi } from "./swagger.js";
-import mongoose from "mongoose";
+import 'dotenv/config';
+import express from 'express';
+import cors from 'cors';
+import mongoose from 'mongoose';
+import petRoutes from './routes/pets.js';
+import swaggerUi from 'swagger-ui-express';
 
-import authRoutes from "./routes/auth.route.js";
-import userRoutes from "./routes/user.route.js";
-import petRoutes from "./routes/pets.routes.js";
-import shelterRoutes from "./routes/shelter.route.js";
+import path from 'path';
+import { fileURLToPath } from 'url';
 
-dotenv.config();
-
-const dbConfig = {
-	username: process.env.USER_MONGOOSE,
-	password: process.env.USER_MONGOOSE_PASSWORD,
-	address: process.env.MONGOOSE_ADDRESS,
-	cluster: process.env.MONGOOSE_CLUSTER,
-	database: process.env.DATABASE_NAME,
-
-	// Build the connection string
-	getConnectionString() {
-		return `mongodb+srv://${this.username}:${this.password}@${this.address}/${this.database}?retryWrites=true&w=majority&appName=${this.cluster}`;
-	},
-};
-
-mongoose
-	.connect(dbConfig.getConnectionString())
-	.then(() => {
-		console.log(":white_check_mark: MongoDB connected!");
-	})
-	.catch((error) => {
-		console.log(":x: Connection failed:", error);
-	});
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+const swaggerDocument = JSON.parse(fs.readFileSync(path.join(__dirname, 'swagger.json'), 'utf8'));
+// ------------------------------------------
 
 const app = express();
-const PORT = process.env.PORT || 5000;
+const port = process.env.PORT || 5000;
 
-// Middleware
+app.use(cors());
 app.use(express.json());
 
-/**
- * @swagger
- * tags:
- *   name: General
- *   description: General API endpoints
- */
+console.log('Attempting to connect with MONGODB_URI:', process.env.MONGODB_URI);
 
-/**
- * @swagger
- * /:
- *   get:
- *     summary: Health check endpoint
- *     tags: [General]
- *     responses:
- *       200:
- *         description: API is running
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 message:
- *                   type: string
- *                   example: "API is running"
- */
-app.get("/", (_req, res) => {
-	res.json({ message: "API is running" });
+mongoose.connect(process.env.MONGODB_URI, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+}).then(() => {
+  console.log('✅ MongoDB connected successfully.');
+}).catch(err => {
+  console.error('❌ Connection failed:', err);
+  process.exit(1);
 });
 
-// IMPORTANT: Add this BEFORE the swagger-ui middleware for it to generate markdown documentation
-app.get("/api-docs/swagger.json", (_req, res) => {
-	res.json(specs);
-});
+app.use('/api/pets', petRoutes);
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
-// Swagger Documentation
-app.use(
-	"/api-docs",
-	swaggerUi.serve,
-	swaggerUi.setup(specs, {
-		explorer: true,
-		customCss: ".swagger-ui .topbar { display: none }",
-		customSiteTitle: "My API Documentation",
-	})
-);
-
-// Routes
-app.use("/api/auth", authRoutes);
-app.use("/api/users", userRoutes);
-app.use("/api/pets", petRoutes);
-app.use("/api/shelters", shelterRoutes);
-
-if (process.env.DEVELOPMENT === "test") {
-	const { default: testRoutes } = await import("./routes/test.route.js");
-	app.use("/api/test", testRoutes);
-	console.log("🧪 Test routes enabled");
-}
-
-app.listen(PORT, () => {
-	console.log("Server is running on http://localhost:" + PORT);
-	console.log(`Swagger docs available at http://localhost:${PORT}/api-docs`);
+app.listen(port, () => {
+  console.log(`Server is running on http://localhost:${port}`);
+  console.log(`Swagger docs available at http://localhost:${port}/api-docs`);
 });
