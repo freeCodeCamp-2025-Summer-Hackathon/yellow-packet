@@ -9,6 +9,8 @@ import userRoutes from "./routes/user.route.js";
 import petRoutes from "./routes/pets.routes.js";
 import shelterRoutes from "./routes/shelter.route.js";
 import requestRoutes from "./routes/request.route.js";
+import cloudinaryRoutes from "./routes/cloudinary.route.js"
+
 dotenv.config();
 
 const dbConfig = {
@@ -91,6 +93,8 @@ app.use("/api/users", userRoutes);
 app.use("/api/pets", petRoutes);
 app.use("/api/shelters", shelterRoutes);
 app.use("/api/request", requestRoutes);
+app.use("/api/cloudinary", cloudinaryRoutes);
+
 if (process.env.DEVELOPMENT === "test") {
 	const { default: testRoutes } = await import("./routes/test.route.js");
 	app.use("/api/test", testRoutes);
