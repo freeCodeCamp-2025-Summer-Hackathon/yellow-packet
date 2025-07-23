@@ -25,7 +25,6 @@ mongoose.connect(dbConfig.getConnectionString())
 const seed = async () => {
 	try {
 		// await mongoose.connection.dropDatabase();
-		let petIdCounter = 1000;
 
 		// Create users - ensuring we have at least 5 shelter users and some adopter users
 		const shelterUsers = await Promise.all(
@@ -152,7 +151,6 @@ const seed = async () => {
 				}
 
 				const pet = await PetProfile.create({
-					id: petIdCounter++,
 					shelter_id: shelter._id.toString(),
 					name: faker.person.firstName(),
 					species: species,

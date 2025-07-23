@@ -23,7 +23,7 @@ useEffect(() => {
 	// If we received a pet, merge with defaults
 	const defaultPet = {
 		name: "Leo",
-		id: 2048,
+		_id: 2048,
 		species: "Cat",
 		sex: "Male",
 		birthday: "3/15/2022",
@@ -44,8 +44,6 @@ useEffect(() => {
 }, [givenPet]);
 
 
-	const [isFavorite, setIsFavorite] = useState(false);
-
 	const [currentIndex, setCurrentIndex] = useState(0);
 
 	const handlePrev = () => {
@@ -60,20 +58,34 @@ useEffect(() => {
 		);
 	};
 
-	const toggleFavorite = () => {
-		// TODO: Implement favorite logic
+	function toggleFavorite() {
 		if (!user) return alert("Login to favorite pets!"); // If no user, just return (can't favorite without being logged in)
-		setIsFavorite((prev) => !prev);
-	};
+
+		// update pet favorites array 
+		if (pet.favorites.includes(user?.id)) {
+			setPet({ ...pet, favorites: pet.favorites.filter(id => id !== user?.id) });
+		} else {
+			setPet({ ...pet, favorites: [...pet.favorites, user?.id] });
+		}
+
+
+		// Update user's favorites array
+		setUser(prev => {
+			if (prev) {
+				return { ...prev, favorites: prev.favorites.includes(pet._id) ? prev.favorites.filter(id => id !== pet._id) : [...prev.favorites, pet._id] };
+			}
+			return prev;
+		});
+	}
 
 	const navigate = useNavigate();
 
 	const handleEdit = () => {
-		navigate(`/edit/${pet.id}`);
+		navigate(`/edit/${pet._id}`);
 	};
 
 	const handleDelete = () => {
-		navigate(`/delete/${pet.id}`);
+		navigate(`/delete/${pet._id}`);
 	};
 	if (!pet) return <div>Loading...</div>;
 
@@ -115,7 +127,7 @@ useEffect(() => {
 							)}
 
 							<ul className="pet-info">
-								<li><strong>Pet ID:</strong> #{pet.id}</li>
+								<li><strong>Pet ID:</strong> #{pet._id}</li>
 								<li><strong>Species:</strong> {pet.species}</li>
 								<li><strong>Sex:</strong> {pet.sex}</li>
 								<li><strong>Birthday:</strong> {new Date(pet.birthday).toLocaleDateString()}</li>
@@ -133,7 +145,7 @@ useEffect(() => {
 							<div className="pet-header">
 								<h1 className="pet-name">{pet.name}</h1>
 								<button className="favorite-button" aria-label="Toggle favorite" onClick={toggleFavorite}>
-									{isFavorite ? '❤️' : '🤍'}
+									{pet?.favorites?.includes(user?.id) ? '❤️' : '🤍'}
 								</button>
 							</div>
 								<h2 className="pet-subtitle">{pet.age} year old {pet.species}</h2>

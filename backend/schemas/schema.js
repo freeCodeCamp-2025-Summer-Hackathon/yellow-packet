@@ -38,12 +38,12 @@ const adopterProfileSchema = new mongoose.Schema({
 	gender: { type: String },
 	pronouns: { type: String },
 	birthday: { type: Date },
-	favorites: [String], // Array of pet IDs that the user has favorited
+	favorites: [{ type: String }], // Array of pet IDs that the user has favorited
 });
 
 // Pet Profile Schema
 const petProfileSchema = new mongoose.Schema({
-	id: Number,
+	shelter_id: { type: String, required: true }, // Reference to the shelter that owns this pet
 	name: String,
 	species: { type: String, enum: ['dog', 'cat', 'bird', 'rabbit'] }, // the species we allow as of now
 	sex: { type: String, enum: ['male', 'female'] }, // the pet's sex
