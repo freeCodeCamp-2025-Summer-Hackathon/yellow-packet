@@ -14,21 +14,6 @@ import { useLocation } from 'react-router-dom';
 
 function PetProfile({ user, setUser }) {
 
-	const defaultPet = {
-	name: "Leo",
-	id: 2048,
-	species: "Cat",
-	sex: "Male",
-	birthday: "3/15/2022",
-	age: 3,
-	shelter: "Shelter Name Here",
-	disabilities: "None",
-	personality: "Social Butterfly",
-	about1: "I’m just a silly cat who is very smart, and friendly!",
-	about2: "I am nice and I love to play with kids!",
-	pics: [cat_1, cat_2, cat_3],
-};
-
 const location = useLocation();
 const givenPet = location.state?.pet;
 
@@ -36,6 +21,21 @@ const [pet, setPet] = useState(null);
 
 useEffect(() => {
 	// If we received a pet, merge with defaults
+	const defaultPet = {
+		name: "Leo",
+		id: 2048,
+		species: "Cat",
+		sex: "Male",
+		birthday: "3/15/2022",
+		age: 3,
+		shelter: "Shelter Name Here",
+		disabilities: "None",
+		personality: "Social Butterfly",
+		about1: "I’m just a silly cat who is very smart, and friendly!",
+		about2: "I am nice and I love to play with kids!",
+		pics: [cat_1, cat_2, cat_3],
+	};
+
 	if (givenPet) {
 		setPet({ ...defaultPet, ...givenPet });
 	} else {
@@ -139,12 +139,15 @@ useEffect(() => {
 								<h2 className="pet-subtitle">{pet.age} year old {pet.species}</h2>
 								<p className="shelter-name">{pet.shelter}</p>
 
+								{/* About Section: if there are things to say */}
+								{ pet.bio || pet.about1 || pet.about2 ? (
 								<div className="about-box">
 									<h3>About Me</h3>
-									<p>{pet.about1}</p>
-									<p>{pet.about2}</p>
+									{pet.bio && <p>{pet.bio}</p>}
+									{pet.about1 && <p>{pet.about1}</p>}
+									{pet.about2 && <p>{pet.about2}</p>}
 								</div>
-
+								): null}
 								<Link to="/shelters" className="contact-shelter-button">Contact Shelter!</Link>
 						</div>
 					</div>

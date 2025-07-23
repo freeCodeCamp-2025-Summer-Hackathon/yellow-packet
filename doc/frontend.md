@@ -1,4 +1,22 @@
-# Preface
+# Setup for Testing
+
+To run the frontend:
+
+from the root folder: 
+
+- command: `cd frontend`
+- make sure you have the .env file added to this section (/frontend/.env)
+- command: `npm run dev`
+
+To make sure the full app is running, also run the backend:
+
+- command: `cd backend`
+- make sure you have the .env file added to this section (/backend/.env)
+- command: `npm run dev`
+
+# Notes for Development
+
+#### Preface
 
 For each component and page design, ensure that the design has been reviewed and approved in FIGMA before proceeding to implement. 
 
@@ -32,46 +50,43 @@ frontend
 ├── public
 │   └── pet-match.svg
 ├── src
-│   ├── assets
+│   ├── images
 │   │   ├── *.png
-│   │   ├── *.svg
-│   │   └── pet-match.svg 
+│   │   └── *.svg
 │   ├── components
-│   │   ├── AddPets.jsx
-│   │   ├── AdopterAboutMe.jsx
-│   │   ├── ShelterAboutMe.jsx
-│   │   ├── PetAboutMe.jsx
-│   │   ├── PetMainInfo.jsx
 │   │   ├── BrowsePetsHeading.jsx
 │   │   ├── BrowsePetsPreview.jsx
 │   │   ├── Header.jsx
+│   │   ├── AddPets.jsx
 │   │   ├── LandingPageHero.jsx
+│   │   ├── LoginHelpModal.jsx
 │   │   ├── Navbar.jsx
 │   │   ├── PetCard.jsx
 │   │   ├── PetFilter.jsx
-│   │   └── PetGrid.jsx
+│   │   ├── PetGrid.jsx
+│   │   └── SignUpHelpModal.jsx
 │   ├── pages
-│   │   ├── AboutPage.jsx
+│   │   ├── AboutUs.jsx
 │   │   ├── BrowsePets.jsx
 │   │   ├── LandingPage.jsx
-│   │   ├── SignInPage.jsx
-│   │   ├── SignUpPage.jsx
+│   │   ├── LoginPage.jsx
+│   │   ├── PetProfile.jsx 
 │   │   ├── ShelterProfile.jsx
-│   │   ├── UserProfile.jsx
-│   │   └── PetProfile.jsx 
+│   │   ├── AdopterProfile.jsx
+│   │   └── SignUpPage.jsx
 │   ├── styles
-│   │   ├── *.css
-│   │   └── LandingPage.css 
+│   │   └── *.css 
 │   ├── App.jsx
 │   ├── index.css
 │   └── main.jsx
 ├── .env
 ├── .gitignore
+├── Dockerfile
 ├── eslint.config.js
 ├── index.html
-├── package.json
 ├── package-lock.json
-└──vite.config.js
+├── package.json
+└── vite.config.js
 ```
 # Workflow Hierarchy
 
@@ -80,7 +95,7 @@ frontend
 Click a component to read its description.
 
 [App.jsx](#appjsx)  
-├── [AboutPage.jsx](#aboutpagejsx)  
+├── [AboutUs.jsx](#aboutusjsx)  
 ├── [BrowsePets.jsx](#browsepetsjsx)  
 │   └── [PetGrid.jsx](#petgridjsx)  
 │       ├── [PetCard.jsx](#petcardjsx)  
@@ -89,18 +104,14 @@ Click a component to read its description.
 │   ├── [BrowsePetsPreview.jsx](#browsepetspreviewjsx)  
 │   │   └── [PetCard.jsx](#petcardjsx)  
 │   └── [LandingPageHero.jsx](#landingpageherojsx)  
-├── [SignInPage.jsx](#signinpagejsx)  
+├── [LoginPage.jsx](#loginpagejsx)  
 ├── [SignUpPage.jsx](#signuppagejsx)  
 ├── [ShelterProfile.jsx](#shelterprofilejsx)  
-│   ├── [ShelterAboutMe.jsx](#shelteraboutmejsx)  
 │   ├── [AddPets.jsx](#addpetsjsx)    
 │   └── [PetGrid.jsx](#petgridjsx)  
 ├── [AdopterProfile.jsx](#adopterprofilejsx)  
-│   ├── [AdopterAboutMe.jsx](#adopteraboutmejsx)  
 │   └── [PetGrid.jsx](#petgridjsx)   
 ├── [PetProfile.jsx](#petprofilejsx)    
-│   ├── [PetAboutMe.jsx](#petaboutmejsx)  
-│   └── [PetMainInfo.jsx](#petmaininfojsx)  
 ├── [Header.jsx](#headerjsx)  
 └── [Navbar.jsx](#navbarjsx)  
 
@@ -109,7 +120,7 @@ Click a component to read its description.
 ### App.jsx
 - App.jsx handles the routing logic, passing parameters from one page to another, ensuring the entire app is running cohesively (on the same page for lack of a better expression).
 
-### AboutPage.jsx
+### AboutUs.jsx
 - This page contains information about the PetMatch company! A little bit about what the app does, why we made the app, and how to contact us.
 
 ### AddPets.jsx
@@ -128,10 +139,6 @@ Click a component to read its description.
 - A page consisting of the PetGrid and PetFilter that allows you to scroll through and view pets with and without filters.
 - **Users** can view, filter, and favorite pets.
 
-### PetAboutMe.jsx
-- ALL ABOUT ME SECTIONS CAN AND SHOULD SHARE STYLES (for consistency)
-- This is the beige box in the FIGMA containing the pet's bio
-- The rest of the information should be found in the [PetMainInfo](#petmaininfojsx)
 
 ### PetCard.jsx
 - Represents a single clickable pet card containing the name, age, and a picture of a given pet. Clicking on the pet card should take you to that pet's [PetProfile](#petprofilejsx)
@@ -140,10 +147,7 @@ Click a component to read its description.
 - This is a grouping of pet cards.
 - You should USE the <PetCard /> component to build a resizable grid of pet cards.
 - You should use the PetFilter function to determine which pets to show in the grid.
-
-### PetMainInfo.jsx
-- This is a very direct, standard, and organized text section containing all major and minor information about the pet. Anything that can be shared publicly about this pet will be found here. 
-- In Figma, this is the section below the profile picture.
+- This is where almost all of the pet-related backend routing occurs
 
 ### PetFilter.jsx
 - This component filters the pet cards that are being shown. The pet filter currently consists of: Type, Shelter, Age, Size, Sex, and Favorites options. 
@@ -161,7 +165,7 @@ Click a component to read its description.
 - The "Hero" of a web app usually refers to a large, prominent image or section at the top of a webpage, often used to immediately capture a visitor's attention and convey the website's core message or purpose. -> in the words of Google's AI.
 - This will consist of a small image or two, where the images consist of some cute family and pet pics and an inspirational "Take home a furry new friend" quote, BUT it shouldn't be taken lightly since it is the first impression of our page.
 
-### SignInPage.jsx
+### LoginPage.jsx
 - This will assume the user/shelter has an account with a username and password and can log in.
 - Allows the user to enter a username and password to log in to PetMatch with previously stored information.
 
@@ -169,10 +173,6 @@ Click a component to read its description.
 - Allows the user to create an account with PetMatch if they do not yet have one.
 - Shelters can not make accounts without contacting us.
 - If not registered with Google Authentication API or other external API, registration will ask for a username, password, and confirm password at the bare minimum.
-
-### ShelterAboutMe.jsx
-- ALL ABOUT ME SECTIONS CAN AND SHOULD SHARE STYLES (for consistency)
-- This is the beige box in the FIGMA containing information about the shelter, including but not limited to: Name, contact info, exact location, and a bio
 
 ### ShelterProfile.jsx
 - This page will be rendered when a user is viewing a shelter's profile. This will contain information regarding the shelter, including but not limited to: Name, time on that app, contact information, and a biography.

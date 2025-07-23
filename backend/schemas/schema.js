@@ -45,21 +45,21 @@ const adopterProfileSchema = new mongoose.Schema({
 const petProfileSchema = new mongoose.Schema({
 	id: Number,
 	name: String,
-	species: { type: String, enum: ['dog', 'cat', 'bird', 'rabbit'] },
-	sex: { type: String, enum: ['male', 'female'] },
-	birthday: Date,
-	age: Number,
+	species: { type: String, enum: ['dog', 'cat', 'bird', 'rabbit'] }, // the species we allow as of now
+	sex: { type: String, enum: ['male', 'female'] }, // the pet's sex
+	birthday: Date, // pet's date of birth
+	age: Number, // age in years (calculated from birthday)
 	shelter: String, // shelter name
 	size: { type: String, enum: ['small', 'medium', 'large'] },
 	weight: Number,
-	disabilities: String,
-	personality: String,
-	about1: String,
+	disabilities: String, // anything a new owner should know about the pet
+	personality: String, // generic quirks in personality shared by many pets (descriptive terms)
+	about1: String, // for the about page
 	about2: String,
 	favorites: [String], // user _ids
 	pics: [String], // image URLs
-	bio: String,
-	spayed_neutered: Boolean,
+	bio: String, // additional information about the pet 
+	spayed_neutered: Boolean, // true if the pet is spayed/neutered
 });
 
 // Request Schema

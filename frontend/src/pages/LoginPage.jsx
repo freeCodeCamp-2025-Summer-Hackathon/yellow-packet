@@ -32,7 +32,7 @@ function LoginPage({ user, setUser }) {
     const luckyNum = Math.floor(Math.random() * luckyAnimals.length);
     setLuckyAnimal(luckyAnimals[luckyNum]);
 
-  });
+  }, []);
 
   // When a user presses the log in button
   const handleSubmit = (e) => {
