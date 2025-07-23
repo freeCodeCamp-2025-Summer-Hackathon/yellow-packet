@@ -5,6 +5,7 @@ import BrowsePets from './pages/BrowsePets';
 import LoginPage from './pages/LoginPage';
 import PetProfile from './pages/PetProfile';
 import SignUpPage from './pages/SignUpPage';
+import AboutUs from './pages/AboutUs';
 import CreatePet from './pages/CreatePet';
 
 function App() {
@@ -17,6 +18,7 @@ function App() {
 				<Route path="/login" element={<LoginPage user={user} setUser={setUser} />} />
 				<Route path="/pet-profile/:petId" element={<PetProfile user={user} setUser={setUser} />} />
 				<Route path="/signup" element={<SignUpPage />} />
+				<Route path="/about" element={<AboutUs user={user} setUser={setUser} />} />
 				<Route path="/createpet" element={<CreatePet />} />
 			</Routes>
 		</Router>

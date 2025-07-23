@@ -1,0 +1,49 @@
+x-default-opts: &default-opts
+  restart: unless-stopped
+
+services:
+  # Backend service
+  backend:
+    <<: *default-opts
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    ports:
+      - "5000:5000"
+    env_file:
+      - ./backend/.env
+    environment:
+      - NODE_ENV=production
+      - PORT=5000
+    volumes:
+      - ./backend:/app
+      - /app/node_modules
+    networks:
+      - app-network
+
+  # Frontend service
+  frontend:
+    <<: *default-opts
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+      args:
+        - NODE_ENV=production
+    ports:
+      - "8080:8080"
+    env_file:
+      - ./frontend/.env
+    environment:
+      - NODE_ENV=production
+      - VITE_API_URL=http://backend:5000
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    depends_on:
+      - backend
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge

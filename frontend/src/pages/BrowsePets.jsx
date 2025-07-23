@@ -15,18 +15,18 @@ function BrowsePets({ user, setUser }) {
 	};
 
 	// Values for testing: Swap these with values from the database
-	const types = ["Dog", "Cat"];
+	const types = ["dog", "cat"];
 	const shelters = ["Colorado Shelter", "Cali Shelter"];
 	const age_stages = ["Youth", "Adult", "Senior"];
-	const sizes = ["Small", "Medium", "Large"];
-	const sexes = ["Male", "Female"];
+	const sizes = ["small", "medium", "large"];
+	const sexes = ["male", "female"];
 
 	
 
 	return (
 		<>
 			<div>
-				<Header user={user} setUser={setUser}/>
+				<Header user={user} setUser={setUser} />
 				<Navbar />
 				<BrowsePetsHeading />
 				<section id="pet-gallery">
@@ -34,10 +34,10 @@ function BrowsePets({ user, setUser }) {
 						{filtersVisible ? "Hide Filters" : "Show Filters"}
 					</button>
 					<div className={`pet-filter-container ${filtersVisible ? "open" : "collapsed"}`}>
-						<PetFilter filters={filters} setfilters={setfilters} types={types} shelters={shelters} age_stages={age_stages} sizes={sizes} sexes={sexes} />
+						<PetFilter filters={filters} setfilters={setfilters} types={types} shelters={shelters} age_stages={age_stages} sizes={sizes} sexes={sexes} user={user}/>
 
 					</div>
-					<PetGrid filters={filters}/>
+					<PetGrid filters={filters} user={user} setUser={setUser} />
 
 				</section>
 			</div>
