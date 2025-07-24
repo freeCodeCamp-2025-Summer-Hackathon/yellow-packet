@@ -3,7 +3,6 @@
 import Header from '../components/Header';
 import Navbar from '../components/Navbar';
 import "../styles/PetProfile.css";
-import { Link } from "react-router-dom";
 import cat_1 from "../images/cat_1.jpg"
 import cat_2 from "../images/cat_2.jpg"
 import cat_3 from "../images/cat_3.jpg"
@@ -90,13 +89,17 @@ useEffect(() => {
 	if (!pet) return <div>Loading...</div>;
 
 
+	const handleShelterClick = () => {
+        navigate(`/shelter-profile/${pet.shelter_id}`, { state: { shelter: pet.shelter_id } });
+    };
+
 	return (
 		<>
 			<div>
 				<Header user={user} setUser={setUser} />
 				<Navbar />
 				<div className="pet-profile-container">
-					<Link to="/browse" className="back-link">← Back to Browse</Link>
+					<button onClick={() => navigate(-1)} style={{ fontFamily: 'inherit', background: 'none', border: 'none', cursor: 'pointer', padding: '30px 60px'}} className="back-link">← Go Back</button>
 					
 					<div className="pet-profile-grid">
 						{/* Left Side */}
@@ -149,7 +152,9 @@ useEffect(() => {
 								</button>
 							</div>
 								<h2 className="pet-subtitle">{pet.age} year old {pet.species}</h2>
-								<p className="shelter-name">{pet.shelter}</p>
+								{/* <button className="contact-shelter-button" onClick={handleShelterClick}>{pet.shelter}</button> */}
+								<button className="contact-shelter-button" onClick={handleShelterClick}>{pet.shelter}</button>
+								{/* <Link to={`/shelter-profile/${pet.shelter_id}`} className="contact-shelter-button"></Link> */}
 
 								{/* About Section: if there are things to say */}
 								{ pet.bio || pet.about1 || pet.about2 ? (
@@ -160,7 +165,7 @@ useEffect(() => {
 									{pet.about2 && <p>{pet.about2}</p>}
 								</div>
 								): null}
-								<Link to="/shelters" className="contact-shelter-button">Contact Shelter!</Link>
+								{/* <Link to="/shelters" className="contact-shelter-button">Contact Shelter!</Link> */}
 						</div>
 					</div>
 				</div>
