@@ -12,7 +12,8 @@ cloudinary.config({
 
 const router = express.Router();
 
-router.get("/api/cloudinary-signature", async (req, res) => {
+router.get("/signature", async (req, res) => {
+	console.log("Cloudinary called")
 	try {
 		const timestamp = Math.round(new Date().getTime() / 1000);
 		const params = {
@@ -32,7 +33,7 @@ router.get("/api/cloudinary-signature", async (req, res) => {
 			cloudname: process.env.CLOUDINARY_CLOUD_NAME,
 			apiKey: process.env.CLOUDINARY_API_KEY,
 			uploadPreset: process.env.CLOUDINARY_UPLOAD_PRESET,
-			folder: "petMatch"  // Also include folder in response for frontend
+			folder: process.env.CLOUDINARY_UPLOAD_FOLDER
 		});
 	} catch (err) {
 		console.error("Cloudinary signature generation failed:", err);

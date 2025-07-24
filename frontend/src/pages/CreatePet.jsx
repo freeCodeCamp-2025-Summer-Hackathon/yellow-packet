@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import "../styles/CreatePetPage.css";
+import axios from "axios";
 
 // Import the same lucky animals from LoginPage
 import luckyBunny from "../images/Bunny.png";
@@ -21,6 +22,7 @@ const initialState = {
 	weight: "",
 	weightUnit: "lb",
 	neutered: "",
+	sex: "",
 };
 
 const petTypes = [
@@ -40,6 +42,9 @@ const petSizes = [
 export default function CreatePet() {
 	const [pet, setPet] = useState(initialState);
 	const [luckyAnimal, setLuckyAnimal] = useState(null);
+	const [uploading, setUploading] = useState(false);
+	const [pictureFiles, setPictureFiles] = useState([null]);
+	const [picturePreviewUrls, setPicturePreviewUrls] = useState([""]);
 
 	// Same lucky animal logic as LoginPage
 	useEffect(() => {
@@ -48,6 +53,54 @@ export default function CreatePet() {
 		setLuckyAnimal(luckyAnimals[luckyNum]);
 	}, []);
 
+	// Cleanup blob URLs on unmount
+	useEffect(() => {
+		return () => {
+			picturePreviewUrls.forEach(url => {
+				if (url && url.startsWith("blob:")) {
+					URL.revokeObjectURL(url);
+				}
+			});
+		};
+	}, [picturePreviewUrls]);
+
+	// Cloudinary functions
+	const getCloudinaryConfig = async () => {
+		try {
+			const response = await axios.get(`${import.meta.env.VITE_SERVER_URI}/api/cloudinary/signature`);
+			return response.data;
+		} catch (error) {
+			console.error("Failed to get Cloudinary config:", error);
+			throw error;
+		}
+	};
+
+	const uploadFileToCloudinary = async (file) => {
+		const cloudinaryConfig = await getCloudinaryConfig();
+		const formData = new FormData();
+		formData.append("file", file);
+		formData.append("timestamp", cloudinaryConfig.timestamp);
+		formData.append("signature", cloudinaryConfig.signature);
+		formData.append("api_key", cloudinaryConfig.apiKey);
+		formData.append("upload_preset", cloudinaryConfig.uploadPreset);
+		formData.append("folder", cloudinaryConfig.folder);
+
+		const response = await fetch(
+			`https://api.cloudinary.com/v1_1/${cloudinaryConfig.cloudname}/image/upload`,
+			{
+				method: "POST",
+				body: formData,
+			}
+		);
+
+		if (!response.ok) {
+			throw new Error(`Upload failed: ${response.statusText}`);
+		}
+
+		const result = await response.json();
+		return result.secure_url;
+	};
+
 	const handleChange = (e) => {
 		const { name, value } = e.target;
 		setPet({ ...pet, [name]: value });
@@ -55,18 +108,64 @@ export default function CreatePet() {
 
 	const handlePictureChange = (index, value) => {
 		const newPictures = [...pet.pictures];
+		const newFiles = [...pictureFiles];
+		const newPreviewUrls = [...picturePreviewUrls];
+
 		newPictures[index] = value;
+		newFiles[index] = null; // Clear file when URL is entered
+
+		// Clean up existing blob URL
+		if (newPreviewUrls[index] && newPreviewUrls[index].startsWith("blob:")) {
+			URL.revokeObjectURL(newPreviewUrls[index]);
+		}
+		newPreviewUrls[index] = "";
+
+		setPet({ ...pet, pictures: newPictures });
+		setPictureFiles(newFiles);
+		setPicturePreviewUrls(newPreviewUrls);
+	};
+
+	const handleFileSelection = (index, file) => {
+		if (!file) return;
+
+		const newFiles = [...pictureFiles];
+		const newPreviewUrls = [...picturePreviewUrls];
+		const newPictures = [...pet.pictures];
+
+		// Clean up existing blob URL
+		if (newPreviewUrls[index] && newPreviewUrls[index].startsWith("blob:")) {
+			URL.revokeObjectURL(newPreviewUrls[index]);
+		}
+
+		newFiles[index] = file;
+		newPreviewUrls[index] = URL.createObjectURL(file);
+		newPictures[index] = ""; // Clear URL when file is selected
+
+		setPictureFiles(newFiles);
+		setPicturePreviewUrls(newPreviewUrls);
 		setPet({ ...pet, pictures: newPictures });
 	};
 
 	const addPictureField = () => {
 		setPet({ ...pet, pictures: [...pet.pictures, ""] });
+		setPictureFiles([...pictureFiles, null]);
+		setPicturePreviewUrls([...picturePreviewUrls, ""]);
 	};
 
 	const removePictureField = (index) => {
 		if (pet.pictures.length > 1) {
+			// Clean up blob URL if exists
+			if (picturePreviewUrls[index] && picturePreviewUrls[index].startsWith("blob:")) {
+				URL.revokeObjectURL(picturePreviewUrls[index]);
+			}
+
 			const newPictures = pet.pictures.filter((_, i) => i !== index);
+			const newFiles = pictureFiles.filter((_, i) => i !== index);
+			const newPreviewUrls = picturePreviewUrls.filter((_, i) => i !== index);
+
 			setPet({ ...pet, pictures: newPictures });
+			setPictureFiles(newFiles);
+			setPicturePreviewUrls(newPreviewUrls);
 		}
 	};
 
@@ -82,22 +181,76 @@ export default function CreatePet() {
 		return Math.max(0, age);
 	};
 
-	const handleSubmit = (e) => {
+	const getPreviewUrl = (index) => {
+		if (picturePreviewUrls[index]) {
+			return picturePreviewUrls[index];
+		}
+		return pet.pictures[index];
+	};
+
+	const handleSubmit = async (e) => {
 		e.preventDefault();
 
-		// Filter out empty picture URLs
-		const filteredPictures = pet.pictures.filter(url => url.trim() !== "");
+		// Check if at least one picture is provided
+		const hasValidPicture = pet.pictures.some(url => url.trim() !== "") ||
+			pictureFiles.some(file => file !== null);
 
-		const petData = {
-			...pet,
-			pictures: filteredPictures,
-			age: calculateAge(pet.birthday),
-			availability: "Available" // Default to available upon creation
-		};
+		if (!hasValidPicture) {
+			alert("Please add at least one picture.");
+			return;
+		}
 
-		alert("Pet created!");
-		console.log(petData);
-		setPet(initialState);
+		setUploading(true);
+
+		try {
+			// Upload files to Cloudinary and get URLs
+			const uploadPromises = pictureFiles.map(async (file, index) => {
+				if (file) {
+					return await uploadFileToCloudinary(file);
+				}
+				return pet.pictures[index];
+			});
+
+			const uploadedUrls = await Promise.all(uploadPromises);
+			const finalPictureUrls = uploadedUrls.filter(url => url && url.trim() !== "");
+
+			if (finalPictureUrls.length === 0) {
+				alert("Failed to process pictures. Please try again.");
+				return;
+			}
+
+			// Submit pet data to backend
+			const petData = {
+				shelter_id: "68804de32d34b56381cd9d22", // You might want to make this dynamic
+				name: pet.name || "",
+				species: pet.type.toLowerCase(),
+				sex: pet.sex || "male",
+				birthday: pet.birthday,
+				age: calculateAge(pet.birthday),
+				size: pet.size?.toLowerCase() || "",
+				weight: parseFloat(pet.weight),
+				disabilities: pet.disabilities || "",
+				personality: pet.description || "",
+				pics: finalPictureUrls,
+				bio: pet.description || "",
+				spayed_neutered: pet.neutered === "yes"
+			};
+
+			await axios.post(`${import.meta.env.VITE_SERVER_URI}/api/pets`, petData);
+
+			alert("Pet created successfully!");
+
+			// Reset form
+			setPet(initialState);
+			setPictureFiles([null]);
+			setPicturePreviewUrls([""]);
+
+		} catch (error) {
+			console.error("Error submitting pet:", error);
+			alert("Failed to create pet. Please try again.");
+		} finally {
+			setUploading(false);
+		}
 	};
 
 	return (
@@ -154,6 +307,19 @@ export default function CreatePet() {
 									placeholder="Breed*"
 									required
 								/>
+
+								{/* Add sex field */}
+								<select
+									name="sex"
+									className="input select-input"
+									value={pet.sex}
+									onChange={handleChange}
+									required
+								>
+									<option value="">Select pet sex*</option>
+									<option value="male">Male</option>
+									<option value="female">Female</option>
+								</select>
 
 								<select
 									name="size"
@@ -254,7 +420,7 @@ export default function CreatePet() {
 									rows={2}
 								/>
 
-								{/* Pictures section */}
+								{/* Pictures section with file upload support */}
 								<div className="pictures-section">
 									<label className="pictures-label">
 										<span className="pictures-text">Pet Pictures*</span>
@@ -268,7 +434,14 @@ export default function CreatePet() {
 												value={picture}
 												onChange={(e) => handlePictureChange(index, e.target.value)}
 												placeholder={`Picture URL ${index + 1}${index === 0 ? '*' : ''}`}
-												required={index === 0}
+												required={index === 0 && !pictureFiles[index]}
+											/>
+											<span style={{ margin: '0 10px' }}>OR</span>
+											<input
+												type="file"
+												accept="image/*"
+												onChange={(e) => handleFileSelection(index, e.target.files[0])}
+												className="input file-input"
 											/>
 											{pet.pictures.length > 1 && (
 												<button
@@ -281,10 +454,10 @@ export default function CreatePet() {
 												</button>
 											)}
 											{/* Picture preview */}
-											{picture && (
+											{getPreviewUrl(index) && (
 												<div className="picture-preview">
 													<img
-														src={picture}
+														src={getPreviewUrl(index)}
 														alt={`Pet Preview ${index + 1}`}
 														className="preview-image"
 														onError={(e) => {
@@ -304,8 +477,14 @@ export default function CreatePet() {
 									</button>
 								</div>
 
-								<button type="submit" className="create-pet-btn">
-									<span className="btn-text">Create Pet Profile</span>
+								<button
+									type="submit"
+									className="create-pet-btn"
+									disabled={uploading}
+								>
+									<span className="btn-text">
+										{uploading ? 'Creating Pet Profile...' : 'Create Pet Profile'}
+									</span>
 								</button>
 							</form>
 						</div>

@@ -12,39 +12,47 @@ export const addPet = async (req, res) => {
 			});
 		}
 
-		// Create the pet
+		// Optional: Calculate age from birthday if provided
+		let birthday = req.body.birthday ? new Date(req.body.birthday) : null;
+		let age = req.body.age;
+
+		if (!age && birthday) {
+			const ageDifMs = Date.now() - birthday.getTime();
+			const ageDate = new Date(ageDifMs);
+			age = Math.abs(ageDate.getUTCFullYear() - 1970);
+		}
+
+		// Create the pet profile
 		const pet = await PetProfile.create({
 			shelter_id: req.body.shelter_id,
-			species: req.body.species.toLowerCase(),
-			shelter_name: shelter.shelter_name,
+			name: req.body.name || "",
+			species: req.body.species?.toLowerCase(),
 			sex: req.body.sex || "",
-			age: req.body.years || 0,
+			birthday,
+			age: age || 0,
+			shelter: shelter.shelter_name,
+			size: req.body.size?.toLowerCase() || "",
 			weight: req.body.weight || 0,
-			date_birth: req.body.date_birth || null,
-			illness_disabilities: req.body.illness_disabilities || "",
+			disabilities: req.body.disabilities || "",
 			personality: req.body.personality || "",
-			photo_link: req.body.photo_link || "",
+			about1: req.body.about1 || "",
+			about2: req.body.about2 || "",
+			favorites: Array.isArray(req.body.favorites) ? req.body.favorites : [],
+			pics: Array.isArray(req.body.pics) ? req.body.pics : [],
 			bio: req.body.bio || "",
-			spayed_neutered: req.body.spayed_neutered || false,
-			favourite: req.body.favourite || "" // Will need to change the schema to fix the many-to-many 
+			spayed_neutered: req.body.spayed_neutered || false
 		});
-
-		await Shelter.findByIdAndUpdate(
-			req.body.shelter_id,
-			{ $push: { pets: pet.pet_uid } },
-			{ runValidators: true }
-		);
 
 		return res.status(201).json({
 			error: false,
-			message: "Pet created successfully",
-			data: pet
+			message: "Pet profile created successfully",
+			pet
 		});
-
-	} catch (error) {
+	} catch (err) {
+		console.error("Error creating pet profile:", err);
 		return res.status(500).json({
 			error: true,
-			message: error.message
+			message: "Failed to create pet profile"
 		});
 	}
 };

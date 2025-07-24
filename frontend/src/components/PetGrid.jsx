@@ -41,6 +41,7 @@ export default function PetGrid({ filters, user, setUser }) {
 			if (res.data?.data?.length > 0) {
 				setPetList(res.data.data);
 			}
+			console.log(res.data.data)
 			// If no data or empty array, keep using static data
 		} catch (err) {
 			console.error("Failed to fetch pets, using static data:", err);
@@ -54,9 +55,9 @@ export default function PetGrid({ filters, user, setUser }) {
 
 	const navigate = useNavigate();
 
-    const handleClick = (pet) => {
-        navigate(`/pet-profile/${pet._id}`, { state: { pet } });
-    };
+	const handleClick = (pet) => {
+		navigate(`/pet-profile/${pet._id}`, { state: { pet } });
+	};
 
 	// This toggles whether or not a given pet is favorited
 	function toggleFavorite(event, petId) {
