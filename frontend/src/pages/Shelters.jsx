@@ -93,10 +93,10 @@ function SheltersPage({ user, setUser }) {
                         />
                     </div>
                 </div>
-                    <div className="shelter-cards">
+                    <div>
                         {filteredShelters.map((shelter) => (
                             // Replace with ShelterCard component if available
-                            <div key={shelter._id} className="shelter-card" onClick={() => handleShelterClick(shelter)}>
+                            <div key={shelter._id} className="shelter-container" onClick={() => handleShelterClick(shelter)}>
                                 <h3>{shelter.shelter_name}</h3> {/* Display shelter name */}
                                 <p>{shelter.city}, {shelter.state}</p> {/* Display location */}
                             </div>

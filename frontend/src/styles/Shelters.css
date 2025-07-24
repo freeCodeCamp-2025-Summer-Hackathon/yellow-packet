@@ -15,7 +15,7 @@
     height: 100%;
 }
 
-.shelter-card {
+.shelter-container {
     background-color: #E8E6F0;
     border: 2px solid  #BFB2D4;
     color: #6b5b95;
@@ -26,7 +26,7 @@
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
-.shelter-card:hover {
+.shelter-container:hover {
     transform: scale(1.01);
     transition: transform 0.2s ease-in;
     cursor: pointer;
