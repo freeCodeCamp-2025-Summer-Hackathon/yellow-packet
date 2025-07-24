@@ -12,6 +12,7 @@ import ShelterProfile from './pages/ShelterProfile';
 import EditShelterProfile from './pages/EditShelterProfile';
 import UserProfile from './pages/UserProfile';
 import EditUserProfile from './pages/EditUserProfile';
+import SheltersPage from './pages/Shelters';
 
 const queryClient = new QueryClient({
 	defaultOptions: {
@@ -43,6 +44,7 @@ function App() {
 					<Route path="/edit/shelter-profile/:shelterId" element={<EditShelterProfile user={user} setUser={setUser} />} />
 					<Route path="/user-profile/:userId" element={<UserProfile user={user} setUser={setUser} />} />
 					<Route path="/edit/user-profile/:userId" element={<EditUserProfile user={user} setUser={setUser} />} />
+					<Route path="/shelters" element={<SheltersPage user={user} setUser={setUser} />} />
 				</Routes >
 			</Router >
 		</QueryClientProvider >

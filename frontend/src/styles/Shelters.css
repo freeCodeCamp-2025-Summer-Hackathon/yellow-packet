@@ -1,0 +1,67 @@
+
+.shelters-page-container {
+    background: linear-gradient(90deg, #e8e4f3 0%, #d4c9e8 100%);
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    background-color: #E8E6F0;
+}
+
+#shelter-gallery {
+    display: inline-block;
+    gap: 20px;
+    padding: 20px;
+    margin: 20px;
+    height: 100%;
+}
+
+.shelter-container {
+    background-color: #E8E6F0;
+    border: 2px solid  #BFB2D4;
+    color: #6b5b95;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    padding: 15px;
+    margin: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.shelter-container:hover {
+    transform: scale(1.01);
+    transition: transform 0.2s ease-in;
+    cursor: pointer;
+}
+
+.shelters-heading {
+    display: inline-block;
+    margin-bottom: 20px;
+    color: #2d1b4e;
+    width: 49%;
+}
+.shelters-header {
+    display: inline-block;
+    width: 100%;
+}
+
+.shelters-search {
+    display: inline-block;
+    color: #2d1b4e;
+    padding: 10px;
+    width: 49%;
+}
+
+.shelters-search label {
+    margin-right: 10px;
+    align-self: center;
+    color: #2d1b4e;
+}
+
+.shelters-search input {
+    width:60%;
+    padding: 10px;
+    border-radius: 5px;
+    background-color: #d4c9e8;
+    border: #2d1b4e 1px solid;
+    color:#2d1b4e;
+    margin: 0 1rem;
+}
