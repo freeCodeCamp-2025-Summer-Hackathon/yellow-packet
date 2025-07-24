@@ -1,4 +1,23 @@
 /* BrowsePetsPreview.css */
+.pet-button {
+  border: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  cursor: pointer;
+}
+.pet-button:hover {
+  transform: scale(1.01);
+  transition: transform 0.2s ease-in-out;
+}
+
+.pet-button.loading {
+	cursor: not-allowed;
+	opacity: 0.6;
+	filter: grayscale(100%);
+}
 
 .browse-preview {
   width: 100vw;
@@ -55,7 +74,7 @@
   text-decoration: underline;
 }
 
-.pet-cards {
+.pet-buttons {
   display: flex;
   gap: clamp(1rem, 2vw, 4rem);
   margin-top: 2rem;
