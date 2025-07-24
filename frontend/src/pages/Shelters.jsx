@@ -57,7 +57,7 @@ function SheltersPage({ user, setUser }) {
 
     const handleShelterClick = (shelter) => {
         // dependant on ShelterProfile.jsx being implemented
-        navigate(`/shelter-profile/${shelter._id}`, { state: { shelter } });
+        navigate(`/shelter-profile/${shelter._id}`, { state: { shelter: shelter._id } });
     }
 
     
