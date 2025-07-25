@@ -55,6 +55,10 @@
 .name {
     margin: auto;
     justify-self: center;
+    text-overflow: ellipsis;
+    text-wrap: nowrap;
+    overflow: hidden;
+    margin: 5%;
 }
 
 .fav {
