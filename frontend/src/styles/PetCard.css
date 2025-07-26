@@ -17,7 +17,7 @@
 
 .image {
     background-color: #5AD8CC;
-    margin: 1rem auto 2rem auto;
+    margin: 1rem auto 1rem auto;
     border-radius: .5rem;
     width: 80%;
     aspect-ratio: 1/1;
@@ -107,4 +107,11 @@
     font-size: .75rem;
     margin-top: 0px;
     margin-bottom: 2rem;
+    justify-self: center;
+    text-overflow: ellipsis;
+    text-wrap: nowrap;
+    overflow: hidden;
+    padding: 0 2rem;
+    width: 75%;
+    text-align: center;
 }
