@@ -23,7 +23,7 @@ function AboutUs({ user, setUser }) {
 						<li><a href='https://github.com/adamocamb'>Adam O'Camb</a></li>
 						<li><a href='https://github.com/jomarrumbawa'>Jomar Rumbawa</a></li>
 						<li><a href='https://github.com/JackSawyerWATX'>Jack Sawyer</a></li>
-						<li><a href='https://github.com/MinMyatMaung'>Ricky</a></li>
+						<li><a href='https://github.com/MinMyatMaung'>Min Myat Maung/Ricky</a></li>
 						<li><a href='https://github.com/paul-b-dev232'>Paul Barton</a></li>
 						<li><a href='https://github.com/BDubDesigns'>BDubDesigns</a></li>
 						<li><a href='https://github.com/melkyy'>Aaron Rodriguez</a></li>
