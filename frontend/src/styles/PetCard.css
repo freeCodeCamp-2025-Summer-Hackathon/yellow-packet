@@ -50,15 +50,16 @@
     border-color: #6b5b95;
     border-radius: 1rem;
     align-items: center;
+    justify-content: space-between;
 }
 
 .name {
-    margin: auto;
     justify-self: center;
     text-overflow: ellipsis;
     text-wrap: nowrap;
     overflow: hidden;
-    margin: 5%;
+    margin-top: 5%;
+    margin-bottom: 5%;
 }
 
 .fav {
@@ -70,6 +71,7 @@
     margin-right: .5rem;
     background: transparent;
     border: none;
+    padding-top: .25rem; 
 }
 
 .fav:hover {
