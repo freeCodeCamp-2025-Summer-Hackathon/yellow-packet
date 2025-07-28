@@ -6,6 +6,7 @@ import { useQuery } from '@tanstack/react-query';
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { useEffect } from "react";
+import ShelterCard from "../components/ShelterCard.jsx";
 
 function SheltersPage({ user, setUser }) {
     const navigate = useNavigate();
@@ -93,14 +94,22 @@ function SheltersPage({ user, setUser }) {
                         />
                     </div>
                 </div>
-                    <div>
-                        {filteredShelters.map((shelter) => (
-                            // Replace with ShelterCard component if available
-                            <div key={shelter._id} className="shelter-container" onClick={() => handleShelterClick(shelter)}>
-                                <h3>{shelter.shelter_name}</h3> {/* Display shelter name */}
-                                <p>{shelter.city}, {shelter.state}</p> {/* Display location */}
-                            </div>
-                        ))}
+                    <div className="shelter-cards-list">
+                        <div className="shelter-card">
+                            {
+                                filteredShelters.map((shelter) => {
+                                    return (
+                                    
+                                        <ShelterCard
+                                            shelter_name={shelter.shelter_name}
+                                            city={shelter.city}
+                                            state={shelter.state}
+                                            handleClick={() => handleShelterClick(shelter)}
+                                        />
+                                        )
+                                })
+                            }
+                        </div>
                     </div>
 			</section>
 		</div>

@@ -40,7 +40,7 @@
 	justify-content: center;
     align-self: flex-start;
     max-width: 900px;
-}
+} 
 
 .shelter-card .shelter-details strong {
     font-size: 2rem;
@@ -78,6 +78,7 @@
 .leftside-profile, .rightside-profile {
     flex: none;
     min-width: 200px;
+    max-width: 90%;
 }
 
 .shelter-heading {
@@ -119,6 +120,9 @@ h2 {
 .indent-text {
     padding-left: 1rem;
     display: inline-block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-wrap: wrap;
 }
 
 .bio-box {
@@ -132,7 +136,7 @@ h2 {
     line-height: 1.6;
 }
 
-@media (max-width: 768px) {
+@media screen and (max-width: 768px) {
   .shelter-information {
     flex-direction: column;
     align-items: center;
