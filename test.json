@@ -1,53 +1,50 @@
-User {
-  _id: ObjectId,
-  username: String,
-  password: String,
-  role: String,
-  created_at: Date
-}
-
-Adopter {
-  _id: ObjectId,
-  reference_user: ObjectId,
-  first_name: String,
-  last_name: String,
-  email: String,
-  phone_number: String,
-  address: { ... }
-}
-
-Shelter {
-  _id: ObjectId,
-  reference_user: ObjectId,
-  shelter_name: String,
-  email: String,
-  phone_number: String,
-  address: { ... },
-}
-
-Pet {
-  _id: ObjectId,
-  shelter_id: ObjectId,
-  name: String,
-  species: String,
-  breed: String,
-  age: Number,
-  available: Boolean,
-  photos: [String],
-  description: String,
-  created_at: Date
-}
-
-// Separate collection for efficient updates
-AdoptionRequest {
-  _id: ObjectId,
-  adopter_id: ObjectId,
-  shelter_id: ObjectId,
-  pet_id: ObjectId,
-  status: String, // 'pending', 'approved', 'rejected', 'completed'
-  request_date: Date,
-  appointment_date: Date,
-  notes: String,
-  created_at: Date,
-  updated_at: Date
+{
+  "User": {
+    "_id": null,
+    "username": "",
+    "password": "",
+    "role": "",
+    "created_at": null
+  },
+  "Adopter": {
+    "_id": null,
+    "reference_user": null,
+    "first_name": "",
+    "last_name": "",
+    "email": "",
+    "phone_number": "",
+    "address": {}
+  },
+  "Shelter": {
+    "_id": null,
+    "reference_user": null,
+    "shelter_name": "",
+    "email": "",
+    "phone_number": "",
+    "address": {}
+  },
+  "Pet": {
+    "_id": null,
+    "shelter_id": null,
+    "name": "",
+    "species": "",
+    "breed": "",
+    "age": 0,
+    "available": true,
+    "photos": [""],
+    "description": "",
+    "created_at": null
+  },
+  "AdoptionRequest": {
+    "_id": null,
+    "adopter_id": null,
+    "shelter_id": null,
+    "pet_id": null,
+    "status": "",
+    "request_date": null,
+    "appointment_date": null,
+    "notes": "",
+    "created_at": null,
+    "updated_at": null
+  }
 }
