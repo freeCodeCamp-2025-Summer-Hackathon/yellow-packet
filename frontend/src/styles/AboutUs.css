@@ -26,6 +26,8 @@
   box-sizing: border-box;
   background: linear-gradient(90deg, #e8e4f3 0%, #d4c9e8 100%);
   color: #2d1b4e;
+  padding-bottom: 5rem;
+  text-align: left;
 }
 
 a {
@@ -42,5 +44,6 @@ ul {
 }
 
 .dog {
-  width: 500px;
+width: clamp(2rem, 90vw, 750px);
+align-self: center;
 }
