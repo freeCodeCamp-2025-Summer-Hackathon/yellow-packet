@@ -1,0 +1,123 @@
+/* ShelterCard.css */
+
+.shelterCard {
+    display: flex;
+    width: 80%;
+    height: 12rem;
+    border-radius: 1rem;
+    border-style: solid;
+    border-color: #c5b9e2;
+    background-color: #BFB2D4;
+    color: #6b5b95;
+    text-align: center;
+    margin: 1rem auto;
+}
+
+.card:hover {
+    cursor: pointer;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+    transform: scale(1.01);
+}
+
+.shelter-card-image-container {
+    display: block;
+    height: 175px;
+    width: auto;
+    margin-top: auto;
+    margin-bottom: auto;
+    margin-left: 1rem;
+}
+
+.shelter-card-image {
+    background-color: #5AD8CC;
+    aspect-ratio: 1/1;
+    width: auto;
+    max-height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: .5rem;
+}
+
+.shelterCardImg {
+    display: block;
+    border-style: solid;
+    border-color: white;
+    border-radius: .5rem;
+    border-width: .25rem;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    overflow: hidden;
+}
+
+.shelter-card-information {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    margin: auto 0;
+    box-sizing: border-box;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    position: relative;
+    top: 1rem;
+    width: 70%;
+}
+
+.shelterCardName {
+    box-sizing: border-box;
+    display: block;
+    width: 90.5%;
+    height: 4rem;
+    background-color: #FFE0C2;
+    border-style: solid;
+    border-width: 2px;
+    border-color: #6b5b95;
+    border-radius: 1rem;
+}
+
+.shelter-card-name {
+    color: #6b5b95;
+    position: relative;
+    top: -1.6rem;
+    width: 92.5%;
+    justify-self: center;
+    text-wrap: nowrap;
+    font: 1rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    vertical-align: center;
+}
+
+.shelterCardInfo {
+    box-sizing: border-box;
+    position: relative;
+    justify-self: center;
+    justify-items: center;
+    width: 100%;
+    color: #FFE0C2;
+    text-align: center;
+}
+
+.shelterCardDesc {
+    justify-self: center;
+    font-family: Merriweather serif;
+    line-height: 2rem;
+    font-size: 2rem;
+    font-weight: bold;
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.15);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
