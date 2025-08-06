@@ -26,13 +26,19 @@ const dbConfig = {
 	},
 };
 
-mongoose.connect(dbConfig.getConnectionString())
-	.then(() => {
-		console.log(':white_check_mark: MongoDB connected!');
-	})
-	.catch((error) => {
-		console.log(':x: Connection failed:', error);
-	});
+// Database connection logic
+// For integration tests, MongoDB connection is handled by the test setup
+// For unit tests, mongoose is mocked
+// Only connect to production/development MongoDB if not in test environment
+if (process.env.NODE_ENV !== 'test') {
+	mongoose.connect(dbConfig.getConnectionString())
+		.then(() => {
+			console.log(':white_check_mark: MongoDB connected!');
+		})
+		.catch((error) => {
+			console.log(':x: Connection failed:', error);
+		});
+}
 
 const app = express();
 
