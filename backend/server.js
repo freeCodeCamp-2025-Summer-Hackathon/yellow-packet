@@ -26,16 +26,13 @@ const dbConfig = {
 	},
 };
 
-// Only connect to MongoDB if not in test environment
-if (process.env.NODE_ENV !== 'test') {
-	mongoose.connect(dbConfig.getConnectionString())
-		.then(() => {
-			console.log(':white_check_mark: MongoDB connected!');
-		})
-		.catch((error) => {
-			console.log(':x: Connection failed:', error);
-		});
-}
+mongoose.connect(dbConfig.getConnectionString())
+	.then(() => {
+		console.log(':white_check_mark: MongoDB connected!');
+	})
+	.catch((error) => {
+		console.log(':x: Connection failed:', error);
+	});
 
 const app = express();
 
@@ -96,7 +93,7 @@ app.use("/api/shelters", shelterRoutes);
 app.use("/api/request", requestRoutes);
 app.use("/api/cloudinary", cloudinaryRoutes);
 
-if (process.env.DEVELOPMENT === "test") {
+if (process.env.NODE_ENV === "test") {
 	const { default: testRoutes } = await import("./routes/test.route.js");
 	app.use("/api/test", testRoutes);
 	console.log("🧪 Test routes enabled");
