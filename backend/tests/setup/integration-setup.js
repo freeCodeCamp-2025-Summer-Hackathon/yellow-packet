@@ -20,12 +20,13 @@ afterAll(async () => {
 	console.log('🧪 Test database disconnected');
 }, 30000);
 
-// beforeEach(async () => {
-// 	// Clean all collections before each test
-// 	const collections = mongoose.connection.collections;
-//
-// 	for (const key in collections) {
-// 		const collection = collections[key];
-// 		await collection.deleteMany({});
-// 	}
-// });
+beforeEach(async () => {
+	// Clean all collections before each test
+	const collections = mongoose.connection.collections;
+
+	for (const key in collections) {
+		const collection = collections[key];
+		await collection.deleteMany({});
+	}
+});
+
