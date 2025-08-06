@@ -34,7 +34,7 @@
   },
   "devDependencies": {
     "jest": "^30.0.4",
-    "mongodb-memory-server": "^10.1.2",
+    "mongodb-memory-server": "^10.2.0",
     "nodemon": "^3.1.10",
     "supertest": "^7.1.3"
   }
