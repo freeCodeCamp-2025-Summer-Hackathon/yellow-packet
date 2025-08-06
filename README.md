@@ -28,7 +28,7 @@ This application helps users browse adoptable pets and shelters with a user-frie
 - [BDubDesigns](https://github.com/BDubDesigns)
 - [Aaron Rodriguez](https://github.com/melkyy)
 - [Thomas Pan](https://github.com/thomas1424)
-- [thegreatdunzle](https://github.com/thegreatdunzle)
+- [anromerk](https://github.com/anromerk)
 - [Jake Johnson](https://github.com/JakeHaverOfCatz)
 - [Jackie](https://github.com/jacqrocha)
 - [kunyoungahhh](https://github.com/kunyoungahhh)
