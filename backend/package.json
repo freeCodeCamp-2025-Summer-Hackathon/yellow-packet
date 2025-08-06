@@ -6,8 +6,13 @@
     "dev": "nodemon index.js",
     "start": "node index.js",
     "generate-markdown": "widdershins http://localhost:5000/api-docs/swagger.json -o ../doc/API_DOCS.md --omitBody --omitHeader --code=false --language_tabs=none --summary",
-    "test": "node --experimental-vm-modules node_modules/.bin/jest",
-    "test:watch": "node --experimental-vm-modules node_modules/.bin/jest --watch"
+    "test": "NODE_ENV=test node --experimental-vm-modules node_modules/.bin/jest",
+    "test:unit": "NODE_ENV=test node --experimental-vm-modules node_modules/.bin/jest --selectProjects unit",
+    "test:integration": "NODE_ENV=test node --experimental-vm-modules node_modules/.bin/jest --selectProjects integration",
+    "test:watch": "NODE_ENV=test node --experimental-vm-modules node_modules/.bin/jest --watch",
+    "test:watch:unit": "NODE_ENV=test node --experimental-vm-modules node_modules/.bin/jest --watch --selectProjects unit",
+    "test:watch:integration": "NODE_ENV=test node --experimental-vm-modules node_modules/.bin/jest --watch --selectProjects integration",
+    "test:coverage": "NODE_ENV=test node --experimental-vm-modules node_modules/.bin/jest --coverage"
   },
   "keywords": [],
   "author": "",
@@ -29,6 +34,7 @@
   },
   "devDependencies": {
     "jest": "^30.0.4",
+    "mongodb-memory-server": "^10.1.2",
     "nodemon": "^3.1.10",
     "supertest": "^7.1.3"
   }
