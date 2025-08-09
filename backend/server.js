@@ -26,17 +26,21 @@ const dbConfig = {
 	},
 };
 
-mongoose
-	.connect(dbConfig.getConnectionString())
-	.then(() => {
-		console.log(":white_check_mark: MongoDB connected!");
-	})
-	.catch((error) => {
-		console.log(":x: Connection failed:", error);
-	});
+// Database connection logic
+// For integration tests, MongoDB connection is handled by the test setup
+// For unit tests, mongoose is mocked
+// Only connect to production/development MongoDB if not in test environment
+if (process.env.NODE_ENV !== 'test') {
+	mongoose.connect(dbConfig.getConnectionString())
+		.then(() => {
+			console.log(':white_check_mark: MongoDB connected!');
+		})
+		.catch((error) => {
+			console.log(':x: Connection failed:', error);
+		});
+}
 
 const app = express();
-const PORT = process.env.PORT || 5000;
 
 // Middleware
 app.use(cors());
@@ -95,13 +99,10 @@ app.use("/api/shelters", shelterRoutes);
 app.use("/api/request", requestRoutes);
 app.use("/api/cloudinary", cloudinaryRoutes);
 
-if (process.env.DEVELOPMENT === "test") {
+if (process.env.NODE_ENV === "test") {
 	const { default: testRoutes } = await import("./routes/test.route.js");
 	app.use("/api/test", testRoutes);
 	console.log("🧪 Test routes enabled");
 }
 
-app.listen(PORT, () => {
-	console.log("Server is running on http://localhost:" + PORT);
-	console.log(`Swagger docs available at http://localhost:${PORT}/api-docs`);
-});
+export default app;
