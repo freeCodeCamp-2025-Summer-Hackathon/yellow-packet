@@ -11,13 +11,18 @@
     color: #6b5b95;
     text-align: center;
     margin: 1rem auto;
+    position: relative;
+    z-index: 0;
 }
 
-.card:hover {
+.shelterCard:hover {
     cursor: pointer;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.4);
+    /* outline:solid 4px #52566B; */
     transform: scale(1.01);
 }
+
+
 
 .shelter-card-image-container {
     display: block;
@@ -67,6 +72,14 @@
     width: 70%;
 }
 
+.titleShelter {
+    position: absolute;
+    left: 1%;
+    top: -15%;
+    width: 6rem;
+    z-index: 0;
+}
+
 .shelterCardName {
     box-sizing: border-box;
     display: block;
@@ -75,9 +88,29 @@
     background-color: #FFE0C2;
     border-style: solid;
     border-width: 2px;
-    border-color: #6b5b95;
+    /* Removing border for the new pseudo border that goes behind everything*/
+    /* border-color: #6b5b95; */ 
+    border:none;
     border-radius: 1rem;
+    position: static;
+    z-index: 0;
 }
+
+.shelter-card-name-pseudo-border {
+    box-sizing: border-box;
+    display: block;
+    width: 91.5%;
+    height: 4.5rem;
+    background-color: #52566B;
+    border-style: solid;
+    border-width: 2px;
+    border-color: #52566B;
+    border-radius: 1rem;
+    position: absolute;
+    top: -3.1%;
+    z-index: 0;
+}
+
 
 .shelter-card-name {
     color: #6b5b95;
@@ -110,14 +143,69 @@
     font-weight: bold;
 }
 
-@keyframes pulse {
-    0% {
-        transform: scale(1);
+/* Medium screens (tablets) */
+@media (max-width: 768px) {
+    .shelterCard {
+        flex-direction: column;
+        align-items: center;
+        height: auto;
+        padding: 1rem;
+        width: 90%;
     }
-    50% {
-        transform: scale(1.15);
+
+    /* Hide image and titleShelter */
+    .shelter-card-image-container,
+    .titleShelter {
+        display: none;
     }
-    100% {
-        transform: scale(1);
+
+    .shelter-card-information {
+        width: 100%;
+        top: 0;
+    }
+
+    .shelterCardName {
+        width: 100%;
+        height: auto;
+        border: 4px solid #52566B;
+    }
+
+    .shelter-card-name-pseudo-border {
+        display: none;
+    }
+
+    .shelter-card-name {
+        font-size: clamp(1rem, 4vw, 1.2rem);
+        top: 0;
+        text-align: center;
+        white-space: normal;
+    }
+
+    .shelterCardDesc {
+        font-size: clamp(1rem, 4vw, 1.4rem);
+        line-height: 1.4;
+    }
+}
+
+/* Small screens (phones) */
+@media (max-width: 480px) {
+    .shelterCard {
+        padding: 0.8rem;
+        width: 95%;
+        height: auto;
+    }
+
+    .shelterCardName {
+        border-radius: 0.75rem;
+        padding: 0.5rem;
+    }
+
+    .shelter-card-name {
+        font-size: clamp(0.9rem, 4.5vw, 1.1rem);
+    }
+
+    .shelterCardDesc {
+        font-size: clamp(0.85rem, 4vw, 1rem);
+        line-height: 1.3;
     }
 }

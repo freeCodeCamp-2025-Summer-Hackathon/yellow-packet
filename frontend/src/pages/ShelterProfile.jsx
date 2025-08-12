@@ -95,7 +95,7 @@ const fetchShelter = useCallback(async () => {
 
                 <div className="top-bar">
                     <button onClick={() => navigate(-1)} style={{ fontFamily: 'inherit', background: 'none', border: 'none', cursor: 'pointer' }} className="back-link">← Go Back</button>
-                    {user && user.id === shelter.id && (
+                    {user && user.id === shelter.user_id && (
                         <button title="Edit Shelter Profile" className="icon-button" aria-label="Edit" onClick={handleEdit}>✏️</button>
                     )}
                 </div>
@@ -131,7 +131,7 @@ const fetchShelter = useCallback(async () => {
                             <PetGrid filters={{ type: '', shelter: shelter.shelter_name, age_stage: '', size: '', sex: '', favorites: false }} />
                         </div>
                     )}
-                    {user && user.id === shelter.id && (
+                    {user && user.id === shelter.user_id && (
                         <div className="delete-button-wrapper">
                             <button className="delete-profile-button" onClick={handleDelete}>Delete My Profile</button>
                         </div>

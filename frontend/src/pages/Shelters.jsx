@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { useEffect } from "react";
 import ShelterCard from "../components/ShelterCard.jsx";
+import ShelterImg from "../images/pet-shelter.jpg"
 
 function SheltersPage({ user, setUser }) {
     const navigate = useNavigate();
@@ -95,12 +96,13 @@ function SheltersPage({ user, setUser }) {
                     </div>
                 </div>
                     <div className="shelter-cards-list">
-                        <div className="shelter-card">
+                        {/* <div className="shelter-card"> */}
                             {
                                 filteredShelters.map((shelter) => {
                                     return (
                                     
                                         <ShelterCard
+                                            shelterImg={ShelterImg}
                                             shelter_name={shelter.shelter_name}
                                             city={shelter.city}
                                             state={shelter.state}
@@ -109,7 +111,7 @@ function SheltersPage({ user, setUser }) {
                                         )
                                 })
                             }
-                        </div>
+                        {/* </div> */}
                     </div>
 			</section>
 		</div>
