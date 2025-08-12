@@ -2,10 +2,8 @@ import mongoose from "mongoose";
 
 // Helper function to add virtual ID and JSON transform
 const addVirtualId = (schema, virtualName) => {
-	// Remove the physical field from schema if it exists
 	schema.remove(virtualName);
 
-	// Add virtual field that maps to _id
 	schema.virtual(virtualName).get(function() {
 		return this._id.toString();
 	});
@@ -14,12 +12,17 @@ const addVirtualId = (schema, virtualName) => {
 	schema.set('toJSON', {
 		virtuals: true,
 		transform: function(doc, ret) {
-			delete ret.__v;
 			return ret;
 		}
 	});
 
-	schema.set('toObject', { virtuals: true });
+	// Also set toObject to include virtuals
+	schema.set('toObject', {
+		virtuals: true,
+		transform: function(doc, ret) {
+			return ret;
+		}
+	});
 };
 
 const adopterProfileSchema = new mongoose.Schema({

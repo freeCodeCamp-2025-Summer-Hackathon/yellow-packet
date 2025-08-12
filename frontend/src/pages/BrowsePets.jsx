@@ -14,6 +14,7 @@ function BrowsePets({ user, setUser }) {
 			mode: import.meta.env.MODE, // Shows 'development' or 'production'
 			reason: 'Query function executed'
 		});
+
 		try {
 			const response = await axios.get(`${import.meta.env.VITE_SERVER_URI}/api/shelters`);
 			return response.data;

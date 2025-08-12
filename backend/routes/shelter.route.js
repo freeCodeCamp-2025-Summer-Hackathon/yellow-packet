@@ -24,7 +24,7 @@ const validateShelterData = async (req, res, next) => {
 	// Another method is caching
 	if (body.email) {
 		try {
-			const existingShelter = await Shelter.findOne({ email: body.email }).lean();
+			const existingShelter = await Shelter.findOne({ email: body.email });
 			if (existingShelter) {
 				errors.push("Email already exists");
 			}
@@ -86,7 +86,7 @@ router.get("/", async (req, res) => {
 	try {
 		// Todo: Implement page, offset?
 		console.log("Route shelter called")
-		const result = await Shelter.find({}).lean();
+		const result = await Shelter.find({});
 		return res.status(200).json(result);
 	} catch (error) {
 		return res.status(500).json({ error: error.message });
@@ -95,7 +95,7 @@ router.get("/", async (req, res) => {
 
 router.get("/:id", async (req, res) => {
 	try {
-		const result = await Shelter.findById(req.params.id).lean();
+		const result = await Shelter.findById(req.params.id);
 		return res.status(200).json(result);
 	} catch (error) {
 		return res.status(500).json({ error: error.message });
@@ -108,7 +108,7 @@ router.put("/:id", async (req, res) => {
 			req.params.id,
 			req.body,
 			{ new: true, runValidators: true }
-		).lean();
+		);
 		if (!result) {
 			return res.status(404).json({ error: "Shelter not found" });
 		}
@@ -120,11 +120,11 @@ router.put("/:id", async (req, res) => {
 
 router.delete("/:id", async (req, res) => {
 	try {
-		const shelter = await Shelter.findByIdAndDelete(req.params.id).lean();
+		const shelter = await Shelter.findByIdAndDelete(req.params.id);
 		if (!shelter) {
 			return res.status(404).json({ error: "Shelter not found" });
 		}
-		const user = await User.findByIdAndDelete(shelter.user_id).lean();
+		const user = await User.findByIdAndDelete(shelter.user_id);
 		if (!user) {
 			return res.status(500).json({ error: "User not found" });
 		}

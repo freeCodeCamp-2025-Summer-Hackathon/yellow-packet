@@ -18,7 +18,7 @@ export const updatePetProfile = async (id, values) => {
 		const result = await PetProfile.findByIdAndUpdate(id, values, {
 			new: true,
 			runValidators: true,
-		}).lean();
+		});
 		if (!result) {
 			return { error: true, message: "Pet not found" };
 		}
@@ -30,7 +30,7 @@ export const updatePetProfile = async (id, values) => {
 
 export const deletePetProfile = async (id) => {
 	try {
-		const result = await PetProfile.findByIdAndDelete(id).lean();
+		const result = await PetProfile.findByIdAndDelete(id);
 		if (!result) {
 			return { error: true, message: "Pet not found" };
 		}
@@ -42,7 +42,7 @@ export const deletePetProfile = async (id) => {
 
 export const getAllPets = async (params) => {
 	try {
-		const result = await PetProfile.find(params).lean();
+		const result = await PetProfile.find(params);
 		return { error: false, data: result };
 	} catch (error) {
 		return { error: true, message: error.message };
@@ -51,7 +51,7 @@ export const getAllPets = async (params) => {
 
 export const getPet = async (id) => {
 	try {
-		const result = await PetProfile.findById(id).lean();
+		const result = await PetProfile.findById(id);
 		return { error: false, data: result };
 	} catch (error) {
 		return { error: true, message: error.message };
@@ -62,14 +62,14 @@ export const getFavouritePets = async (params) => {
 		if (!params.user_id) {
 			return { error: true, message: "User ID is required (_id)" };
 		}
-		const result = await AdopterProfile.find({ _id: params.user_id }).lean();
+		const result = await AdopterProfile.find({ _id: params.user_id });
 		if (!result) {
 			return { error: true, message: "Adopter not found" };
 		}
 		const favouritePets = result.favourite_pets;
 		const pets = await PetProfile.find({
 			pet_uid: { $in: favouritePets },
-		}).lean();
+		});
 		if (!pets) {
 			return { error: true, message: "No favourite pets found" };
 		}
@@ -81,7 +81,7 @@ export const getFavouritePets = async (params) => {
 
 export const addFavouritePet = async (user_id, petUid) => {
 	try {
-		const adopter = await AdopterProfile.findById(user_id).lean();
+		const adopter = await AdopterProfile.findById(user_id);
 		if (!adopter) {
 			return { error: true, message: "Adopter not found" };
 		}
@@ -93,7 +93,7 @@ export const addFavouritePet = async (user_id, petUid) => {
 			user_id,
 			{ favourite_pets: adopter.favourite_pets },
 			{ new: true, runValidators: true }
-		).lean();
+		);
 		return { error: false, data: updatedAdopter };
 	} catch (error) {
 		return { error: true, message: error.message };
