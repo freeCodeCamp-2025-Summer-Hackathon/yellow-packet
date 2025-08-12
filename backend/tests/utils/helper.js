@@ -132,7 +132,7 @@ export const createMultipleTestPets = async (count = 5, options = {}) => {
 		const pet = await createTestPet(options.shelterId, options.overrides);
 		pets.push(pet);
 	}
-	expectedPets = pets.map(p => JSON.parse(JSON.stringify(p.toJSON()))); // Make sure it return plain object like the server API
+	const expectedPets = pets.map(p => JSON.parse(JSON.stringify(p.toJSON()))); // Make sure it return plain object like the server API
 	return expectedPets;
 };
 
