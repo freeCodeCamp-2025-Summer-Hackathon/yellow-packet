@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
 import "../styles/CreatePetPage.css";
 import axios from "axios";
 
@@ -39,12 +38,14 @@ const petSizes = [
 	"large"
 ];
 
-export default function CreatePet() {
+export default function CreatePet( {setShowAddPet, shelter_id}) {
 	const [pet, setPet] = useState(initialState);
 	const [luckyAnimal, setLuckyAnimal] = useState(null);
 	const [uploading, setUploading] = useState(false);
 	const [pictureFiles, setPictureFiles] = useState([null]);
 	const [picturePreviewUrls, setPicturePreviewUrls] = useState([""]);
+	const today = new Date().toISOString().split("T")[0];
+
 
 	// Same lucky animal logic as LoginPage
 	useEffect(() => {
@@ -191,6 +192,20 @@ export default function CreatePet() {
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 
+		const selectedDate = new Date(pet.birthday);
+		const now = new Date();
+
+		if (selectedDate > now) {
+			alert("Birthday cannot be in the future.");
+			return;
+		}
+
+		if (isNaN(selectedDate.getTime())) {
+			alert("Please enter a valid birthday.");
+			return;
+		}
+
+
 		// Check if at least one picture is provided
 		const hasValidPicture = pet.pictures.some(url => url.trim() !== "") ||
 			pictureFiles.some(file => file !== null);
@@ -221,7 +236,7 @@ export default function CreatePet() {
 
 			// Submit pet data to backend
 			const petData = {
-				shelter_id: "68804de32d34b56381cd9d22", // You might want to make this dynamic
+				shelter_id: `${shelter_id}`, // You might want to make this dynamic
 				name: pet.name || "",
 				species: pet.type.toLowerCase(),
 				sex: pet.sex || "male",
@@ -244,6 +259,7 @@ export default function CreatePet() {
 			setPet(initialState);
 			setPictureFiles([null]);
 			setPicturePreviewUrls([""]);
+			setShowAddPet(false);
 
 		} catch (error) {
 			console.error("Error submitting pet:", error);
@@ -254,9 +270,7 @@ export default function CreatePet() {
 	};
 
 	return (
-		<div className="create-pet-outside-container">
-			<Link to="/" className="back-to-home"> &larr; Back to Home </Link>
-			<div className="create-pet-container">
+			
 				<div className="create-pet-card">
 					<h1 className="create-pet-logo">PetMatch</h1>
 					<div className="create-pet-box">
@@ -397,6 +411,7 @@ export default function CreatePet() {
 										className="input"
 										value={pet.birthday}
 										onChange={handleChange}
+										max={today}
 										required
 									/>
 								</div>
@@ -490,7 +505,5 @@ export default function CreatePet() {
 						</div>
 					</div>
 				</div>
-			</div>
-		</div>
 	);
 }
