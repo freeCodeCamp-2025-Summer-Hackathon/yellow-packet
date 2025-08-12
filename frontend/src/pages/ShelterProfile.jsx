@@ -8,9 +8,9 @@ import { useNavigate } from 'react-router-dom';
 import PetGrid from "../components/PetGrid";
 import { useEffect, useState } from "react";
 import { useLocation } from 'react-router-dom';
-import { useCallback } from "react";
-import { useMemo } from "react";
+import { useCallback, useMemo, useRef } from "react";
 import axios from "axios";
+import AddNewPet from "../components/AddNewPet";
 
 export default function ShelterProfile({ user, setUser }) {
 
@@ -20,6 +20,7 @@ export default function ShelterProfile({ user, setUser }) {
     console.log("Fetching shelter with ID:", givenShelterID);
 
     const [shelter, setShelter] = useState(null);
+    const [showAddPet, setShowAddPet] = useState(false);
     const mockShelter = useMemo(() => ({
                 id: 5720,
                 shelter_name: "Cali Shelter",
@@ -31,6 +32,16 @@ export default function ShelterProfile({ user, setUser }) {
                 bio: "A family owned shelter in the heard of Wilbur, Oregon. We house our animals as best as we can but need your help to really give them a home!",
                 image: ShelterImg,
             }), []);
+
+
+    const petGridRef = useRef(null);
+
+    useEffect(() => {
+        if (petGridRef.current) {
+            petGridRef.current.style.pointerEvents = showAddPet ? "none" : "auto";
+        }
+    }, [showAddPet]);
+
 
 const fetchShelter = useCallback(async () => {
     try {
@@ -125,11 +136,26 @@ const fetchShelter = useCallback(async () => {
                             </div>
                         </div>
                     </div>
-                    {shelter.pets && shelter.pets.length > 0 && (
-                        <div>
-                            <h2>Pets From This Shelter</h2>
-                            <PetGrid filters={{ type: '', shelter: shelter.shelter_name, age_stage: '', size: '', sex: '', favorites: false }} />
+                    <div className="shelter-header">
+                        <h2>Pets From This Shelter</h2>
+                        <button className="add-pets-button" onClick={() => {setShowAddPet(true)}}>+ Add Pet</button>
+                    </div>
+                    {showAddPet && (
+                        <div 
+                            className="create-pet-container modal-overlay"
+                            onClick={() => setShowAddPet(false)}
+                        >
+                            <p style={{color:'black', position: 'absolute', right: '5%', top: '0', margin: '5px', backgroundColor: 'white'}}>Click here to exit</p>
+                            <div 
+                                className="modal-content"
+                                onClick={(e) => e.stopPropagation()} // Prevent closing if clicking inside modal
+                            >
+                                <AddNewPet setShowAddPet={setShowAddPet} shelter_id={shelter.id}/>
+                            </div>
                         </div>
+                    )}
+                    {shelter.pets && shelter.pets.length > 0 && (
+                        <PetGrid filters={{ type: '', shelter: shelter.shelter_name, age_stage: '', size: '', sex: '', favorites: false }} />
                     )}
                     {user && user.id === shelter.user_id && (
                         <div className="delete-button-wrapper">
