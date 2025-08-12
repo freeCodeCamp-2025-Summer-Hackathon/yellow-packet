@@ -1,8 +1,16 @@
 import { getAllPets, getPet } from "../models/pet.model.js";
 import { Shelter, PetProfile } from "../schemas/schema.js";
 
+// \TODO: Need to fix the json schema again, it is not consistent across other schema
 export const addPet = async (req, res) => {
 	try {
+		if (!req.body.shelter_id || req.body.shelter_id == null) {
+			return res.status(404).json({
+				error: true,
+				message: "Please give correct shelter_id"
+			});
+		}
+
 		// Check if shelter exists
 		const shelter = await Shelter.findById(req.body.shelter_id);
 		if (!shelter) {
@@ -74,10 +82,9 @@ export const listPets = async (req, res) => {
 
 
 export const readPet = async (req, res) => {
-	console.log("Fetching ONE pet with query:", req);
 	const result = await getPet(req.params.id);
 	if (result.error) {
-		return res.status(400).json({
+		return res.status(404).json({
 			success: false,
 			message: result.message,
 		});

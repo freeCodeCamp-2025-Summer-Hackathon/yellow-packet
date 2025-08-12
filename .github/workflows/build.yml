@@ -1,0 +1,69 @@
+name: CI/CD Pipeline
+
+on:
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        working-directory: ./backend
+
+    strategy:
+      matrix:
+        node-version: [20.x, 22.x]
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Setup Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v4
+      with:
+        node-version: ${{ matrix.node-version }}
+        cache: 'npm'
+        cache-dependency-path: './backend/package-lock.json'
+
+    - name: Install dependencies
+      run: npm install
+
+    # - name: Run linter (if you have one)
+    #   run: npm run lint || echo "No linter configured"
+    #   continue-on-error: true
+
+    - name: Run tests with coverage
+      run: npm run test
+      env:
+        NODE_ENV: test
+        CI: true
+
+    - name: Generate test summary
+      if: always()
+      run: |
+        echo "## Test Results 🧪" >> $GITHUB_STEP_SUMMARY
+        echo "" >> $GITHUB_STEP_SUMMARY
+        echo "- **Node.js Version:** ${{ matrix.node-version }}" >> $GITHUB_STEP_SUMMARY
+        echo "- **Test Status:** ${{ job.status }}" >> $GITHUB_STEP_SUMMARY
+        echo "- **Branch:** ${{ github.ref_name }}" >> $GITHUB_STEP_SUMMARY
+        echo "" >> $GITHUB_STEP_SUMMARY
+
+
+  # Status check job that depends on test completion
+  test-status:
+    runs-on: ubuntu-latest
+    needs: test
+    if: always()
+
+    steps:
+    - name: Check test results
+      run: |
+        if [ "${{ needs.test.result }}" == "success" ]; then
+          echo "✅ All tests passed!"
+          exit 0
+        else
+          echo "❌ Some tests failed!"
+          exit 1
+        fi

@@ -1,11 +1,18 @@
 {
   "name": "yellow-packet-2",
   "version": "1.0.0",
-  "main": "backend/server.js",
+  "main": "backend/index.js",
   "scripts": {
-    "dev": "nodemon server.js",
-    "start": "node server.js",
-    "generate-markdown": "widdershins http://localhost:5000/api-docs/swagger.json -o ../doc/API_DOCS.md --omitBody --omitHeader --code=false --language_tabs=none --summary"
+    "dev": "nodemon index.js",
+    "start": "node index.js",
+    "generate-markdown": "widdershins http://localhost:5000/api-docs/swagger.json -o ../doc/API_DOCS.md --omitBody --omitHeader --code=false --language_tabs=none --summary",
+    "test": "NODE_ENV=test node --experimental-vm-modules node_modules/.bin/jest --selectProjects unit integration",
+    "test:unit": "NODE_ENV=test node --experimental-vm-modules node_modules/.bin/jest --selectProjects unit",
+    "test:integration": "NODE_ENV=test node --experimental-vm-modules node_modules/.bin/jest --selectProjects integration",
+    "test:watch": "NODE_ENV=test node --experimental-vm-modules node_modules/.bin/jest --watch --selectProjects unit integration",
+    "test:watch:unit": "NODE_ENV=test node --experimental-vm-modules node_modules/.bin/jest --watch --selectProjects unit",
+    "test:watch:integration": "NODE_ENV=test node --experimental-vm-modules node_modules/.bin/jest --watch --selectProjects integration",
+    "test:coverage": "NODE_ENV=test node --experimental-vm-modules node_modules/.bin/jest --coverage"
   },
   "keywords": [],
   "author": "",
@@ -26,6 +33,9 @@
     "swagger-ui-express": "^5.0.1"
   },
   "devDependencies": {
-    "nodemon": "^3.1.10"
+    "jest": "^30.0.4",
+    "mongodb-memory-server": "^10.2.0",
+    "nodemon": "^3.1.10",
+    "supertest": "^7.1.3"
   }
 }
