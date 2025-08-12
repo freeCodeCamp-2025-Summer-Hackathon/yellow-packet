@@ -6,10 +6,10 @@
     "dev": "nodemon index.js",
     "start": "node index.js",
     "generate-markdown": "widdershins http://localhost:5000/api-docs/swagger.json -o ../doc/API_DOCS.md --omitBody --omitHeader --code=false --language_tabs=none --summary",
-    "test": "NODE_ENV=test node --experimental-vm-modules node_modules/.bin/jest",
+    "test": "NODE_ENV=test node --experimental-vm-modules node_modules/.bin/jest --selectProjects unit integration",
     "test:unit": "NODE_ENV=test node --experimental-vm-modules node_modules/.bin/jest --selectProjects unit",
     "test:integration": "NODE_ENV=test node --experimental-vm-modules node_modules/.bin/jest --selectProjects integration",
-    "test:watch": "NODE_ENV=test node --experimental-vm-modules node_modules/.bin/jest --watch",
+    "test:watch": "NODE_ENV=test node --experimental-vm-modules node_modules/.bin/jest --watch --selectProjects unit integration",
     "test:watch:unit": "NODE_ENV=test node --experimental-vm-modules node_modules/.bin/jest --watch --selectProjects unit",
     "test:watch:integration": "NODE_ENV=test node --experimental-vm-modules node_modules/.bin/jest --watch --selectProjects integration",
     "test:coverage": "NODE_ENV=test node --experimental-vm-modules node_modules/.bin/jest --coverage"
