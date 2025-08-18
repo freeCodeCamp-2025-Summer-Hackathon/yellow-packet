@@ -4,15 +4,7 @@ body {
   background-color: #4D3D68;
 }
 
-.create-pet-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh;
-  width: 100vw;
-  padding: 2rem 1rem;
-  box-sizing: border-box;
-}
+
 
 .create-pet-card {
   width: clamp(320px, 90vw, 800px);
